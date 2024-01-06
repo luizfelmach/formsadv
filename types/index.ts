@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export type OptionsType = {
   value: string;
   description?: string;
@@ -16,6 +18,7 @@ export type CommonInputType = {
       equals: string;
     };
   };
+  validation: z.ZodTypeAny;
 };
 
 export type FormPageType = {

@@ -12,8 +12,8 @@ interface GenericInputProps extends UseControllerProps {
 }
 
 export function GenericInput(props: Omit<GenericInputProps, "name">) {
-  const { type, visible } = props.inputProps;
-  const { getValues } = useFormContext();
+  const { inputKey, type, visible } = props.inputProps;
+  const { getValues, resetField } = useFormContext();
   const [show, setShow] = useState(true);
   const { control } = props;
 
@@ -32,6 +32,7 @@ export function GenericInput(props: Omit<GenericInputProps, "name">) {
       return;
     }
     setShow(false);
+    resetField(inputKey);
   }, [watch]);
 
   return (
