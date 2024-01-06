@@ -4,6 +4,7 @@ import { InputText } from "./Inputs/InputText";
 import { InputDate } from "./Inputs/InputDate";
 import { InputTextArea } from "./Inputs/InputTextArea";
 import { InputRadio } from "./Inputs/InputRadio";
+import { InputCheckBox } from "./Inputs/InputCheckBox";
 
 interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
@@ -19,6 +20,7 @@ export function GenericInput(props: GenericInputProps) {
       {type === "date" && <InputDate {...props} />}
       {type === "textarea" && <InputTextArea {...props} />}
       {type === "radio" && <InputRadio {...props} />}
+      {type === "checkbox" && <InputCheckBox {...props} />}
     </>
   );
 }

@@ -37,6 +37,7 @@ export function InputRadio(props: GenericInputProps) {
               {options &&
                 options.map((options, index) => (
                   <FormItem
+                    key={index}
                     className={cn(
                       "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
                       "bg-foreground/5 rounded-lg gap-4 pr-4",
