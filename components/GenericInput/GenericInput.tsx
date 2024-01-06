@@ -10,7 +10,7 @@ interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
 }
 
-export function GenericInput(props: GenericInputProps) {
+export function GenericInput(props: Omit<GenericInputProps, "name">) {
   const { type } = props.inputProps;
 
   return (

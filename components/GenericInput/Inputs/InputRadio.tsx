@@ -14,14 +14,14 @@ interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
 }
 
-export function InputRadio(props: GenericInputProps) {
-  const { inputProps, name, control, defaultValue } = props;
-  const { type, isRequired, label, placeholder, options } = inputProps;
+export function InputRadio(props: Omit<GenericInputProps, "name">) {
+  const { inputProps, control, defaultValue } = props;
+  const { inputKey, isRequired, label, placeholder, options } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
       control={control}
-      name={name}
+      name={inputKey}
       render={({ field }) => (
         <FormItem className="space-y-3">
           <FormLabel>

@@ -23,14 +23,14 @@ interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
 }
 
-export function InputDate(props: GenericInputProps) {
-  const { inputProps, name, control, defaultValue } = props;
-  const { isRequired, label, placeholder } = inputProps;
+export function InputDate(props: Omit<GenericInputProps, "name">) {
+  const { inputProps, control, defaultValue } = props;
+  const { inputKey, isRequired, label, placeholder } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
       control={control}
-      name={name}
+      name={inputKey}
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>

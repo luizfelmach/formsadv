@@ -14,14 +14,14 @@ interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
 }
 
-export function InputCheckBox(props: GenericInputProps) {
-  const { inputProps, name, control, defaultValue } = props;
-  const { isRequired, label, options } = inputProps;
+export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
+  const { inputProps, control, defaultValue } = props;
+  const { isRequired, label, options, inputKey } = inputProps;
   return (
     <FormField
       control={control}
       defaultValue={defaultValue}
-      name={name}
+      name={inputKey}
       render={() => (
         <FormItem>
           <FormLabel>
@@ -34,7 +34,7 @@ export function InputCheckBox(props: GenericInputProps) {
                 key={option.value}
                 control={control}
                 defaultValue={""}
-                name={name}
+                name={inputKey}
                 render={({ field }) => {
                   return (
                     <FormItem
