@@ -8,10 +8,11 @@ interface GenericInputProps extends UseControllerProps {
 
 export function InputText(props: GenericInputProps) {
   const { inputProps, name, control, defaultValue } = props;
+  const { inputKey, type, isRequired, label, placeholder } = inputProps;
   const { field } = useController({
     name,
     control,
     defaultValue,
   });
-  return <Input {...field} />;
+  return <Input {...field} type={type} placeholder={placeholder} />;
 }
