@@ -1,5 +1,7 @@
 import { UseControllerProps } from "react-hook-form";
 import { CommonInputType } from "@/types";
+import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import {
   FormControl,
   FormField,
@@ -7,7 +9,6 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Checkbox } from "@/components/ui/checkbox";
 
 interface GenericInputProps extends UseControllerProps {
   inputProps: CommonInputType;
@@ -15,7 +16,7 @@ interface GenericInputProps extends UseControllerProps {
 
 export function InputCheckBox(props: GenericInputProps) {
   const { inputProps, name, control, defaultValue } = props;
-  const { type, isRequired, label, placeholder, options } = inputProps;
+  const { isRequired, label, options } = inputProps;
   return (
     <FormField
       control={control}
@@ -23,9 +24,10 @@ export function InputCheckBox(props: GenericInputProps) {
       name={name}
       render={() => (
         <FormItem>
-          <div className="mb-4">
-            <FormLabel className="text-base">Sidebar</FormLabel>
-          </div>
+          <FormLabel>
+            {label}{" "}
+            <span className="text-destructive">{isRequired && "*"}</span>{" "}
+          </FormLabel>
           {options &&
             options.map((option) => (
               <FormField
@@ -37,7 +39,12 @@ export function InputCheckBox(props: GenericInputProps) {
                   return (
                     <FormItem
                       key={option.value}
-                      className="flex flex-row items-start space-x-3 space-y-0"
+                      className={cn(
+                        "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
+                        "bg-foreground/5 rounded-lg gap-4 pr-4",
+                        "flex space-x-3 space-y-0",
+                        "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-12"
+                      )}
                     >
                       <FormControl>
                         <Checkbox
@@ -53,8 +60,13 @@ export function InputCheckBox(props: GenericInputProps) {
                           }}
                         />
                       </FormControl>
-                      <FormLabel className="font-normal">
-                        {option.value}
+                      <FormLabel className="w-full min-h-12 flex items-center px-2">
+                        <div className="space-y-3 py-2">
+                          <span className="text-sm font-medium leading-none">
+                            {option.value}
+                          </span>
+                          <p className="font-normal">{option.description}</p>
+                        </div>
                       </FormLabel>
                     </FormItem>
                   );

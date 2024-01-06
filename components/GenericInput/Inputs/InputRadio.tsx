@@ -35,7 +35,7 @@ export function InputRadio(props: GenericInputProps) {
               className="flex flex-col space-y-1"
             >
               {options &&
-                options.map((options, index) => (
+                options.map((option, index) => (
                   <FormItem
                     key={index}
                     className={cn(
@@ -45,14 +45,14 @@ export function InputRadio(props: GenericInputProps) {
                     )}
                   >
                     <FormControl>
-                      <RadioGroupItem value={options.value} />
+                      <RadioGroupItem value={option.value} />
                     </FormControl>
                     <FormLabel className="w-full min-h-12 flex items-center px-4">
                       <div className="space-y-3 py-2">
                         <span className="text-sm font-medium leading-none">
-                          {options.value}
+                          {option.value}
                         </span>
-                        <p className="font-normal">{options.description}</p>
+                        <p className="font-normal">{option.description}</p>
                       </div>
                     </FormLabel>
                   </FormItem>
