@@ -47,7 +47,7 @@ export function InputRadio(props: Omit<GenericInputProps, "name">) {
                     <FormControl>
                       <RadioGroupItem value={option.value} />
                     </FormControl>
-                    <FormLabel className="w-full min-h-12 flex items-center px-4">
+                    <FormLabel className="w-full min-h-12 flex items-center px-4 cursor-pointer">
                       <div className="space-y-3 py-2">
                         <span className="text-sm font-medium leading-none">
                           {option.value}
