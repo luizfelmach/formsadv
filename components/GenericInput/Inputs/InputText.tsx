@@ -1,4 +1,4 @@
-import { UseControllerProps, useController } from "react-hook-form";
+import { UseControllerProps } from "react-hook-form";
 import { CommonInputType } from "@/types";
 import { Input } from "@/components/ui/input";
 import {
@@ -15,19 +15,18 @@ interface GenericInputProps extends UseControllerProps {
 
 export function InputText(props: GenericInputProps) {
   const { inputProps, name, control, defaultValue } = props;
-  const { inputKey, type, isRequired, label, placeholder } = inputProps;
-  const { field } = useController({
-    name,
-    control,
-    defaultValue,
-  });
+  const { type, isRequired, label, placeholder } = inputProps;
   return (
     <FormField
+      defaultValue={defaultValue}
       control={control}
       name={name}
       render={({ field }) => (
         <FormItem>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel>
+            {label}{" "}
+            <span className="text-destructive">{isRequired && "*"}</span>{" "}
+          </FormLabel>
           <FormControl>
             <Input type={type} placeholder={placeholder} {...field} />
           </FormControl>
