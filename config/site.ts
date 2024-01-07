@@ -731,6 +731,14 @@ const save: FormPageType[] = [
       },
     ],
   },
+
+  {
+    title:
+      "Prezado cliente, solicitamos o preenchimento desta ficha para otimizar seu atendimento.",
+    subtitle:
+      "Destacamos que outros questionamentos lhe serão feitos por ocasião de sua consulta.",
+    inputs: [],
+  },
 ];
 
 export const FormsPages: FormPageType[] = [save[0]];
