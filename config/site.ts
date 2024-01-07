@@ -741,7 +741,7 @@ const save: FormPageType[] = [
   },
 ];
 
-export const FormsPages: FormPageType[] = [save[0]];
+export const FormsPages: FormPageType[] = [...save];
 
 const inputs = FormsPages.map((form) => form.inputs)
   .flat()
