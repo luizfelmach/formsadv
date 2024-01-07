@@ -57,7 +57,7 @@ export function FormSection() {
           )}
 
           {currentPage + 1 === FormsPages.length && (
-            <div className="pt-32">
+            <div className="py-32">
               <Button type="submit" disabled={isSubmitting} className="w-full">
                 {isSubmitting ? (
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
