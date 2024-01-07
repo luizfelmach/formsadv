@@ -190,9 +190,7 @@ export const FormsPages: FormPageType[] = [
         label: "Nasceu em zona rural ?",
         isRequired: true,
         options: [{ value: "Sim" }, { value: "Não" }],
-        validation: z
-          .array(z.string())
-          .min(1, "Por favor, selecione pelo menos uma opção."),
+        validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
         inputKey: "quando_trabalhou_zona_rural",
@@ -308,3 +306,11 @@ export const FormsPages: FormPageType[] = [
     ],
   },
 ];
+
+const inputs = FormsPages.map((form) => form.inputs)
+  .flat()
+  .map((input) => [input.inputKey, input.validation]);
+
+const schema = Object.fromEntries(inputs);
+
+export const FormsSchema = z.object(schema);

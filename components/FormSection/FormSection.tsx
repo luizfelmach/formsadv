@@ -2,15 +2,20 @@
 
 import { ArrowRight, ChevronLeft, Loader2, Send } from "lucide-react";
 import { Button } from "../ui/button";
-import { FormsPages } from "@/config/site";
+import { FormsPages, FormsSchema } from "@/config/site";
 import { FormProvider, useForm } from "react-hook-form";
 import { GenericInput } from "../GenericInput/GenericInput";
 import { useState } from "react";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 export function FormSection() {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const methods = useForm();
-  const { handleSubmit, control, formState } = methods;
+  const methods = useForm({
+    mode: "onChange",
+    resolver: zodResolver(FormsSchema),
+  });
+
+  const { handleSubmit, control, formState, trigger } = methods;
   const { isSubmitting } = formState;
 
   const submit = async (data: any) => {
@@ -76,7 +81,15 @@ export function FormSection() {
           <Button
             variant="default"
             size="icon"
-            onClick={() => setCurrentPage(currentPage + 1)}
+            onClick={async () => {
+              const isValid = await trigger(
+                FormsPages[currentPage].inputs.map((input) => input.inputKey)
+              );
+              if (!isValid) {
+                return;
+              }
+              setCurrentPage(currentPage + 1);
+            }}
           >
             <ArrowRight />
           </Button>
