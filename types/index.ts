@@ -11,6 +11,7 @@ export type CommonInputType = {
   label?: string;
   placeholder?: string;
   isRequired?: boolean;
+  defaultValue: any;
   options?: OptionsType[];
   visible?: {
     when: {

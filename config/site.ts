@@ -19,6 +19,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Nome completo",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -26,6 +27,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "CPF",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -33,12 +35,14 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "RG / Órgão exp.",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
         inputKey: "rg_data",
         type: "date",
         label: "Data de expedição.",
+        defaultValue: "",
         placeholder: "Selecione uma data.",
         isRequired: true,
         validation: z.coerce.date({
@@ -55,6 +59,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Estado civil",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -62,6 +67,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Profissão",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -70,6 +76,7 @@ export const FormsPages: FormPageType[] = [
         label: "Data de nascimento.",
         placeholder: "Selecione uma data.",
         isRequired: true,
+        defaultValue: "",
         validation: z.coerce.date({
           errorMap: (issue, { defaultError }) => ({
             message:
@@ -91,6 +98,7 @@ export const FormsPages: FormPageType[] = [
         type: "textarea",
         label: "Endereço",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -98,6 +106,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Naturalidade",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -105,6 +114,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Escolaridade",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -112,6 +122,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Filiação",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
     ],
@@ -126,6 +137,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Telefones",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -133,6 +145,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "E-mail",
         isRequired: false,
+        defaultValue: "",
         validation: z.union([
           z.string().email("Email inserido é inválido."),
           z.literal(""),
@@ -143,6 +156,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "PIS/NIT",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -150,6 +164,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Senha GOV",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
       {
@@ -157,6 +172,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "CTPS",
         isRequired: true,
+        defaultValue: "",
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
     ],
@@ -171,6 +187,7 @@ export const FormsPages: FormPageType[] = [
         type: "checkbox",
         label: "Acesso às informações.",
         isRequired: true,
+        defaultValue: [],
         options: [{ value: "Telefone" }, { value: "Email" }],
         validation: z
           .array(z.string())
@@ -189,6 +206,7 @@ export const FormsPages: FormPageType[] = [
         type: "radio",
         label: "Nasceu em zona rural ?",
         isRequired: true,
+        defaultValue: "",
         options: [{ value: "Sim" }, { value: "Não" }],
         validation: z.string().min(1, "Por favor, preencha este campo."),
       },
@@ -199,6 +217,7 @@ export const FormsPages: FormPageType[] = [
         placeholder: "(data, ano, idade)",
         isRequired: false,
         validation: z.string(),
+        defaultValue: "",
         visible: {
           when: {
             inputKey: "nasceu_zona_rural",
@@ -211,6 +230,7 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         label: "Onde era a propriedade rural ?",
         isRequired: false,
+        defaultValue: "",
         validation: z.string(),
         visible: {
           when: {
@@ -224,6 +244,7 @@ export const FormsPages: FormPageType[] = [
         type: "radio",
         label: "A terra era dos pais ?",
         isRequired: false,
+        defaultValue: "",
         options: [{ value: "Sim" }, { value: "Não" }],
         visible: {
           when: {
@@ -236,6 +257,7 @@ export const FormsPages: FormPageType[] = [
       {
         inputKey: "arrendadas_meacao_comodato",
         type: "text",
+        defaultValue: "",
         label: "Eram arrendadas, meação, comodato ou outro sistema ?",
         isRequired: false,
         visible: {
@@ -250,6 +272,7 @@ export const FormsPages: FormPageType[] = [
       {
         inputKey: "de_quem_era_propriedade_rural",
         type: "text",
+        defaultValue: "",
         label: "De quem era a propriedade rural ?",
         isRequired: false,
         visible: {
@@ -264,6 +287,7 @@ export const FormsPages: FormPageType[] = [
       {
         inputKey: "possui_contratos",
         type: "radio",
+        defaultValue: "",
         label: "Possui contratos de Parceria/Comodato ou Declarações ?",
         isRequired: false,
         options: [{ value: "Sim" }, { value: "Não" }],
@@ -279,6 +303,7 @@ export const FormsPages: FormPageType[] = [
       {
         inputKey: "se_afastou_atividade_rural",
         type: "radio",
+        defaultValue: "",
         label: "Já se afastou da atividade rural ?",
         isRequired: false,
         options: [{ value: "Sim" }, { value: "Não" }],
@@ -293,6 +318,7 @@ export const FormsPages: FormPageType[] = [
       {
         inputKey: "se_afastou_por_quanto_tempo_atividade_rural",
         type: "text",
+        defaultValue: "",
         label: "Por que e por quanto tempo ?",
         isRequired: false,
         visible: {

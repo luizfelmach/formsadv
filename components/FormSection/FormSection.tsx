@@ -54,7 +54,7 @@ export function FormSection() {
               >
                 <GenericInput
                   control={control}
-                  defaultValue={""}
+                  defaultValue={input.defaultValue}
                   inputProps={input}
                 />
               </div>
