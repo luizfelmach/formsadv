@@ -5,9 +5,17 @@ export type OptionsType = {
   description?: string;
 };
 
+export type InputType =
+  | "text"
+  | "date"
+  | "number"
+  | "textarea"
+  | "radio"
+  | "checkbox";
+
 export type CommonInputType = {
   inputKey: string;
-  type: "text" | "date" | "number" | "textarea" | "radio" | "checkbox";
+  type: InputType;
   label?: string;
   placeholder?: string;
   isRequired?: boolean;

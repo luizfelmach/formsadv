@@ -10,6 +10,38 @@ export const siteConfig = {
 
 const save: FormPageType[] = [
   {
+    title: "Teste legal",
+    subtitle: "Subtitle",
+    inputs: [
+      InputBuilder.type("text")
+        .key("nome")
+        .defaultValue("")
+        .label("Nome")
+        .required()
+        .build(),
+
+      InputBuilder.type("radio")
+        .key("Sim/Não")
+        .defaultValue([])
+        .label("Sim/Não")
+        .options([{ value: "Sim" }, { value: "Não" }])
+        .required()
+        .build(),
+
+      InputBuilder.type("text")
+        .key("responda")
+        .defaultValue("")
+        .label("responad")
+        .visible({
+          when: {
+            inputKey: "Sim/Não",
+            equals: "Sim",
+          },
+        })
+        .build(),
+    ],
+  },
+  {
     title: "Dados pessoais.",
     subtitle:
       "Forneça-nos suas informações pessoais para iniciar sua demanda previdenciária.",
@@ -758,3 +790,11 @@ export const FormsSchema = yup.object(schema);
 //    then: (schema) => schema.required(),
 //  }),
 //}
+
+import { FormPage } from "@/lib/FormPage/FormPage";
+import { InputBuilder } from "@/lib/FormPage/FormInput";
+
+const fm = new FormPage({
+  title: "Luiz",
+  subtitle: "Machado",
+});
