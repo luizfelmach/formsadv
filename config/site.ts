@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as yup from "yup";
 import { FormPageType } from "@/types";
 
 export type SiteConfig = typeof siteConfig;
@@ -8,7 +8,7 @@ export const siteConfig = {
   description: "Formulário de atendimento de demandas previdenciárias.",
 };
 
-export const FormsPages: FormPageType[] = [
+const save: FormPageType[] = [
   {
     title: "Dados pessoais.",
     subtitle:
@@ -20,7 +20,7 @@ export const FormsPages: FormPageType[] = [
         label: "Nome completo",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "cpf",
@@ -28,7 +28,7 @@ export const FormsPages: FormPageType[] = [
         label: "CPF",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "rg",
@@ -36,7 +36,7 @@ export const FormsPages: FormPageType[] = [
         label: "RG / Órgão exp.",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "rg_data",
@@ -45,14 +45,10 @@ export const FormsPages: FormPageType[] = [
         defaultValue: "",
         placeholder: "Selecione uma data.",
         isRequired: true,
-        validation: z.coerce.date({
-          errorMap: (issue, { defaultError }) => ({
-            message:
-              issue.code === "invalid_date"
-                ? "Por favor, forneça uma data válida para continuar."
-                : defaultError,
-          }),
-        }),
+        validation: yup
+          .date()
+          .typeError("Campo obrigatório.")
+          .required("Campo obrigatório."),
       },
       {
         inputKey: "estado_civil",
@@ -60,7 +56,7 @@ export const FormsPages: FormPageType[] = [
         label: "Estado civil",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "profissao",
@@ -68,7 +64,7 @@ export const FormsPages: FormPageType[] = [
         label: "Profissão",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "data_nascimento",
@@ -77,14 +73,7 @@ export const FormsPages: FormPageType[] = [
         placeholder: "Selecione uma data.",
         isRequired: true,
         defaultValue: "",
-        validation: z.coerce.date({
-          errorMap: (issue, { defaultError }) => ({
-            message:
-              issue.code === "invalid_date"
-                ? "Por favor, forneça uma data válida para continuar."
-                : defaultError,
-          }),
-        }),
+        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
@@ -99,7 +88,7 @@ export const FormsPages: FormPageType[] = [
         label: "Endereço",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "naturalidade",
@@ -107,7 +96,7 @@ export const FormsPages: FormPageType[] = [
         label: "Naturalidade",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "escolaridade",
@@ -115,7 +104,7 @@ export const FormsPages: FormPageType[] = [
         label: "Escolaridade",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "filiacao",
@@ -123,7 +112,7 @@ export const FormsPages: FormPageType[] = [
         label: "Filiação",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
@@ -138,7 +127,7 @@ export const FormsPages: FormPageType[] = [
         label: "Telefones",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "email",
@@ -146,10 +135,7 @@ export const FormsPages: FormPageType[] = [
         label: "E-mail",
         isRequired: false,
         defaultValue: "",
-        validation: z.union([
-          z.string().email("Email inserido é inválido."),
-          z.literal(""),
-        ]),
+        validation: yup.string().email("Campo deve ser um e-mail válido"),
       },
       {
         inputKey: "pis_nit",
@@ -157,7 +143,7 @@ export const FormsPages: FormPageType[] = [
         label: "PIS/NIT",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "senha_gov",
@@ -165,7 +151,7 @@ export const FormsPages: FormPageType[] = [
         label: "Senha GOV",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "ctps",
@@ -173,7 +159,7 @@ export const FormsPages: FormPageType[] = [
         label: "CTPS",
         isRequired: true,
         defaultValue: "",
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
@@ -189,9 +175,9 @@ export const FormsPages: FormPageType[] = [
         isRequired: true,
         defaultValue: [],
         options: [{ value: "Telefone" }, { value: "Email" }],
-        validation: z
-          .array(z.string())
-          .min(1, "Por favor, selecione pelo menos uma opção."),
+        validation: yup
+          .array(yup.string())
+          .min(1, "Selecione pelo menos uma opção."),
       },
     ],
   },
@@ -208,15 +194,14 @@ export const FormsPages: FormPageType[] = [
         isRequired: true,
         defaultValue: "",
         options: [{ value: "Sim" }, { value: "Não" }],
-        validation: z.string().min(1, "Por favor, preencha este campo."),
+        validation: yup.string().required("Campo obrigatório."),
       },
       {
         inputKey: "quando_trabalhou_zona_rural",
         type: "text",
         label: "Quando trabalhou no meio rural ?",
         placeholder: "(data, ano, idade)",
-        isRequired: false,
-        validation: z.string(),
+        isRequired: true,
         defaultValue: "",
         visible: {
           when: {
@@ -224,26 +209,33 @@ export const FormsPages: FormPageType[] = [
             equals: "Sim",
           },
         },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
       {
         inputKey: "onde_era_zona_rural",
         type: "text",
         label: "Onde era a propriedade rural ?",
-        isRequired: false,
+        isRequired: true,
         defaultValue: "",
-        validation: z.string(),
         visible: {
           when: {
             inputKey: "nasceu_zona_rural",
             equals: "Sim",
           },
         },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
       {
         inputKey: "terra_dos_pais",
         type: "radio",
         label: "A terra era dos pais ?",
-        isRequired: false,
+        isRequired: true,
         defaultValue: "",
         options: [{ value: "Sim" }, { value: "Não" }],
         visible: {
@@ -252,21 +244,27 @@ export const FormsPages: FormPageType[] = [
             equals: "Sim",
           },
         },
-        validation: z.array(z.string()),
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
       {
         inputKey: "arrendadas_meacao_comodato",
         type: "text",
         defaultValue: "",
         label: "Eram arrendadas, meação, comodato ou outro sistema ?",
-        isRequired: false,
+        isRequired: true,
         visible: {
           when: {
             inputKey: "terra_dos_pais",
             equals: "Não",
           },
         },
-        validation: z.array(z.string()),
+        validation: yup.string().when("terra_dos_pais", {
+          is: "Não",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
 
       {
@@ -274,14 +272,17 @@ export const FormsPages: FormPageType[] = [
         type: "text",
         defaultValue: "",
         label: "De quem era a propriedade rural ?",
-        isRequired: false,
+        isRequired: true,
         visible: {
           when: {
             inputKey: "terra_dos_pais",
             equals: "Não",
           },
         },
-        validation: z.array(z.string()),
+        validation: yup.string().when("terra_dos_pais", {
+          is: "Não",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
 
       {
@@ -289,15 +290,18 @@ export const FormsPages: FormPageType[] = [
         type: "radio",
         defaultValue: "",
         label: "Possui contratos de Parceria/Comodato ou Declarações ?",
-        isRequired: false,
+        isRequired: true,
         options: [{ value: "Sim" }, { value: "Não" }],
-        validation: z.array(z.string()),
         visible: {
           when: {
             inputKey: "nasceu_zona_rural",
             equals: "Sim",
           },
         },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
 
       {
@@ -305,33 +309,431 @@ export const FormsPages: FormPageType[] = [
         type: "radio",
         defaultValue: "",
         label: "Já se afastou da atividade rural ?",
-        isRequired: false,
+        isRequired: true,
         options: [{ value: "Sim" }, { value: "Não" }],
-        validation: z.array(z.string()),
         visible: {
           when: {
             inputKey: "nasceu_zona_rural",
             equals: "Sim",
           },
         },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
       {
         inputKey: "se_afastou_por_quanto_tempo_atividade_rural",
         type: "text",
         defaultValue: "",
         label: "Por que e por quanto tempo ?",
-        isRequired: false,
+        isRequired: true,
         visible: {
           when: {
             inputKey: "se_afastou_atividade_rural",
             equals: "Sim",
           },
         },
-        validation: z.array(z.string()),
+        validation: yup.string().when("se_afastou_atividade_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+      {
+        inputKey:
+          "Quantas pessoas da sua família trabalhavam nesta propriedade rural",
+        type: "text",
+        defaultValue: "",
+        label:
+          "Quantas pessoas da sua família trabalhavam nesta propriedade rural ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Qual era o tamanho das terras? Quanto deste espaço era utilizado para plantio ou criação de animais ?",
+        type: "textarea",
+        defaultValue: "",
+        label:
+          "Qual era o tamanho das terras? Quanto deste espaço era utilizado para plantio ou criação de animais ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "O que era plantado e criado na propriedade rural ? Quantidade ?",
+        type: "textarea",
+        defaultValue: "",
+        label:
+          "O que era plantado e criado na propriedade rural ? Quantidade ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+      {
+        inputKey: "Qual a quantidade anual da colheita ?",
+        type: "text",
+        defaultValue: "",
+        label: "Qual a quantidade anual da colheita ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Quantos empregados ou meeiros tinham na propriedade rural ?",
+        type: "text",
+        defaultValue: "",
+        label: "Quantos empregados ou meeiros tinham na propriedade rural ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Era utilizado algum maquinário na propriedade rural ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Era utilizado algum maquinário na propriedade rural ?",
+        options: [{ value: "Sim" }, { value: "Não" }],
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      // Pergunta 10 aqui
+
+      {
+        inputKey:
+          "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Quem e quando ?",
+        type: "text",
+        defaultValue: "",
+        label: "Quem e quando ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey:
+              "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Quantos irmãos o autor teve ?",
+        type: "textarea",
+        defaultValue: "",
+        label:
+          "Quantos irmãos o autor teve ? Número de irmãos, qual posição (1º, 2º, ... filho).",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Fez escola rural ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Fez escola rural ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Adotavam o sistema de troca de dia ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Adotavam o sistema de troca de dia ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Frequentou algum hospital ou posto de saúde na zona rural em que possua cadastro ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Frequentou algum hospital ou posto de saúde na zona rural em que possua cadastro ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Se homem, tem o certificado de reservista original ou declaração equivalente ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Se homem, tem o certificado de reservista original ou declaração equivalente ?",
+        isRequired: false,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string(),
+      },
+
+      {
+        inputKey: "Casou na zonal rural ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Casou na zonal rural ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Tem notas fiscais ou equivalentes sobre a aquisição de insumos ou venda de produtos ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Tem notas fiscais ou equivalentes sobre a aquisição de insumos ou venda de produtos ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Tem certidão do INCRA ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Tem certidão do INCRA ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "Tem registro de imóveis da terra ?",
+        type: "radio",
+        defaultValue: "",
+        label: "Tem registro de imóveis da terra ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey: "A terra tem outros proprietários (condôminos) ?",
+        type: "radio",
+        defaultValue: "",
+        label: "A terra tem outros proprietários (condôminos) ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Os pais, irmãos ou seu esposo (a) contaram tempo rural para se aposentarem ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Os pais, irmãos ou seu esposo (a) contaram tempo rural para se aposentarem ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
+      },
+
+      {
+        inputKey:
+          "Há testemunhas ? Elas podem comprovar todo o tempo ou confirmariam períodos distintos ?",
+        type: "radio",
+        defaultValue: "",
+        label:
+          "Há testemunhas ? Elas podem comprovar todo o tempo ou confirmariam períodos distintos ?",
+        isRequired: true,
+        visible: {
+          when: {
+            inputKey: "nasceu_zona_rural",
+            equals: "Sim",
+          },
+        },
+        options: [{ value: "Sim" }, { value: "Não" }],
+        validation: yup.string().when("nasceu_zona_rural", {
+          is: "Sim",
+          then: (schema) => schema.required("Campo obrigatório."),
+        }),
       },
     ],
   },
 ];
+
+export const FormsPages: FormPageType[] = [save[0]];
 
 const inputs = FormsPages.map((form) => form.inputs)
   .flat()
@@ -339,4 +741,12 @@ const inputs = FormsPages.map((form) => form.inputs)
 
 const schema = Object.fromEntries(inputs);
 
-export const FormsSchema = z.object(schema);
+export const FormsSchema = yup.object(schema);
+
+//{
+//  nasceu_zona_rural: yup.string().required("É obrigatório"),
+//  quando_trabalhou_zona_rural: yup.string().when("nasceu_zona_rural", {
+//    is: "Sim",
+//    then: (schema) => schema.required(),
+//  }),
+//}

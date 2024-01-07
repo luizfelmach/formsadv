@@ -1,4 +1,4 @@
-import { z } from "zod";
+import * as yup from "yup";
 
 export type OptionsType = {
   value: string;
@@ -19,7 +19,7 @@ export type CommonInputType = {
       equals: string;
     };
   };
-  validation: z.ZodTypeAny;
+  validation: yup.AnySchema;
 };
 
 export type FormPageType = {

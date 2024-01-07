@@ -6,13 +6,13 @@ import { FormsPages, FormsSchema } from "@/config/site";
 import { FormProvider, useForm } from "react-hook-form";
 import { GenericInput } from "../GenericInput/GenericInput";
 import { useState } from "react";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 export function FormSection() {
   const [currentPage, setCurrentPage] = useState<number>(0);
-  const methods = useForm({
+  const methods = useForm<any>({
     mode: "onChange",
-    resolver: zodResolver(FormsSchema),
+    resolver: yupResolver(FormsSchema),
   });
 
   const { handleSubmit, control, formState, trigger } = methods;
