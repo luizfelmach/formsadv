@@ -30,7 +30,7 @@ export function FormSection() {
         </Button>
       </div>
 
-      <header className="my-8">
+      <header className="my-8 space-y-4">
         <h1 className="scroll-m-20 text-5xl font-extrabold tracking-tight lg:text-5xl">
           {FormsPages[currentPage].title}
         </h1>

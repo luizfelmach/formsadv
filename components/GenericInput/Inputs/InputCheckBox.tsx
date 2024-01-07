@@ -43,7 +43,7 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
                         "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
                         "bg-foreground/5 rounded-lg gap-4 pr-4",
                         "flex space-x-3 space-y-0",
-                        "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-12"
+                        "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-14"
                       )}
                     >
                       <FormControl>
@@ -60,12 +60,14 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
                           }}
                         />
                       </FormControl>
-                      <FormLabel className="w-full min-h-12 flex items-center px-2 cursor-pointer">
+                      <FormLabel className="w-full min-h-14 flex items-center px-2 cursor-pointer">
                         <div className="space-y-3 py-2">
                           <span className="text-sm font-medium leading-none">
                             {option.value}
                           </span>
-                          <p className="font-normal">{option.description}</p>
+                          {option.description && (
+                            <p className="font-normal">{option.description}</p>
+                          )}
                         </div>
                       </FormLabel>
                     </FormItem>

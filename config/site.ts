@@ -181,7 +181,8 @@ export const FormsPages: FormPageType[] = [
 
   {
     title: "Pessoa do campo",
-    subtitle: "",
+    subtitle:
+      "Questionário relacionado às pessoas que trabalharam no meio rural.",
     inputs: [
       {
         inputKey: "nasceu_zona_rural",
