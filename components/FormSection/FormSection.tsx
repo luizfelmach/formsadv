@@ -8,25 +8,27 @@ import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { FormPageEntity } from "@/types";
 import { createSchema } from "@/lib/createSchema";
+import { createResponse } from "@/lib/createResponse";
 
 interface FormSectionProps {
   FormsPages: FormPageEntity[];
 }
 
-export function FormSection({ FormsPages }: FormSectionProps) {
-  const inputs = FormsPages.map((form) => form.inputs).flat();
+export function FormSection({ FormsPages: formsPages }: FormSectionProps) {
+  const inputs = formsPages.map((form) => form.inputs).flat();
   const schema = createSchema(inputs);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const methods = useForm<any>({
-    mode: "onChange",
-    resolver: yupResolver(schema as any),
+    //mode: "onChange",
+    //resolver: yupResolver(schema as any),
   });
 
   const { handleSubmit, control, formState, trigger } = methods;
   const { isSubmitting } = formState;
 
-  const submit = async (data: any) => {
-    console.log(data);
+  const submit = async (data: Record<string, any>) => {
+    const response = createResponse(data, formsPages);
+    console.log(response);
   };
 
   return (
@@ -44,16 +46,16 @@ export function FormSection({ FormsPages }: FormSectionProps) {
 
       <header className="my-8 space-y-4">
         <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
-          {FormsPages[currentPage].title}
+          {formsPages[currentPage].title}
         </h1>
         <h2 className="scroll-m-20 border-b pb-2 text-xl font-normal tracking-tight first:mt-0">
-          {FormsPages[currentPage].subtitle}
+          {formsPages[currentPage].subtitle}
         </h2>
       </header>
 
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(submit)} className="space-y-4">
-          {FormsPages.map((form, formIndex) =>
+          {formsPages.map((form, formIndex) =>
             form.inputs.map((input, inputIndex) => (
               <div
                 key={inputIndex}
@@ -68,7 +70,7 @@ export function FormSection({ FormsPages }: FormSectionProps) {
             ))
           )}
 
-          {currentPage + 1 === FormsPages.length && (
+          {currentPage + 1 === formsPages.length && (
             <div className="py-32">
               <Button type="submit" disabled={isSubmitting} className="w-full">
                 {isSubmitting ? (
@@ -83,14 +85,14 @@ export function FormSection({ FormsPages }: FormSectionProps) {
         </form>
       </FormProvider>
 
-      {currentPage + 1 != FormsPages.length && (
+      {currentPage + 1 != formsPages.length && (
         <div className="self-end my-10">
           <Button
             variant="default"
             size="icon"
             onClick={async () => {
               const isValid = await trigger(
-                FormsPages[currentPage].inputs.map((input) => input.inputKey)
+                formsPages[currentPage].inputs.map((input) => input.inputKey)
               );
               if (!isValid) {
                 return;
