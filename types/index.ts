@@ -13,7 +13,7 @@ type BaseInputEntity<T> = {
   visible?: {
     when: {
       inputKey: string;
-      equals: T;
+      equals: string;
     };
   };
 };

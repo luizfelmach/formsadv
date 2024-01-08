@@ -19,8 +19,8 @@ export function FormSection({ FormsPages: formsPages }: FormSectionProps) {
   const schema = createSchema(inputs);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const methods = useForm<any>({
-    //mode: "onChange",
-    //resolver: yupResolver(schema as any),
+    mode: "onChange",
+    resolver: yupResolver(schema as any),
   });
 
   const { handleSubmit, control, formState, trigger } = methods;
