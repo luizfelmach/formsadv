@@ -1,6 +1,4 @@
-import * as yup from "yup";
 import { FormPageEntity } from "@/types";
-import { createSchema } from "@/lib/createSchema";
 import { generateId } from "@/lib/utils";
 
 export type SiteConfig = typeof siteConfig;
@@ -71,7 +69,3 @@ const save: FormPageEntity[] = [
 ];
 
 export const FormsPages: FormPageEntity[] = [save[0]];
-
-export const FormsSchema = createSchema(
-  FormsPages.map((form) => form.inputs).flat()
-);

@@ -2,17 +2,24 @@
 
 import { ArrowRight, ChevronLeft, Loader2, Send } from "lucide-react";
 import { Button } from "../ui/button";
-import { FormsPages, FormsSchema } from "@/config/site";
 import { FormProvider, useForm } from "react-hook-form";
 import { GenericInput } from "../GenericInput/GenericInput";
 import { useState } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { FormPageEntity } from "@/types";
+import { createSchema } from "@/lib/createSchema";
 
-export function FormSection() {
+interface FormSectionProps {
+  FormsPages: FormPageEntity[];
+}
+
+export function FormSection({ FormsPages }: FormSectionProps) {
+  const inputs = FormsPages.map((form) => form.inputs).flat();
+  const schema = createSchema(inputs);
   const [currentPage, setCurrentPage] = useState<number>(0);
   const methods = useForm<any>({
     //mode: "onChange",
-    //resolver: yupResolver(FormsSchema),
+    //resolver: yupResolver(schema as any),
   });
 
   const { handleSubmit, control, formState, trigger } = methods;
