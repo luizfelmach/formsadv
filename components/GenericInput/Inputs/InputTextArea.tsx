@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import { Input } from "@/components/ui/input";
 import {
   FormControl,
@@ -11,12 +11,12 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function InputTextArea(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, isRequired, label, placeholder } = inputProps;
+  const { inputKey, required: isRequired, label } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
@@ -29,7 +29,7 @@ export function InputTextArea(props: Omit<GenericInputProps, "name">) {
             <span className="text-destructive">{isRequired && "*"}</span>{" "}
           </FormLabel>
           <FormControl>
-            <Textarea placeholder={placeholder} {...field} />
+            <Textarea {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>

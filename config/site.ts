@@ -1,5 +1,5 @@
-import * as yup from "yup";
-import { FormPageType } from "@/types";
+import { FormPageEntity } from "@/types";
+import { generateId } from "@/lib/utils";
 
 export type SiteConfig = typeof siteConfig;
 
@@ -8,472 +8,848 @@ export const siteConfig = {
   description: "Formulário de atendimento de demandas previdenciárias.",
 };
 
-const save: FormPageType[] = [
+const save: FormPageEntity[] = [
   {
     title: "Dados pessoais.",
     subtitle:
       "Forneça-nos suas informações pessoais para iniciar sua demanda previdenciária.",
     inputs: [
       {
-        inputKey: "nome",
+        inputKey: generateId("nome"),
         type: "text",
         label: "Nome completo",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "cpf",
+        inputKey: generateId(),
         type: "text",
         label: "CPF",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
+        cpf: true,
       },
       {
-        inputKey: "rg",
+        inputKey: generateId(),
         type: "text",
-        label: "RG / Órgão exp.",
-        isRequired: true,
+        label: "RG",
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "rg_data",
+        inputKey: generateId(),
         type: "date",
-        label: "Data de expedição.",
+        label: "Data de expedição do RG.",
         defaultValue: "",
-        placeholder: "Selecione uma data.",
-        isRequired: true,
-        validation: yup
-          .date()
-          .typeError("Campo obrigatório.")
-          .required("Campo obrigatório."),
+        required: true,
       },
       {
-        inputKey: "estado_civil",
+        inputKey: generateId(),
         type: "text",
         label: "Estado civil",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "profissao",
+        inputKey: generateId(),
         type: "text",
         label: "Profissão",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "data_nascimento",
+        inputKey: generateId(),
         type: "date",
         label: "Data de nascimento.",
-        placeholder: "Selecione uma data.",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
-
   {
     title: "Informações de endereço.",
     subtitle: "Preencha corretamente os campos abaixos.",
     inputs: [
       {
-        inputKey: "endereco",
+        inputKey: generateId(),
         type: "textarea",
         label: "Endereço",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "naturalidade",
+        inputKey: generateId(),
         type: "text",
         label: "Naturalidade",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "escolaridade",
+        inputKey: generateId(),
         type: "text",
         label: "Escolaridade",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "filiacao",
+        inputKey: generateId(),
         type: "text",
         label: "Filiação",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
-
   {
     title: "Informações de contato.",
     subtitle: "Complete seus dados de contato.",
     inputs: [
       {
-        inputKey: "telefones",
+        inputKey: generateId(),
         type: "text",
         label: "Telefones",
-        isRequired: true,
+        required: false,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "email",
+        inputKey: generateId(),
         type: "text",
         label: "E-mail",
-        isRequired: false,
+        required: false,
         defaultValue: "",
-        validation: yup.string().email("Campo deve ser um e-mail válido"),
       },
       {
-        inputKey: "pis_nit",
+        inputKey: generateId(),
         type: "text",
         label: "PIS/NIT",
-        isRequired: true,
+        required: false,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "senha_gov",
+        inputKey: generateId(),
         type: "text",
         label: "Senha GOV",
-        isRequired: true,
+        required: false,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
       {
-        inputKey: "ctps",
+        inputKey: generateId(),
         type: "text",
-        label: "CTPS",
-        isRequired: true,
+        label: "Carteira de Trabalho",
+        required: false,
         defaultValue: "",
-        validation: yup.string().required("Campo obrigatório."),
       },
     ],
   },
-
   {
-    title: "Quem pode ter acesso acesso às informações de seu processo ?",
-    subtitle: "",
-    inputs: [
-      {
-        inputKey: "acesso_info",
-        type: "checkbox",
-        label: "Acesso às informações.",
-        isRequired: true,
-        defaultValue: [],
-        options: [{ value: "Telefone" }, { value: "Email" }],
-        validation: yup
-          .array(yup.string())
-          .min(1, "Selecione pelo menos uma opção."),
-      },
-    ],
-  },
-
-  {
-    title: "Pessoa do campo",
+    title: "Demandas previdenciárias.",
     subtitle:
-      "Questionário relacionado às pessoas que trabalharam no meio rural.",
+      "Prezado cliente, visando a melhor eficiência de seu atendimento solicitamos o preenchimento do presente formulário.",
     inputs: [
       {
-        inputKey: "nasceu_zona_rural",
+        inputKey: generateId(),
+        type: "radio",
+        label: "Se homem, serviu o exército ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+      {
+        inputKey: generateId("escola_tecnica"),
+        type: "radio",
+        label: "Fez escola técnica ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Foi aluno aprendiz ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("escola_tecnica"),
+            equals: "Sim",
+          },
+        },
+      },
+      {
+        inputKey: generateId("estatuario"),
+        type: "radio",
+        label: "Exerceu algum período de Serviço Público como estatutário ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Há certidão por tempo de contribuição ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("estatuario"),
+            equals: "Sim",
+          },
+        },
+      },
+      {
+        inputKey: generateId("atividade_especial"),
+        type: "radio",
+        label:
+          "Esteve sujeito a algum risco à saúde ou integridade física em sua profissão (atividade especial) ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Quais ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("atividade_especial"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "checkbox",
+        label: "Possui algum desses documentos ?",
+        defaultValue: [],
+        options: [
+          {
+            value: "SB40",
+            description:
+              "Formulários concedidos pela empresa p/ comprovar exposição ao risco.",
+          },
+          {
+            value: "DSS8030",
+            description:
+              "Formulários concedidos pela empresa p/ comprovar exposição ao risco.",
+          },
+          {
+            value: "DIRBEN8030",
+            description:
+              "Formulários concedidos pela empresa p/ comprovar exposição ao risco.",
+          },
+          {
+            value: "LTCAT",
+            description:
+              "Laudo Técnico Condições Ambientais de Trabalho. Gerado na empresa sobre ambiente do trabalho.",
+          },
+          "PPRA",
+          {
+            value: "PPP",
+            description:
+              "Perfil Psicográfico Previdenciário. Emitido pelo RH da empresa. Indica se houve exposição a: Agentes nocivos ou físicos, Atividades insalubres, penosas ou perigosas. ",
+          },
+        ],
+        visible: {
+          when: {
+            inputKey: generateId("atividade_especial"),
+            equals: "Sim",
+          },
+        },
+      },
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Possui colega de trabalho que já conseguiu tempo especial?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("atividade_especial"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId("trabalho_autonomo"),
+        type: "radio",
+        label: "Já trabalhou como autônomo? Contribuinte individual ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Por quanto tempo ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("trabalho_autonomo"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Possui alvará, contrato social, NFs, recibos, GFIP, fotos ou outros documentos que comprovam este trabalho ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("trabalho_autonomo"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId("beneficio_previdenciario"),
+        type: "radio",
+        label: "Já recebeu ou pediu benefício previdenciário ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Possui a cópia do processo administrativo ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("beneficio_previdenciario"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já moveu processo judicial trabalhista contra alguém ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já teve processo judicial previdenciário ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId("trabalhou_fora_do_brasil"),
+        type: "radio",
+        label: "Trabalhou fora do Brasil ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        defaultValue: "",
+        label: "Em qual país ? Quando ?",
+        visible: {
+          when: {
+            inputKey: generateId("trabalhou_fora_do_brasil"),
+            equals: "Sim",
+          },
+        },
+      },
+      {
+        inputKey: generateId(),
+        type: "radio",
+        defaultValue: "",
+        label: "Possui provas ? Possui passaporte ?",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("trabalhou_fora_do_brasil"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já recolheu contribuição em carnê (GPS) ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Sofreu ou sofre de doença que inviabilize ou dificulte o trabalho ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já trabalhou na condição de pessoa com deficiência ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId("previdencia_complementar"),
+        type: "radio",
+        label: "Possui previdência complementar ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Qual ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("previdencia_complementar"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "O plano é vinculado à empresa em que trabalha(ou) ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("previdencia_complementar"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Teve contrato de experiência ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId("vinculado_sindicato"),
+        type: "radio",
+        label: "Encontra-se vinculado a algum sindicato ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Qual sindicato ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("vinculado_sindicato"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já efetuou saque de FGTS ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId("cargo_professor"),
+        type: "radio",
+        label: "Já exerceu cargo de professor ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Por qual período ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "checkbox",
+        label: "Quais áreas ?",
+        defaultValue: [],
+        options: [
+          "Educação infantil",
+          "Ensino fundamental",
+          "Ensino médio",
+          "Superior",
+          "Pós graduação",
+        ],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Exerceu cargo de direção escolar ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Exerceu atividade de coordenação ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Exerceu cargo de assessoramento pedagógico ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Já se afastou da atividade em razão do recebimento de benefício por incapacidade entre períodos de magistério ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Já se afastou da atividade em razão do recebimento de benefício por incapacidade decorrente de acidente de trabalho, intercalado ou não entre períodos de magistério ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Recebeu licença prêmio no vínculo de professor ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Já exerceu cargo de professor auxiliar exercendo atividade de docente nas mesmas condições do titular ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+        visible: {
+          when: {
+            inputKey: generateId("cargo_professor"),
+            equals: "Sim",
+          },
+        },
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Recebe ou recebeu Pensão por Morte ou aposentadoria em outro regime de previdência ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "Recebe benefício de Pensão por Morte ou aposentadoria no INSS ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+    ],
+  },
+
+  {
+    title: "Atividade em zona rural.",
+    subtitle:
+      "Prezado cliente, visando a melhor eficiência de seu atendimento solicitamos o preenchimento do presente formulário.",
+    inputs: [
+      {
+        inputKey: generateId("nasceu_zona_rural"),
         type: "radio",
         label: "Nasceu em zona rural ?",
-        isRequired: true,
+        required: true,
         defaultValue: "",
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().required("Campo obrigatório."),
+        options: ["Sim", "Não"],
       },
       {
-        inputKey: "quando_trabalhou_zona_rural",
+        inputKey: generateId(),
         type: "text",
         label: "Quando trabalhou no meio rural ?",
-        placeholder: "(data, ano, idade)",
-        isRequired: true,
         defaultValue: "",
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey: "onde_era_zona_rural",
+        inputKey: generateId(),
         type: "text",
         label: "Onde era a propriedade rural ?",
-        isRequired: true,
         defaultValue: "",
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey: "terra_dos_pais",
+        inputKey: generateId("terra_dos_pais"),
         type: "radio",
         label: "A terra era dos pais ?",
-        isRequired: true,
         defaultValue: "",
-        options: [{ value: "Sim" }, { value: "Não" }],
+        options: ["Sim", "Não"],
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey: "arrendadas_meacao_comodato",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label: "Eram arrendadas, meação, comodato ou outro sistema ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "terra_dos_pais",
+            inputKey: generateId("terra_dos_pais"),
             equals: "Não",
           },
         },
-        validation: yup.string().when("terra_dos_pais", {
-          is: "Não",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "de_quem_era_propriedade_rural",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label: "De quem era a propriedade rural ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "terra_dos_pais",
+            inputKey: generateId("terra_dos_pais"),
             equals: "Não",
           },
         },
-        validation: yup.string().when("terra_dos_pais", {
-          is: "Não",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "possui_contratos",
+        inputKey: generateId(),
+        label: "Possui contratos de Parceria/Comodato ou Declarações ?",
         type: "radio",
         defaultValue: "",
-        label: "Possui contratos de Parceria/Comodato ou Declarações ?",
-        isRequired: true,
-        options: [{ value: "Sim" }, { value: "Não" }],
+        options: ["Sim", "Não"],
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "se_afastou_atividade_rural",
+        inputKey: generateId("se_afastou_atividade_rural"),
         type: "radio",
         defaultValue: "",
         label: "Já se afastou da atividade rural ?",
-        isRequired: true,
-        options: [{ value: "Sim" }, { value: "Não" }],
+        options: ["Sim", "Não"],
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey: "se_afastou_por_quanto_tempo_atividade_rural",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label: "Por que e por quanto tempo ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "se_afastou_atividade_rural",
+            inputKey: generateId("se_afastou_atividade_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("se_afastou_atividade_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey:
-          "Quantas pessoas da sua família trabalhavam nesta propriedade rural",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label:
           "Quantas pessoas da sua família trabalhavam nesta propriedade rural ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey:
-          "Qual era o tamanho das terras? Quanto deste espaço era utilizado para plantio ou criação de animais ?",
+        inputKey: generateId(),
         type: "textarea",
         defaultValue: "",
         label:
           "Qual era o tamanho das terras? Quanto deste espaço era utilizado para plantio ou criação de animais ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId(),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey:
-          "O que era plantado e criado na propriedade rural ? Quantidade ?",
+        inputKey: generateId(),
         type: "textarea",
         defaultValue: "",
         label:
           "O que era plantado e criado na propriedade rural ? Quantidade ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
+
       {
-        inputKey: "Qual a quantidade anual da colheita ?",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label: "Qual a quantidade anual da colheita ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "Quantos empregados ou meeiros tinham na propriedade rural ?",
+        inputKey: generateId(),
         type: "text",
         defaultValue: "",
         label: "Quantos empregados ou meeiros tinham na propriedade rural ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "Era utilizado algum maquinário na propriedade rural ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "Era utilizado algum maquinário na propriedade rural ?",
-        options: [{ value: "Sim" }, { value: "Não" }],
-        isRequired: true,
+        options: ["Sim", "Não"],
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
-      // Pergunta 10 aqui
-
       {
-        inputKey:
-          "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
+        inputKey: generateId("familia_registro_ctps"),
         type: "radio",
         defaultValue: "",
         label:
           "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
@@ -481,280 +857,366 @@ const save: FormPageType[] = [
         type: "text",
         defaultValue: "",
         label: "Quem e quando ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey:
-              "Alguém da sua família trabalhou com registro na Carteira de Trabalho ?",
+            inputKey: generateId("familia_registro_ctps"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "Quantos irmãos o autor teve ?",
+        inputKey: generateId(),
         type: "textarea",
         defaultValue: "",
-        label:
-          "Quantos irmãos o autor teve ? Número de irmãos, qual posição (1º, 2º, ... filho).",
-        isRequired: true,
+        label: "Quantos irmãos teve ?",
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey: "Fez escola rural ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "Fez escola rural ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey: "Adotavam o sistema de troca de dia ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "Adotavam o sistema de troca de dia ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey:
-          "Frequentou algum hospital ou posto de saúde na zona rural em que possua cadastro ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label:
           "Frequentou algum hospital ou posto de saúde na zona rural em que possua cadastro ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey:
-          "Se homem, tem o certificado de reservista original ou declaração equivalente ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
+        options: ["Sim", "Não"],
         label:
           "Se homem, tem o certificado de reservista original ou declaração equivalente ?",
-        isRequired: false,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string(),
       },
 
       {
-        inputKey: "Casou na zonal rural ?",
+        inputKey: generateId(),
         type: "radio",
+        options: ["Sim", "Não"],
         defaultValue: "",
         label: "Casou na zonal rural ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
       },
 
       {
-        inputKey:
-          "Tem notas fiscais ou equivalentes sobre a aquisição de insumos ou venda de produtos ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label:
           "Tem notas fiscais ou equivalentes sobre a aquisição de insumos ou venda de produtos ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey: "Tem certidão do INCRA ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "Tem certidão do INCRA ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey: "Tem registro de imóveis da terra ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "Tem registro de imóveis da terra ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey: "A terra tem outros proprietários (condôminos) ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label: "A terra tem outros proprietários (condôminos) ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey:
-          "Os pais, irmãos ou seu esposo (a) contaram tempo rural para se aposentarem ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label:
           "Os pais, irmãos ou seu esposo (a) contaram tempo rural para se aposentarem ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
 
       {
-        inputKey:
-          "Há testemunhas ? Elas podem comprovar todo o tempo ou confirmariam períodos distintos ?",
+        inputKey: generateId(),
         type: "radio",
         defaultValue: "",
         label:
           "Há testemunhas ? Elas podem comprovar todo o tempo ou confirmariam períodos distintos ?",
-        isRequired: true,
         visible: {
           when: {
-            inputKey: "nasceu_zona_rural",
+            inputKey: generateId("nasceu_zona_rural"),
             equals: "Sim",
           },
         },
-        options: [{ value: "Sim" }, { value: "Não" }],
-        validation: yup.string().when("nasceu_zona_rural", {
-          is: "Sim",
-          then: (schema) => schema.required("Campo obrigatório."),
-        }),
+        options: ["Sim", "Não"],
       },
     ],
   },
 
   {
-    title:
-      "Prezado cliente, solicitamos o preenchimento desta ficha para otimizar seu atendimento.",
+    title: "Benefício por incapacidade.",
     subtitle:
-      "Destacamos que outros questionamentos lhe serão feitos por ocasião de sua consulta.",
-    inputs: [],
+      "Prezado cliente, visando a melhor eficiência de seu atendimento solicitamos o preenchimento do presente formulário.",
+    inputs: [
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Você está trabalhando no momento ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Qual era sua atividade habitual/trabalho ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        label: "Quais atividades eram realizadas? Descrever resumidamente.",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        label:
+          "Quando ficou incapacitado para o trabalho/atividade habitual e, de que maneira as doenças lhe impossibilitam o trabalho ?",
+        defaultValue: "",
+      },
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Como era recolhido o INSS ?",
+        defaultValue: "",
+        options: ["Pelo empregador", "Por mim"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Quando foi vertida a última contribuição para o INSS ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        label:
+          "Quais são as doenças que lhe acometem, mesmo que não seja incapacitante? Em que ano iniciaram ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "checkbox",
+        label: "Você recebe ou recebeu algum desses benefícios ?",
+        defaultValue: [],
+        options: [
+          "Aposentadoria",
+          "Pensão por morte",
+          "Auxílio doença",
+          "Salário-maternidade",
+          "Amparo assistencial",
+          "Não recebo ou não recebi nenhum",
+        ],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label:
+          'Caso a resposta "sim" no item anterior, qual o valor do benefício quando começou a receber, se lembrar, qual foi o último valor recebido quando da cessação',
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Quando o benefício acima foi concedido ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "text",
+        label: "Quando o benefício acima foi cessado ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label:
+          "O benefício recebido foi resultante de acidente de trabalho ou de doença ligada ao trabalho? Houve abertura de CAT?",
+        defaultValue: "",
+        options: ["Sim, houve CAT", "Sim, não houve abertura de CAT", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "checkbox",
+        label: "Quais desses benefícios você já pediu no INSS ?",
+        defaultValue: [],
+        options: [
+          "Aposentadoria",
+          "Pensão por morte",
+          "Auxílio doença",
+          "Amparo assistencial",
+          "Salário-maternidade",
+          "Nunca pedi estes benefícios",
+        ],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "checkbox",
+        label:
+          "Já teve processo judicial para a concessão de algum desses benefícios ?",
+        defaultValue: [],
+        options: [
+          "Aposentadoria",
+          "Pensão por morte",
+          "Auxílio doença",
+          "Amparo assistencial",
+          "Nunca entrei com processo contra o INSS",
+        ],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Já teve processo trabalhista ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        label:
+          "Quantas perícias já fez no INSS? Saberia informar o nº de benefício (NB) ?",
+        defaultValue: "",
+      },
+
+      {
+        inputKey: generateId(),
+        type: "radio",
+        label: "Vem realizando tratamento médico ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId("documentacao_medica"),
+        type: "radio",
+        label: "Possui documentação médica recente ?",
+        defaultValue: "",
+        options: ["Sim", "Não"],
+      },
+
+      {
+        inputKey: generateId(),
+        type: "textarea",
+        label: "Quais documentações médicas ?",
+        defaultValue: "",
+        visible: {
+          when: {
+            inputKey: generateId("documentacao_medica"),
+            equals: "Sim",
+          },
+        },
+      },
+    ],
   },
 ];
 
-export const FormsPages: FormPageType[] = [...save];
-
-const inputs = FormsPages.map((form) => form.inputs)
-  .flat()
-  .map((input) => [input.inputKey, input.validation]);
-
-const schema = Object.fromEntries(inputs);
-
-export const FormsSchema = yup.object(schema);
-
-//{
-//  nasceu_zona_rural: yup.string().required("É obrigatório"),
-//  quando_trabalhou_zona_rural: yup.string().when("nasceu_zona_rural", {
-//    is: "Sim",
-//    then: (schema) => schema.required(),
-//  }),
-//}
+export const FormsPages: FormPageEntity[] = [...save];

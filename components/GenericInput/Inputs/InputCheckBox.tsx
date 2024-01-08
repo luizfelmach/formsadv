@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputCheckBoxEntity } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import {
@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/form";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputCheckBoxEntity;
 }
 
 export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { isRequired, label, options, inputKey } = inputProps;
+  const { required: isRequired, label, options, inputKey } = inputProps;
   return (
     <FormField
       control={control}
@@ -31,14 +31,14 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
           {options &&
             options.map((option) => (
               <FormField
-                key={option.value}
+                key={typeof option === "string" ? option : option.value}
                 control={control}
                 defaultValue={""}
                 name={inputKey}
                 render={({ field }) => {
                   return (
                     <FormItem
-                      key={option.value}
+                      key={typeof option === "string" ? option : option.value}
                       className={cn(
                         "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
                         "bg-foreground/5 rounded-lg gap-4 pr-4",
@@ -48,13 +48,24 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
                     >
                       <FormControl>
                         <Checkbox
-                          checked={field.value?.includes(option.value)}
+                          checked={field.value?.includes(
+                            typeof option === "string" ? option : option.value
+                          )}
                           onCheckedChange={(checked) => {
                             return checked
-                              ? field.onChange([...field.value, option.value])
+                              ? field.onChange([
+                                  ...field.value,
+                                  typeof option === "string"
+                                    ? option
+                                    : option.value,
+                                ])
                               : field.onChange(
                                   field.value?.filter(
-                                    (value: any) => value !== option.value
+                                    (value: any) =>
+                                      value !==
+                                      (typeof option === "string"
+                                        ? option
+                                        : option.value)
                                   )
                                 );
                           }}
@@ -63,9 +74,9 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
                       <FormLabel className="w-full min-h-14 flex items-center px-2 cursor-pointer">
                         <div className="space-y-3 py-2">
                           <span className="text-sm font-medium leading-none">
-                            {option.value}
+                            {typeof option === "string" ? option : option.value}
                           </span>
-                          {option.description && (
+                          {typeof option === "object" && (
                             <p className="font-normal">{option.description}</p>
                           )}
                         </div>
