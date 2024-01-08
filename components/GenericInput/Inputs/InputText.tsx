@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import { Input } from "@/components/ui/input";
 import {
   FormControl,
@@ -10,12 +10,18 @@ import {
 } from "@/components/ui/form";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function InputText(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, type, isRequired, label, placeholder } = inputProps;
+  const {
+    inputKey,
+    type,
+    required: isRequired,
+    label,
+    placeholder,
+  } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}

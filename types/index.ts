@@ -1,37 +1,59 @@
-import * as yup from "yup";
-
-export type OptionsType = {
+type OptionsWithDescriptionType = {
   value: string;
-  description?: string;
+  description: string;
 };
 
-export type InputType =
-  | "text"
-  | "date"
-  | "number"
-  | "textarea"
-  | "radio"
-  | "checkbox";
+type OptionsType = OptionsWithDescriptionType | string;
 
-export type CommonInputType = {
+type BaseInputEntity<T> = {
   inputKey: string;
-  type: InputType;
-  label?: string;
-  placeholder?: string;
-  isRequired?: boolean;
-  defaultValue: any;
-  options?: OptionsType[];
+  label: string;
+  required?: boolean;
+  defaultValue: T;
   visible?: {
     when: {
       inputKey: string;
-      equals: string;
+      equals: T;
     };
   };
-  validation: yup.AnySchema;
 };
 
-export type FormPageType = {
+type InputTextEntity = BaseInputEntity<string> & {
+  type: "text";
+};
+
+type InputDateEntity = BaseInputEntity<Date | string> & {
+  type: "date";
+};
+
+type InputNumberEntity = BaseInputEntity<number> & {
+  type: "number";
+};
+
+type InputTextAreaEntity = BaseInputEntity<string> & {
+  type: "textarea";
+};
+
+type InputRadioEntity = BaseInputEntity<string> & {
+  type: "radio";
+  options: OptionsType[];
+};
+
+type InputCheckBoxEntity = BaseInputEntity<string[]> & {
+  type: "checkbox";
+  options: OptionsType[];
+};
+
+export type InputEntity =
+  | InputTextEntity
+  | InputDateEntity
+  | InputNumberEntity
+  | InputTextAreaEntity
+  | InputRadioEntity
+  | InputCheckBoxEntity;
+
+export type FormPageEntity = {
   title: string;
   subtitle: string;
-  inputs: CommonInputType[];
+  inputs: InputEntity[];
 };

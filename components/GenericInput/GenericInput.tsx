@@ -1,5 +1,5 @@
 import { UseControllerProps, useFormContext, useWatch } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import { InputText } from "./Inputs/InputText";
 import { InputDate } from "./Inputs/InputDate";
 import { InputTextArea } from "./Inputs/InputTextArea";
@@ -8,7 +8,7 @@ import { InputCheckBox } from "./Inputs/InputCheckBox";
 import { useEffect, useState } from "react";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function GenericInput(props: Omit<GenericInputProps, "name">) {

@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { cn } from "@/lib/utils";
 import {
@@ -11,12 +11,12 @@ import {
 } from "@/components/ui/form";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { isRequired, label, options, inputKey } = inputProps;
+  const { required: isRequired, label, options, inputKey } = inputProps;
   return (
     <FormField
       control={control}

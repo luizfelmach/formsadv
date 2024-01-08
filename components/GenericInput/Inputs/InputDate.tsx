@@ -1,5 +1,5 @@
 import { UseControllerProps, useController } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
 import { Calendar } from "@/components/ui/calendar";
@@ -20,12 +20,12 @@ import {
 } from "@/components/ui/popover";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function InputDate(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, isRequired, label, placeholder } = inputProps;
+  const { inputKey, required: isRequired, label, placeholder } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}

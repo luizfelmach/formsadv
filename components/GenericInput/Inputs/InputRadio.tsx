@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { CommonInputType } from "@/types";
+import { InputEntity } from "@/types";
 import {
   FormControl,
   FormField,
@@ -11,12 +11,18 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: CommonInputType;
+  inputProps: InputEntity;
 }
 
 export function InputRadio(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, isRequired, label, placeholder, options } = inputProps;
+  const {
+    inputKey,
+    required: isRequired,
+    label,
+    placeholder,
+    options,
+  } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
