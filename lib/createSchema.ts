@@ -14,7 +14,7 @@ function schemaFromInputText(input: InputTextEntity): yup.AnySchema {
   const { required, visible, email, cpf } = input;
   let schema = yup.string();
 
-  if (required) {
+  if (required && !visible) {
     schema = schema.required("Campo obrigatório.");
   }
 
@@ -45,7 +45,7 @@ function schemaFromInputTextArea(input: InputTextAreaEntity): yup.AnySchema {
   const { required, visible } = input;
   let schema = yup.string();
 
-  if (required) {
+  if (required && !visible) {
     schema = schema.required("Campo obrigatório.");
   }
 
@@ -63,7 +63,7 @@ function schemaFromInputNumber(input: InputNumberEntity): yup.AnySchema {
   const { required, visible } = input;
   let schema = yup.number();
 
-  if (required) {
+  if (required && !visible) {
     schema = schema.required("Campo obrigatório.");
   }
 
@@ -81,7 +81,7 @@ function schemaFromInputCheckBox(input: InputCheckBoxEntity): yup.AnySchema {
   const { required, visible } = input;
   let schema = yup.array(yup.string());
 
-  if (required) {
+  if (required && !visible) {
     schema = schema.required("Campo obrigatório.").min(1, "Campo obrigatório.");
   }
 
@@ -100,7 +100,7 @@ function schemaFromInputRadio(input: InputRadioEntity): yup.AnySchema {
   const { required, visible } = input;
   let schema = yup.string();
 
-  if (required) {
+  if (required && !visible) {
     schema = schema.required("Campo obrigatório.");
   }
 
@@ -118,7 +118,7 @@ function schemaFromInputDate(input: InputDateEntity) {
   const { required, visible } = input;
   let schema = yup.date();
 
-  if (required) {
+  if (required && !visible) {
     schema = schema
       .required("Campo obrigatório.")
       .typeError("Campo obrigatório.");

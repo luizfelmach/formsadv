@@ -15,7 +15,7 @@ const save: FormPageEntity[] = [
       "Forneça-nos suas informações pessoais para iniciar sua demanda previdenciária.",
     inputs: [
       {
-        inputKey: generateId(),
+        inputKey: generateId("nome"),
         type: "text",
         label: "Nome completo",
         required: true,
