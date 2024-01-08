@@ -1,6 +1,7 @@
 import * as yup from "yup";
 import { FormPageEntity } from "@/types";
 import { createSchema } from "@/lib/createSchema";
+import { generateId } from "@/lib/utils";
 
 export type SiteConfig = typeof siteConfig;
 
@@ -16,14 +17,14 @@ const save: FormPageEntity[] = [
       "Forneça-nos suas informações pessoais para iniciar sua demanda previdenciária.",
     inputs: [
       {
-        inputKey: "nome",
+        inputKey: generateId(),
         type: "text",
         label: "Nome completo",
         required: true,
         defaultValue: "",
       },
       {
-        inputKey: "cpf",
+        inputKey: generateId(),
         type: "text",
         label: "CPF",
         required: true,
@@ -31,35 +32,35 @@ const save: FormPageEntity[] = [
         cpf: true,
       },
       {
-        inputKey: "rg",
+        inputKey: generateId(),
         type: "text",
         label: "RG / Órgão exp.",
         required: true,
         defaultValue: "",
       },
       {
-        inputKey: "rg_data",
+        inputKey: generateId(),
         type: "date",
         label: "Data de expedição.",
         defaultValue: "",
         required: true,
       },
       {
-        inputKey: "estado_civil",
+        inputKey: generateId(),
         type: "text",
         label: "Estado civil",
         required: true,
         defaultValue: "",
       },
       {
-        inputKey: "profissao",
+        inputKey: generateId(),
         type: "text",
         label: "Profissão",
         required: true,
         defaultValue: "",
       },
       {
-        inputKey: "data_nascimento",
+        inputKey: generateId(),
         type: "date",
         label: "Data de nascimento.",
         required: true,

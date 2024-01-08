@@ -11,8 +11,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export function FormSection() {
   const [currentPage, setCurrentPage] = useState<number>(0);
   const methods = useForm<any>({
-    mode: "onChange",
-    resolver: yupResolver(FormsSchema),
+    //mode: "onChange",
+    //resolver: yupResolver(FormsSchema),
   });
 
   const { handleSubmit, control, formState, trigger } = methods;
