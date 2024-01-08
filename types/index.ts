@@ -18,28 +18,30 @@ type BaseInputEntity<T> = {
   };
 };
 
-type InputTextEntity = BaseInputEntity<string> & {
+export type InputTextEntity = BaseInputEntity<string> & {
   type: "text";
+  email?: boolean;
+  cpf?: boolean;
 };
 
-type InputDateEntity = BaseInputEntity<Date | string> & {
+export type InputDateEntity = BaseInputEntity<Date | string> & {
   type: "date";
 };
 
-type InputNumberEntity = BaseInputEntity<number> & {
+export type InputNumberEntity = BaseInputEntity<number> & {
   type: "number";
 };
 
-type InputTextAreaEntity = BaseInputEntity<string> & {
+export type InputTextAreaEntity = BaseInputEntity<string> & {
   type: "textarea";
 };
 
-type InputRadioEntity = BaseInputEntity<string> & {
+export type InputRadioEntity = BaseInputEntity<string> & {
   type: "radio";
   options: OptionsType[];
 };
 
-type InputCheckBoxEntity = BaseInputEntity<string[]> & {
+export type InputCheckBoxEntity = BaseInputEntity<string[]> & {
   type: "checkbox";
   options: OptionsType[];
 };

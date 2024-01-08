@@ -1,42 +1,34 @@
 import * as yup from "yup";
-import { InputEntity } from "@/types";
+import {
+  InputCheckBoxEntity,
+  InputDateEntity,
+  InputEntity,
+  InputNumberEntity,
+  InputRadioEntity,
+  InputTextAreaEntity,
+  InputTextEntity,
+} from "@/types";
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
-function schemaFromInput(input: InputEntity): yup.AnySchema {
-  const { type, required, visible } = input;
-  let schema: yup.AnySchema = yup.string();
-
-  if (type === "text") {
-    schema = yup.string();
-  }
-  if (type === "checkbox") {
-    schema = yup.array(yup.string());
-  }
-  if (type === "date") {
-    schema = yup.date();
-  }
-  if (type === "number") {
-    schema = yup.number();
-  }
-  if (type === "radio") {
-    schema = yup.string();
-  }
-  if (type === "text") {
-    schema = yup.string();
-  }
-  if (type === "textarea") {
-    schema = yup.string();
-  }
+function schemaFromInputText(input: InputTextEntity): yup.AnySchema {
+  const { required, visible, email, cpf } = input;
+  let schema = yup.string();
 
   if (required) {
-    if (type === "checkbox") {
-      schema = (schema as yup.NumberSchema).min(1, "Campo obrigatório.");
-    } else if (type === "date") {
-      schema = schema
-        .required("Campo obrigatório.")
-        .typeError("Campo obrigatório.");
-    } else {
-      schema = schema.required("Campo obrigatório.");
-    }
+    schema = schema.required("Campo obrigatório.");
+  }
+
+  if (email) {
+    schema = schema.email("Informe um e-mail válido.");
+  }
+
+  if (cpf) {
+    schema = schema.test("cpf-validate", "Forneça um CPF válido.", (value) => {
+      if (value) {
+        return cpfValidator.isValid(value);
+      }
+      return true;
+    });
   }
 
   if (visible && required) {
@@ -47,6 +39,123 @@ function schemaFromInput(input: InputEntity): yup.AnySchema {
   }
 
   return schema;
+}
+
+function schemaFromInputTextArea(input: InputTextAreaEntity): yup.AnySchema {
+  const { required, visible } = input;
+  let schema = yup.string();
+
+  if (required) {
+    schema = schema.required("Campo obrigatório.");
+  }
+
+  if (visible && required) {
+    schema = schema.when(visible.when.inputKey, {
+      is: visible.when.equals,
+      then: (schema) => schema.required("Campo obrigatório."),
+    });
+  }
+
+  return schema;
+}
+
+function schemaFromInputNumber(input: InputNumberEntity): yup.AnySchema {
+  const { required, visible } = input;
+  let schema = yup.number();
+
+  if (required) {
+    schema = schema.required("Campo obrigatório.");
+  }
+
+  if (visible && required) {
+    schema = schema.when(visible.when.inputKey, {
+      is: visible.when.equals,
+      then: (schema) => schema.required("Campo obrigatório."),
+    });
+  }
+
+  return schema;
+}
+
+function schemaFromInputCheckBox(input: InputCheckBoxEntity): yup.AnySchema {
+  const { required, visible } = input;
+  let schema = yup.array(yup.string());
+
+  if (required) {
+    schema = schema.required("Campo obrigatório.").min(1, "Campo obrigatório.");
+  }
+
+  if (visible && required) {
+    schema = schema.when(visible.when.inputKey, {
+      is: visible.when.equals,
+      then: (schema) =>
+        schema.required("Campo obrigatório.").min(1, "Campo obrigatório."),
+    });
+  }
+
+  return schema;
+}
+
+function schemaFromInputRadio(input: InputRadioEntity): yup.AnySchema {
+  const { required, visible } = input;
+  let schema = yup.string();
+
+  if (required) {
+    schema = schema.required("Campo obrigatório.");
+  }
+
+  if (visible && required) {
+    schema = schema.when(visible.when.inputKey, {
+      is: visible.when.equals,
+      then: (schema) => schema.required("Campo obrigatório."),
+    });
+  }
+
+  return schema;
+}
+
+function schemaFromInputDate(input: InputDateEntity) {
+  const { required, visible } = input;
+  let schema = yup.date();
+
+  if (required) {
+    schema = schema
+      .required("Campo obrigatório.")
+      .typeError("Campo obrigatório.");
+  }
+
+  if (visible && required) {
+    schema = schema.when(visible.when.inputKey, {
+      is: visible.when.equals,
+      then: (schema) =>
+        schema.required("Campo obrigatório.").typeError("Campo obrigatório."),
+    });
+  }
+
+  return schema;
+}
+
+function schemaFromInput(input: InputEntity): yup.AnySchema {
+  const { type } = input;
+  if (type === "text") {
+    return schemaFromInputText(input);
+  }
+  if (type === "textarea") {
+    return schemaFromInputTextArea(input);
+  }
+  if (type === "number") {
+    return schemaFromInputNumber(input);
+  }
+  if (type === "checkbox") {
+    return schemaFromInputCheckBox(input);
+  }
+  if (type === "radio") {
+    return schemaFromInputRadio(input);
+  }
+  if (type === "date") {
+    return schemaFromInputDate(input);
+  }
+  return yup.string();
 }
 
 export function createSchema(inputs: InputEntity[]): yup.AnySchema {

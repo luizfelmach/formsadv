@@ -28,6 +28,7 @@ const save: FormPageEntity[] = [
         label: "CPF",
         required: true,
         defaultValue: "",
+        cpf: true,
       },
       {
         inputKey: "rg",
