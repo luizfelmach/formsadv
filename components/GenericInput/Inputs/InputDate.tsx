@@ -25,7 +25,7 @@ interface GenericInputProps extends UseControllerProps {
 
 export function InputDate(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, required: isRequired, label, placeholder } = inputProps;
+  const { inputKey, required: isRequired, label } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
@@ -50,7 +50,7 @@ export function InputDate(props: Omit<GenericInputProps, "name">) {
                   {field.value ? (
                     format(field.value, "PPP", { locale: ptBR })
                   ) : (
-                    <span>{placeholder}</span>
+                    <span></span>
                   )}
                   <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                 </Button>

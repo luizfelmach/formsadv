@@ -1,5 +1,5 @@
 import { UseControllerProps } from "react-hook-form";
-import { InputEntity } from "@/types";
+import { InputEntity, InputRadioEntity } from "@/types";
 import {
   FormControl,
   FormField,
@@ -11,18 +11,12 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
 interface GenericInputProps extends UseControllerProps {
-  inputProps: InputEntity;
+  inputProps: InputRadioEntity;
 }
 
 export function InputRadio(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const {
-    inputKey,
-    required: isRequired,
-    label,
-    placeholder,
-    options,
-  } = inputProps;
+  const { inputKey, required: isRequired, label, options } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
@@ -51,14 +45,20 @@ export function InputRadio(props: Omit<GenericInputProps, "name">) {
                     )}
                   >
                     <FormControl>
-                      <RadioGroupItem value={option.value} />
+                      <RadioGroupItem
+                        value={
+                          typeof option === "string" ? option : option.value
+                        }
+                      />
                     </FormControl>
                     <FormLabel className="w-full min-h-12 flex items-center px-4 cursor-pointer">
                       <div className="space-y-3 py-2">
                         <span className="text-sm font-medium leading-none">
-                          {option.value}
+                          {typeof option === "string" ? option : option.value}
                         </span>
-                        <p className="font-normal">{option.description}</p>
+                        <p className="font-normal">
+                          {typeof option === "string" ? "" : option.description}
+                        </p>
                       </div>
                     </FormLabel>
                   </FormItem>

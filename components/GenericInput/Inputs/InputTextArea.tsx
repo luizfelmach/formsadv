@@ -16,7 +16,7 @@ interface GenericInputProps extends UseControllerProps {
 
 export function InputTextArea(props: Omit<GenericInputProps, "name">) {
   const { inputProps, control, defaultValue } = props;
-  const { inputKey, required: isRequired, label, placeholder } = inputProps;
+  const { inputKey, required: isRequired, label } = inputProps;
   return (
     <FormField
       defaultValue={defaultValue}
@@ -29,7 +29,7 @@ export function InputTextArea(props: Omit<GenericInputProps, "name">) {
             <span className="text-destructive">{isRequired && "*"}</span>{" "}
           </FormLabel>
           <FormControl>
-            <Textarea placeholder={placeholder} {...field} />
+            <Textarea {...field} />
           </FormControl>
           <FormMessage />
         </FormItem>
