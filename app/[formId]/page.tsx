@@ -1,4 +1,3 @@
-import { FormSection } from "@/components/FormSection/FormSection";
 import { notFound } from "next/navigation";
 
 type paramsProps = {
