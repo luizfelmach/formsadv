@@ -98,7 +98,7 @@ export default function LoginForm() {
                 <Loader2 className="animate-spin" />
               </span>
             )}
-            Enviar
+            Entrar
           </Button>
         </form>
       </FormProvider>
