@@ -41,6 +41,9 @@ export default function LoginForm() {
 
   return (
     <div className="w-full flex flex-col gap-4 p-4">
+      <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl mb-10">
+        Meu Form
+      </h1>
       <FormProvider {...form}>
         <form
           onSubmit={form.handleSubmit(async (data: FormProps) => {
