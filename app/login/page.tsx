@@ -1,5 +1,4 @@
 import { isAuthenticated } from "@/actions";
-import { ForgotPassword } from "@/components/forgot-pass";
 import LoginForm from "@/components/login-form";
 import { redirect } from "next/navigation";
 
