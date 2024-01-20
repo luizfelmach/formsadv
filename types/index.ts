@@ -46,16 +46,39 @@ export type InputCheckBoxEntity = BaseInputEntity<string[]> & {
   options: OptionsType[];
 };
 
+export type InputCheckBoxSingleEntity = BaseInputEntity<boolean> & {
+  type: "checkboxSingle";
+  options: OptionsType[];
+};
+
+export type InputSelectEntity = BaseInputEntity<string> & {
+  type: "select";
+  options: string[];
+};
+
 export type InputEntity =
   | InputTextEntity
   | InputDateEntity
   | InputNumberEntity
   | InputTextAreaEntity
   | InputRadioEntity
-  | InputCheckBoxEntity;
+  | InputCheckBoxEntity
+  | InputCheckBoxSingleEntity
+  | InputSelectEntity;
 
 export type FormPageEntity = {
   title: string;
   subtitle: string;
   inputs: InputEntity[];
 };
+
+export const InputsTypes = [
+  "text",
+  "date",
+  "number",
+  "textarea",
+  "radio",
+  "checkbox",
+  "checkboxSingle",
+  "select",
+] as const;
