@@ -1,6 +1,4 @@
-import { createSchema } from "@/lib/createSchema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useFormContext } from "react-hook-form";
 import { GenericInput } from "../generic-input";
 import { createContext, useContext } from "react";
 import { InputEntity } from "../create-form/types";

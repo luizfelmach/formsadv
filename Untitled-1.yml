@@ -1,0 +1,47 @@
+
+
+string
+date
+number
+string[]
+boolean
+
+
+quais voce gosta ?
+[uva, limao, cocada]
+
+
+Se a resposta da pessoa contains "uva"
+
+visible: {
+    targetKey: "123",
+    targetType: "text"
+        equals: [number, string, date]
+        notEquals: [number, string, date]
+        in: [string[]]
+        notIn: [string[]]
+        contains: [string]
+        startsWith: [string]
+        endsWith: [string]
+        gt: number, date
+        lt: number, date
+        lte: number, date
+        gte: number, date
+        is: boolean
+}
+
+
+visible
+    when:
+        equals: [number, string, date]
+        notEquals: [number, string, date]
+        in: [number, string, date]
+        notIn: [number, string, date]
+        contains: [string, string[]]
+        startsWith: [string]
+        endsWith: [string]
+        gt: number, date
+        lt: number, date
+        lte: number, date
+        gte: number, date
+        is: boolean
