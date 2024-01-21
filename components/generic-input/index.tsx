@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { UseControllerProps, useFormContext, useWatch } from "react-hook-form";
 import {
   InputCheckBoxEntity,
@@ -6,14 +7,13 @@ import {
   InputRadioEntity,
   InputSelectEntity,
 } from "@/types";
-import { InputText } from "./Inputs/InputText";
-import { InputDate } from "./Inputs/InputDate";
-import { InputTextArea } from "./Inputs/InputTextArea";
-import { InputRadio } from "./Inputs/InputRadio";
-import { InputCheckBox } from "./Inputs/InputCheckBox";
-import { useEffect, useState } from "react";
-import { InputSelect } from "./Inputs/InputSelect";
-import { InputCheckBoxSingle } from "./Inputs/InputCheckBoxSingle";
+import { InputText } from "./inputs/InputText";
+import { InputDate } from "./inputs/InputDate";
+import { InputTextArea } from "./inputs/InputTextArea";
+import { InputRadio } from "./inputs/InputRadio";
+import { InputCheckBox } from "./inputs/InputCheckBox";
+import { InputSelect } from "./inputs/InputSelect";
+import { InputCheckBoxSingle } from "./inputs/InputCheckBoxSingle";
 
 interface GenericInputProps extends UseControllerProps {
   inputProps: InputEntity;

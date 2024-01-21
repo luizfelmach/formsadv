@@ -1,6 +1,6 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { useCreateFormContext } from "../providers";
-import { GenericInput } from "@/components/GenericInput/GenericInput";
+import { GenericInput } from "@/components/generic-input";
 import { GripVertical, Pencil, Trash } from "lucide-react";
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
