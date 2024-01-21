@@ -11,6 +11,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../../ui/drawer";
+import { useFormHandler } from "@/components/form-handler/hooks";
 
 interface InputHandlerProps {
   input?: InputEntity;
@@ -40,6 +41,9 @@ export function InputHandler(props: InputHandlerProps) {
       pageKey: "x",
     },
   ];
+  const methods = useFormHandler({
+    inputs,
+  });
 
   return (
     <Drawer>
@@ -53,6 +57,7 @@ export function InputHandler(props: InputHandlerProps) {
         <div className="flex justify-center">
           <FormHandler.Root
             inputs={inputs}
+            methods={methods}
             handleSubmit={(data) => {
               inputMethods.append({
                 inputKey: generateId(),

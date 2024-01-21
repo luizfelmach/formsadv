@@ -10,6 +10,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "../../ui/drawer";
+import { useFormHandler } from "@/components/form-handler/hooks";
 
 export function EditableHeaderPage() {
   const { currentPage, pageMethods } = useCreateFormContext();
@@ -34,6 +35,9 @@ export function EditableHeaderPage() {
       pageKey: "x",
     },
   ] as const;
+  const methods = useFormHandler({
+    inputs,
+  });
 
   return (
     <Drawer>
@@ -56,6 +60,7 @@ export function EditableHeaderPage() {
 
         <div className="flex justify-center">
           <FormHandler.Root
+            methods={methods}
             inputs={inputs}
             handleSubmit={(data) => {
               update(currentPage!, {

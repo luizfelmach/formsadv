@@ -4,26 +4,32 @@ import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import { GenericInput } from "../GenericInput/GenericInput";
 import { createContext, useContext } from "react";
 import { InputEntity } from "../create-form/types";
+import { UseFormHandlerReturn } from "./hooks";
 
-interface FormHandlerInputsProps {
+interface FormHandlerContextProps {
   inputs: InputEntity[];
-  children?: React.ReactNode;
-  handleSubmit: (data: any) => void;
+  currentPageKey?: string;
 }
 
-const FormHandlerContext = createContext<InputEntity[] | null>(null);
+const FormHandlerContext = createContext<FormHandlerContextProps | null>(null);
 
-function FormHandlerRoot(props: FormHandlerInputsProps) {
-  const { inputs, handleSubmit, children } = props;
-  const schema = createSchema(inputs as any);
+interface FormHandlerProps {
+  handleSubmit: (data: any) => void;
+  methods: UseFormHandlerReturn;
+  children: React.ReactNode;
+  inputs: InputEntity[];
+  currentPageKey?: string;
+}
 
-  const methods = useForm<any>({
-    mode: "onChange",
-    resolver: yupResolver(schema as any),
-  });
-
+function FormHandlerRoot(props: FormHandlerProps) {
+  const { methods, children, handleSubmit, inputs, currentPageKey } = props;
   return (
-    <FormHandlerContext.Provider value={inputs}>
+    <FormHandlerContext.Provider
+      value={{
+        currentPageKey,
+        inputs,
+      }}
+    >
       <FormProvider {...methods}>
         <form
           onSubmit={methods.handleSubmit(handleSubmit)}
@@ -38,19 +44,25 @@ function FormHandlerRoot(props: FormHandlerInputsProps) {
 
 function FormHandlerInputs() {
   const { control } = useFormContext();
-  const inputs = useContext(FormHandlerContext);
-  if (!inputs) {
+  const context = useContext(FormHandlerContext);
+  if (!context) {
     throw new Error("Form Handler Inputs must be used inside a context.");
   }
+  const { inputs, currentPageKey } = context;
+
   return (
     <>
       {inputs.map((input, inputIndex) => (
-        <GenericInput
+        <div
           key={inputIndex}
-          control={control}
-          defaultValue={input.defaultValue}
-          inputProps={input}
-        />
+          className={currentPageKey === input.pageKey ? "" : "hidden"}
+        >
+          <GenericInput
+            control={control}
+            defaultValue={input.defaultValue}
+            inputProps={input}
+          />
+        </div>
       ))}
     </>
   );
