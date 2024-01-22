@@ -14,31 +14,38 @@ export function useRespondForm(props: UseRespondFormProps) {
   const [next, setNext] = useState<boolean>(false);
   const [finish, setFinish] = useState<boolean>(false);
   const [back, setBack] = useState<boolean>(false);
-
   const page = pages[currentPage];
-  const pageInputs = inputs.filter((e) => e.pageKey === page.pageKey);
+
+  const visibleInputs = inputs.filter((e) => e.pageKey === page.pageKey);
 
   const methods = useFormHandler({
-    inputs,
+    inputs: visibleInputs,
   });
 
   const { trigger } = methods;
 
   const currentForm = useWatch({
     control: methods.control,
-    name: pageInputs.map((e) => e.inputKey),
+    name: visibleInputs.map((e) => e.inputKey),
   });
 
   useEffect(() => {
     async function run() {
       const hasNext = currentPage <= pages.length - 2;
-      const hasError = await trigger(pageInputs.map((e) => e.inputKey));
+      const hasError = await trigger(visibleInputs.map((e) => e.inputKey));
       setNext(hasNext && hasError);
       setFinish(!hasNext && hasError);
       setBack(currentPage > 0);
     }
     run();
   }, [currentPage, currentForm]);
+
+  function visibleInput(inputKey: string) {
+    const has = visibleInputs
+      .map((e) => e.inputKey)
+      .filter((e) => e === inputKey);
+    return has.length > 0;
+  }
 
   return {
     currentPage,
@@ -48,5 +55,6 @@ export function useRespondForm(props: UseRespondFormProps) {
     finish,
     page,
     methods,
+    visibleInput,
   };
 }

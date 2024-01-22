@@ -7,6 +7,7 @@ import { Button } from "../ui/button";
 import { RespondFormHeader } from "./components";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRespondForm } from "./hooks";
+import { useFormHandler } from "../form-handler/hooks";
 
 interface RespondFormProps {
   pages: PageEntity[];
@@ -15,14 +16,22 @@ interface RespondFormProps {
 
 export function RespondForm(props: RespondFormProps) {
   const { pages, inputs } = props;
-  const { currentPage, finish, methods, next, back, page, setCurrentPage } =
-    useRespondForm({
-      pages,
-      inputs,
-    });
+  const {
+    currentPage,
+    finish,
+    methods,
+    next,
+    back,
+    page,
+    setCurrentPage,
+    visibleInput,
+  } = useRespondForm({
+    pages,
+    inputs,
+  });
 
   async function handleSubmit(data: any) {
-    //console.log(data);
+    console.log(data);
   }
 
   return (
@@ -44,13 +53,15 @@ export function RespondForm(props: RespondFormProps) {
 
       <section className="w-full">
         <Container className="w-full">
-          <FormHandler.Root
-            currentPageKey={page.pageKey}
-            inputs={inputs}
-            handleSubmit={handleSubmit}
-            methods={methods}
-          >
-            <FormHandler.Inputs />
+          <FormHandler.Root handleSubmit={handleSubmit} methods={methods}>
+            <section>
+              {inputs.map((input, index) => (
+                <div className={visibleInput(input.inputKey) ? "" : "hidden"}>
+                  <FormHandler.Input key={index} input={input} />
+                </div>
+              ))}
+            </section>
+
             {finish && (
               <Button className="w-full" type="submit">
                 Finalizar
