@@ -15,7 +15,7 @@ export default function Reply() {
             },
             {
               screenKey: "2",
-              type: "textarea",
+              type: "text",
               title: "Seu número de telefone",
               options: [],
               description: "Informe seu número abaixo!",
@@ -23,16 +23,16 @@ export default function Reply() {
             {
               screenKey: "3",
               type: "number",
-              title: "Sua idade",
+              title: "Sua idade!",
               options: [],
-              description: "Informe seu número abaixo!",
+              description: "Informe sua idade!",
             },
             {
               screenKey: "4",
               type: "radio",
               title: "Você gosta de comer macarrão?",
               options: ["Sim", "Não"],
-              description: "Informe seu número abaixo!",
+              description: "",
             },
 
             {
@@ -40,7 +40,7 @@ export default function Reply() {
               type: "checkbox",
               title: "Quais frutas voce gosta?",
               options: ["Uva", "Morango"],
-              description: "Informe seu número abaixo!",
+              description: "Digite aqui",
             },
           ],
         }}
