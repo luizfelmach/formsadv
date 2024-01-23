@@ -1,12 +1,9 @@
-import { CreateForm } from "@/components/create-form";
+import { FormBuilder } from "@/components/form-builder";
 
-const pages: any = [] as const;
-const inputs: any = [] as const;
-
-export default function CreateFormPage() {
+export default function FormBuilderPage() {
   return (
     <main>
-      <CreateForm pages={pages} inputs={inputs} />
+      <FormBuilder />
     </main>
   );
 }
