@@ -65,7 +65,12 @@ function AppendButton() {
     setCurrentPage(pageMethods.fields.length);
   }
   return (
-    <Button variant={"outline"} className="h-24 w-40" onClick={handleClick}>
+    <Button
+      type="button"
+      variant={"outline"}
+      className="h-24 w-40"
+      onClick={handleClick}
+    >
       <Plus />
     </Button>
   );

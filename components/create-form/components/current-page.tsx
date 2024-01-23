@@ -3,6 +3,7 @@ import { EditableHeaderPage, EmptyPage, InputHandler, InputsNav } from ".";
 import { useCreateFormContext } from "../providers";
 import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { CreateInput } from "../create-input";
 
 export function CurrentPage() {
   const { currentPage } = useCreateFormContext();
@@ -13,11 +14,11 @@ export function CurrentPage() {
       <Container>
         <InputsNav />
       </Container>
-      <InputHandler>
-        <Button className="w-full my-16 mb-32">
+      <CreateInput>
+        <Button className="w-full my-16 mb-32" variant={"secondary"}>
           <Plus />
         </Button>
-      </InputHandler>
+      </CreateInput>
     </>
   );
 }

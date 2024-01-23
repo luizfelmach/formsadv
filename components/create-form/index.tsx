@@ -17,19 +17,21 @@ export function CreateForm(props: CreateFormProps) {
 
   return (
     <CreateFormContext.Provider value={methods}>
-      <main className="h-screen w-screen">
-        <section className="h-16 bg-accent">
-          <Container>
-            <CreateFormNav />
-          </Container>
-        </section>
-        <section className="min-h-screen">
-          <Container>
-            <CurrentPage />
-          </Container>
-        </section>
-        <PageNav />
-      </main>
+      <form onSubmit={methods.form.handleSubmit((data) => console.log(data))}>
+        <main className="h-screen w-screen">
+          <section className="h-16 bg-accent">
+            <Container>
+              <CreateFormNav />
+            </Container>
+          </section>
+          <section className="min-h-screen">
+            <Container>
+              <CurrentPage />
+            </Container>
+          </section>
+          <PageNav />
+        </main>
+      </form>
     </CreateFormContext.Provider>
   );
 }

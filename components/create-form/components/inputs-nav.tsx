@@ -6,6 +6,7 @@ import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
 import { DropResult } from "@hello-pangea/dnd";
 import { InputHandler } from ".";
+import { CreateInput } from "../create-input";
 
 export function InputsNav() {
   const fakeForm = useForm();
@@ -56,11 +57,11 @@ export function InputsNav() {
                     />
                   </div>
                   <div>
-                    <InputHandler input={input}>
+                    <CreateInput input={input}>
                       <Button variant={"ghost"} size={"icon"}>
                         <Pencil />
                       </Button>
-                    </InputHandler>
+                    </CreateInput>
                   </div>
                   <div>
                     <Button

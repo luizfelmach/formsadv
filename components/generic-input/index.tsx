@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
 import { UseControllerProps, useFormContext, useWatch } from "react-hook-form";
-import {
-  InputCheckBoxEntity,
-  InputCheckBoxSingleEntity,
-  InputEntity,
-  InputRadioEntity,
-  InputSelectEntity,
-} from "@/types";
+import { InputCheckBoxEntity, InputEntity, InputRadioEntity } from "@/types";
 import { InputText } from "./inputs/InputText";
 import { InputDate } from "./inputs/InputDate";
 import { InputTextArea } from "./inputs/InputTextArea";
 import { InputRadio } from "./inputs/InputRadio";
 import { InputCheckBox } from "./inputs/InputCheckBox";
-import { InputSelect } from "./inputs/InputSelect";
-import { InputCheckBoxSingle } from "./inputs/InputCheckBoxSingle";
 
 interface GenericInputProps extends UseControllerProps {
   inputProps: InputEntity;
@@ -61,18 +53,6 @@ export function GenericInput(props: Omit<GenericInputProps, "name">) {
             <InputCheckBox
               {...props}
               inputProps={props.inputProps as InputCheckBoxEntity}
-            />
-          )}
-          {type === "checkboxSingle" && (
-            <InputCheckBoxSingle
-              {...props}
-              inputProps={props.inputProps as InputCheckBoxSingleEntity}
-            />
-          )}
-          {type === "select" && (
-            <InputSelect
-              {...props}
-              inputProps={props.inputProps as InputSelectEntity}
             />
           )}
         </>
