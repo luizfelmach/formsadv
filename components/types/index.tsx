@@ -1,4 +1,4 @@
-type ScreenTypesUnion =
+export type ScreenTypesUnion =
   | "text"
   | "textarea"
   | "number"
@@ -8,6 +8,8 @@ type ScreenTypesUnion =
   | "statement"
   | "end";
 
+export type QueryType = "equals";
+
 export type ScreenType = {
   screenKey: string;
   type: ScreenTypesUnion;
@@ -15,6 +17,13 @@ export type ScreenType = {
   description?: string;
   options: string[];
   required?: boolean;
+  cpf?: boolean;
+  email?: boolean;
+  visible?: {
+    screenKey: string;
+    query: QueryType;
+    value: any;
+  };
 };
 
 export type FormType = {

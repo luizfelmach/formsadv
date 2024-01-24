@@ -1,5 +1,6 @@
 import { FormType } from "@/components/types";
 import { useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 
 interface UseReplyFormProps {
   form: FormType;
@@ -13,7 +14,7 @@ export function useReplyForm({ form }: UseReplyFormProps) {
   const [completed, setCompleted] = useState<boolean>(false);
   const screen = form.screens[currentScreen];
 
-  function handleNext() {
+  async function handleNext() {
     if (canProceed) setCurrentScreen(currentScreen + 1);
   }
 

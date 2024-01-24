@@ -10,6 +10,8 @@ import { FormProvider, useForm } from "react-hook-form";
 import { RevealSlide } from "../reveal-slide";
 import { ReplyInput } from "./components/reply-input";
 import { useEffect } from "react";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { createSchema } from "@/validation/schema";
 
 interface ReplyFormProps {
   form: FormType;
@@ -32,10 +34,16 @@ export function ReplyForm({ form }: ReplyFormProps) {
     handleBack,
     handleNext,
     handleComplete,
+    screen,
   } = useReplyForm({ form });
 
-  const methods = useForm();
+  const schema = createSchema(form.screens);
+  const methods = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
   const {
+    trigger,
     formState: { isSubmitting },
   } = methods;
 
@@ -116,7 +124,9 @@ export function ReplyForm({ form }: ReplyFormProps) {
         <section className="w-full flex justify-end px-4">
           <Button
             size={"icon"}
-            onClick={() => {
+            onClick={async () => {
+              const isValid = await trigger(screen.screenKey);
+              if (!isValid) return;
               handleNext();
             }}
           >
