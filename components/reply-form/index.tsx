@@ -6,11 +6,9 @@ import { FormType } from "../types";
 import { Button } from "../ui/button";
 import { useReplyForm } from "./hooks";
 import { ReplyFormHeader } from "./components/reply-form-header";
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider } from "react-hook-form";
 import { RevealSlide } from "../reveal-slide";
 import { ReplyInput } from "./components/reply-input";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { createSchema } from "@/validation/schema";
 
 interface ReplyFormProps {
   form: FormType;
