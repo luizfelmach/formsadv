@@ -7,24 +7,34 @@ interface UseReplyFormProps {
 
 export function useReplyForm({ form }: UseReplyFormProps) {
   const [currentScreen, setCurrentScreen] = useState<number>(0);
-  const [canProceed, setProceed] = useState<boolean>(false);
-  const [canGoBack, setGoBack] = useState<boolean>(false);
-  const [canComplete, setComplete] = useState<boolean>(false);
+  const [canProceed, setCanProceed] = useState<boolean>(false);
+  const [canGoBack, setCanGoBack] = useState<boolean>(false);
+  const [canComplete, setCanComplete] = useState<boolean>(false);
+  const [completed, setCompleted] = useState<boolean>(false);
   const screen = form.screens[currentScreen];
 
   function handleNext() {
-    setCurrentScreen(currentScreen + 1);
+    if (canProceed) setCurrentScreen(currentScreen + 1);
   }
 
   function handleBack() {
     setCurrentScreen(currentScreen - 1);
   }
 
+  function handleComplete() {
+    setCompleted(true);
+    setCanProceed(false);
+    setCanGoBack(false);
+    setCanComplete(false);
+    setCurrentScreen(currentScreen + 1);
+  }
+
   useEffect(() => {
-    const hasNext = currentScreen <= form.screens.length - 2;
-    setProceed(hasNext);
-    setGoBack(currentScreen > 0);
-    setComplete(!hasNext);
+    if (completed) return;
+    const hasNext = currentScreen <= form.screens.length - 3;
+    setCanProceed(hasNext);
+    setCanGoBack(currentScreen > 0);
+    setCanComplete(!hasNext);
   }, [currentScreen]);
 
   return {
@@ -35,5 +45,7 @@ export function useReplyForm({ form }: UseReplyFormProps) {
     screen,
     handleBack,
     handleNext,
+    completed,
+    handleComplete,
   };
 }

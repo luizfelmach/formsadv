@@ -17,6 +17,8 @@ export function ReplyInput({ screen, handleNext }: ReplyInputProps) {
 
   return (
     <>
+      {type === "end" && <></>}
+      {type === "statement" && <></>}
       {type === "text" && (
         <InputText screen={screen} control={control} defaultValue={""} />
       )}

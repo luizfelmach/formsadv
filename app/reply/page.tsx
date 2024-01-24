@@ -49,6 +49,14 @@ export default function Reply() {
               options: ["Uva", "Morango"],
               description: "Digite aqui",
             },
+            {
+              screenKey: "10",
+              type: "end",
+              title: "Obrigado por responder esse formulário.",
+              options: [],
+              description:
+                "Entraremos em contato com você em breve para esclarecer eventuais dúvidas.",
+            },
           ],
         }}
       />

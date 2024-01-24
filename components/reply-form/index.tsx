@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import { Container } from "../container";
 import { FormType } from "../types";
 import { Button } from "../ui/button";
@@ -15,6 +15,14 @@ interface ReplyFormProps {
   form: FormType;
 }
 
+function aguardar(m: number) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve("Operação concluída após 2 segundos");
+    }, m);
+  });
+}
+
 export function ReplyForm({ form }: ReplyFormProps) {
   const {
     currentScreen,
@@ -23,12 +31,18 @@ export function ReplyForm({ form }: ReplyFormProps) {
     canProceed,
     handleBack,
     handleNext,
+    handleComplete,
   } = useReplyForm({ form });
 
   const methods = useForm();
+  const {
+    formState: { isSubmitting },
+  } = methods;
 
   async function handleSubmit(data: any) {
     console.log(data);
+    await aguardar(2000);
+    handleComplete();
   }
 
   useEffect(() => {
@@ -54,7 +68,10 @@ export function ReplyForm({ form }: ReplyFormProps) {
       )}
 
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(handleSubmit)} className="w-full">
+        <form
+          onSubmit={methods.handleSubmit(handleSubmit)}
+          className="w-full overflow-hidden"
+        >
           {form.screens.map((screen, index) => (
             <RevealSlide
               key={index}
@@ -83,8 +100,10 @@ export function ReplyForm({ form }: ReplyFormProps) {
                 <Button
                   className="w-full my-8"
                   type="submit"
-                  variant={"secondary"}
+                  variant={"default"}
+                  disabled={isSubmitting}
                 >
+                  {isSubmitting && <Loader className="animate-spin" />}
                   Finalizar
                 </Button>
               )}
