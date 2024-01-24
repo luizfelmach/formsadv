@@ -25,8 +25,12 @@ export function ReplyInput({ screen, handleNext }: ReplyInputProps) {
       {type === "textarea" && (
         <InputTextArea screen={screen} control={control} defaultValue={""} />
       )}
-      {type === "number" && <InputText screen={screen} control={control} />}
-      {type === "date" && <InputDate screen={screen} control={control} />}
+      {type === "number" && (
+        <InputText screen={screen} control={control} defaultValue={""} />
+      )}
+      {type === "date" && (
+        <InputDate screen={screen} control={control} defaultValue={""} />
+      )}
       {type === "checkbox" && (
         <InputCheckBox screen={screen} control={control} defaultValue={[]} />
       )}

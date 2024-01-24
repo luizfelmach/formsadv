@@ -8,7 +8,22 @@ export type ScreenTypesUnion =
   | "statement"
   | "end";
 
-export type QueryType = "equals";
+export type QueryType =
+  | "equals"
+  | "notEquals"
+  | "contains"
+  | "startsWith"
+  | "endsWith"
+  | "lt"
+  | "gt"
+  | "lte"
+  | "gte";
+
+export type ScreenVisibleQuery = {
+  screenKey: string;
+  query: QueryType;
+  value: any;
+};
 
 export type ScreenType = {
   screenKey: string;
@@ -19,11 +34,7 @@ export type ScreenType = {
   required?: boolean;
   cpf?: boolean;
   email?: boolean;
-  visible?: {
-    screenKey: string;
-    query: QueryType;
-    value: any;
-  };
+  visible?: ScreenVisibleQuery[];
 };
 
 export type FormType = {

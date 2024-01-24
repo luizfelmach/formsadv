@@ -9,20 +9,11 @@ import { ReplyFormHeader } from "./components/reply-form-header";
 import { FormProvider, useForm } from "react-hook-form";
 import { RevealSlide } from "../reveal-slide";
 import { ReplyInput } from "./components/reply-input";
-import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { createSchema } from "@/validation/schema";
 
 interface ReplyFormProps {
   form: FormType;
-}
-
-function aguardar(m: number) {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve("Operação concluída após 2 segundos");
-    }, m);
-  });
 }
 
 export function ReplyForm({ form }: ReplyFormProps) {
@@ -34,36 +25,18 @@ export function ReplyForm({ form }: ReplyFormProps) {
     handleBack,
     handleNext,
     handleComplete,
-    screen,
+    methods,
+    screens,
   } = useReplyForm({ form });
 
-  const schema = createSchema(form.screens);
-  const methods = useForm({
-    mode: "onChange",
-    resolver: yupResolver(schema),
-  });
   const {
-    trigger,
     formState: { isSubmitting },
   } = methods;
 
   async function handleSubmit(data: any) {
     console.log(data);
-    await aguardar(2000);
     handleComplete();
   }
-
-  useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      if (event.key === "Enter") {
-        if (canProceed) handleNext();
-      }
-    };
-    document.body.addEventListener("keydown", handleKeyDown);
-    return () => {
-      document.body.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
 
   return (
     <Container className="min-h-screen flex flex-col justify-center items-center w-screen">
@@ -80,7 +53,7 @@ export function ReplyForm({ form }: ReplyFormProps) {
           onSubmit={methods.handleSubmit(handleSubmit)}
           className="w-full overflow-hidden"
         >
-          {form.screens.map((screen, index) => (
+          {screens.map((screen, index) => (
             <RevealSlide
               key={index}
               visible={index === currentScreen}
@@ -125,8 +98,6 @@ export function ReplyForm({ form }: ReplyFormProps) {
           <Button
             size={"icon"}
             onClick={async () => {
-              const isValid = await trigger(screen.screenKey);
-              if (!isValid) return;
               handleNext();
             }}
           >

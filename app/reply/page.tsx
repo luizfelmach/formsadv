@@ -12,6 +12,7 @@ export default function Reply() {
               title: "Seu nome",
               options: [],
               description: "Informe seu nome completo!",
+              required: true,
             },
             {
               screenKey: "2",
@@ -19,6 +20,13 @@ export default function Reply() {
               title: "Seu número de telefone",
               options: [],
               description: "Informe seu número abaixo!",
+              visible: [
+                {
+                  screenKey: "1",
+                  query: "equals",
+                  value: "Luiz",
+                },
+              ],
             },
             {
               screenKey: "2123",
@@ -26,6 +34,13 @@ export default function Reply() {
               title: "Sua data de nascimento",
               options: [],
               description: "Informe seu número abaixo!",
+              visible: [
+                {
+                  screenKey: "1",
+                  query: "equals",
+                  value: "Pedro",
+                },
+              ],
             },
             {
               screenKey: "3",
@@ -33,6 +48,13 @@ export default function Reply() {
               title: "Sua idade!",
               options: [],
               description: "Informe sua idade!",
+              visible: [
+                {
+                  screenKey: "1",
+                  query: "equals",
+                  value: "Luiz",
+                },
+              ],
             },
             {
               screenKey: "4",
@@ -40,6 +62,13 @@ export default function Reply() {
               title: "Você gosta de comer macarrão?",
               options: ["Sim", "Não"],
               description: "",
+              visible: [
+                {
+                  screenKey: "1",
+                  query: "equals",
+                  value: "Luiz",
+                },
+              ],
             },
 
             {
@@ -48,6 +77,14 @@ export default function Reply() {
               title: "Quais frutas voce gosta?",
               options: ["Uva", "Morango"],
               description: "Digite aqui",
+              visible: [
+                {
+                  screenKey: "4",
+                  query: "equals",
+                  value: "Sim",
+                },
+              ],
+              required: true,
             },
             {
               screenKey: "10",

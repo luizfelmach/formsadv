@@ -45,3 +45,15 @@ visible
         lte: number, date
         gte: number, date
         is: boolean
+
+visible
+    when:
+        equals: [number, string]
+        notEquals: [number, string]
+        contains: [string]
+        startsWith: [string]
+        endsWith: [string]
+        gt: number
+        lt: number
+        lte: number
+        gte: number
