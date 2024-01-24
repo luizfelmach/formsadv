@@ -16,7 +16,8 @@ interface ReplyFormProps {
 
 export function ReplyForm({ form }: ReplyFormProps) {
   const {
-    currentScreen,
+    screenIndex,
+    screens,
     canComplete,
     canGoBack,
     canProceed,
@@ -24,7 +25,6 @@ export function ReplyForm({ form }: ReplyFormProps) {
     handleNext,
     handleComplete,
     methods,
-    screens,
   } = useReplyForm({ form });
 
   const {
@@ -54,8 +54,8 @@ export function ReplyForm({ form }: ReplyFormProps) {
           {screens.map((screen, index) => (
             <RevealSlide
               key={index}
-              visible={index === currentScreen}
-              direction={index > currentScreen}
+              visible={index === screenIndex}
+              direction={index > screenIndex}
             >
               <div className="w-full">
                 <section className="w-full">

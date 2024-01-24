@@ -10,13 +10,13 @@ interface UseReplyFormProps {
 }
 
 export function useReplyForm({ form }: UseReplyFormProps) {
-  const [currentScreen, setCurrentScreen] = useState<number>(0);
+  const [screenIndex, setScreenIndex] = useState<number>(0);
   const [screens, setScreens] = useState<ScreenType[]>(form.screens);
   const [canProceed, setCanProceed] = useState<boolean>(false);
   const [canGoBack, setCanGoBack] = useState<boolean>(false);
   const [canComplete, setCanComplete] = useState<boolean>(false);
   const [completed, setCompleted] = useState<boolean>(false);
-  const screen = form.screens[currentScreen];
+  const screen = form.screens[screenIndex];
 
   const schema = createSchema(screens);
   const methods = useForm({
@@ -28,13 +28,13 @@ export function useReplyForm({ form }: UseReplyFormProps) {
   async function handleNext() {
     const isValid = await trigger(screen.screenKey);
     if (!isValid) return;
-    if (canProceed) setCurrentScreen(currentScreen + 1);
+    if (canProceed) setScreenIndex(screenIndex + 1);
   }
 
-  const currentScreenInput = watch(screens[currentScreen].screenKey);
+  const currentScreenInput = watch(screens[screenIndex].screenKey);
 
   function handleBack() {
-    setCurrentScreen(currentScreen - 1);
+    setScreenIndex(screenIndex - 1);
   }
 
   function handleComplete() {
@@ -42,30 +42,32 @@ export function useReplyForm({ form }: UseReplyFormProps) {
     setCanProceed(false);
     setCanGoBack(false);
     setCanComplete(false);
-    setCurrentScreen(currentScreen + 1);
+    setScreenIndex(screenIndex + 1);
   }
 
   useEffect(() => {
     if (completed) return;
     const filtered = form.screens.filter((e) => screenVisible(e, getValues()));
     setScreens(filtered);
-    const hasNext = currentScreen <= filtered.length - 3;
+    const hasNext = screenIndex <= filtered.length - 3;
     setCanProceed(hasNext);
-    setCanGoBack(currentScreen > 0);
+    setCanGoBack(screenIndex > 0);
     setCanComplete(!hasNext);
-  }, [currentScreen, currentScreenInput]);
+  }, [screenIndex, currentScreenInput]);
 
   return {
-    currentScreen,
     canProceed,
     canGoBack,
     canComplete,
-    screen,
+    completed,
+
     handleBack,
     handleNext,
-    completed,
     handleComplete,
+
     methods,
+
+    screenIndex,
     screens,
   };
 }
