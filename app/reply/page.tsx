@@ -21,6 +21,13 @@ export default function Reply() {
               description: "Informe seu número abaixo!",
             },
             {
+              screenKey: "2123",
+              type: "date",
+              title: "Sua data de nascimento",
+              options: [],
+              description: "Informe seu número abaixo!",
+            },
+            {
               screenKey: "3",
               type: "number",
               title: "Sua idade!",

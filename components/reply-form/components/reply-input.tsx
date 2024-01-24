@@ -6,7 +6,12 @@ import { InputTextArea } from "@/components/adaptable-input/InputTextArea";
 import { ScreenType } from "@/components/types";
 import { useFormContext } from "react-hook-form";
 
-export function ReplyInput({ screen }: { screen: ScreenType }) {
+interface ReplyInputProps {
+  screen: ScreenType;
+  handleNext: () => void;
+}
+
+export function ReplyInput({ screen, handleNext }: ReplyInputProps) {
   const { control } = useFormContext();
   const type = screen.type;
 
@@ -28,7 +33,12 @@ export function ReplyInput({ screen }: { screen: ScreenType }) {
         <InputCheckBox screen={screen} control={control} defaultValue={[]} />
       )}
       {type === "radio" && (
-        <InputRadio screen={screen} control={control} defaultValue={""} />
+        <InputRadio
+          screen={screen}
+          control={control}
+          defaultValue={""}
+          handleNext={handleNext}
+        />
       )}
     </>
   );

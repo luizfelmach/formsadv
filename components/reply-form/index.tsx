@@ -71,7 +71,7 @@ export function ReplyForm({ form }: ReplyFormProps) {
                   </Container>
                 </section>
                 <Container className="w-full">
-                  <ReplyInput screen={screen} />
+                  <ReplyInput screen={screen} handleNext={handleNext} />
                 </Container>
               </div>
             </RevealSlide>

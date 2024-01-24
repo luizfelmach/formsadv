@@ -12,10 +12,11 @@ import { ScreenType } from "../types";
 
 interface GenericInputProps extends UseControllerProps {
   screen: ScreenType;
+  handleNext?: () => void;
 }
 
 export function InputRadio(props: Omit<GenericInputProps, "name">) {
-  const { screen, control, defaultValue } = props;
+  const { screen, control, defaultValue, handleNext } = props;
   const { screenKey, options } = screen;
   return (
     <FormField
@@ -26,32 +27,34 @@ export function InputRadio(props: Omit<GenericInputProps, "name">) {
         <FormItem className="space-y-3">
           <FormControl>
             <RadioGroup
-              onValueChange={field.onChange}
+              onValueChange={(e) => {
+                field.onChange(e);
+                if (handleNext) handleNext();
+              }}
               defaultValue={field.value}
               className="flex flex-col space-y-1"
             >
-              {options &&
-                options.map((option, index) => (
-                  <FormItem
-                    key={index}
-                    className={cn(
-                      "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
-                      "bg-foreground/5 rounded-lg gap-4 pr-4",
-                      "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-12"
-                    )}
-                  >
-                    <FormControl>
-                      <RadioGroupItem value={option} />
-                    </FormControl>
-                    <FormLabel className="w-full min-h-12 flex items-center px-4 cursor-pointer">
-                      <div className="space-y-3 py-2">
-                        <span className="text-sm font-medium leading-none">
-                          {option}
-                        </span>
-                      </div>
-                    </FormLabel>
-                  </FormItem>
-                ))}
+              {options.map((option, index) => (
+                <FormItem
+                  key={index}
+                  className={cn(
+                    "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
+                    "bg-foreground/5 rounded-lg gap-4 pr-4",
+                    "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-12"
+                  )}
+                >
+                  <FormControl>
+                    <RadioGroupItem value={option} />
+                  </FormControl>
+                  <FormLabel className="w-full min-h-12 flex items-center px-4 cursor-pointer">
+                    <div className="space-y-3 py-2">
+                      <span className="text-sm font-medium leading-none">
+                        {option}
+                      </span>
+                    </div>
+                  </FormLabel>
+                </FormItem>
+              ))}
             </RadioGroup>
           </FormControl>
           <FormMessage />

@@ -59,7 +59,9 @@ export function InputDate(props: Omit<GenericInputProps, "name">) {
                 locale={ptBR}
                 mode="single"
                 selected={field.value}
-                onSelect={field.onChange}
+                onSelect={(e) => {
+                  field.onChange(e);
+                }}
                 initialFocus
               />
             </PopoverContent>
