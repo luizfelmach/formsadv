@@ -1,6 +1,6 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useFormBuilder } from "../providers";
-import { FormType } from "@/types";
+import { FormType } from "@/components/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {

@@ -6,7 +6,7 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { FormType } from "@/types";
+import { FormType } from "@/components/types";
 import { UseControllerProps, useFormContext } from "react-hook-form";
 
 interface CheckboxItemProps extends UseControllerProps<FormType> {

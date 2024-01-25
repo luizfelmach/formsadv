@@ -1,7 +1,7 @@
 import { InputCheckBox } from "@/components/adaptable-input/InputCheckBox";
 import { useFormBuilder } from "../providers";
 import { useForm, useFormContext } from "react-hook-form";
-import { FormType } from "@/types";
+import { FormType } from "@/components/types";
 import { Button } from "@/components/ui/button";
 import {
   Drawer,

@@ -8,7 +8,6 @@ import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
-import { QueryBuilder } from "./components/query-builder";
 
 interface FormBuilderProps {
   form?: FormType;

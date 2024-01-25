@@ -2,7 +2,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useEffect } from "react";
 import { useFormBuilder } from "../providers";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType } from "@/types";
+import { FormType } from "@/components/types";
 
 export function EditableHeaderForm() {
   const { screens, currentScreen } = useFormBuilder();
