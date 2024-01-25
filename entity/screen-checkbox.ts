@@ -33,7 +33,7 @@ export class ScreenCheckbox implements ScreenEntity {
   getSchema() {
     let schema = yup.array(yup.string());
     this.required &&
-      (schema = schema.required().min(2, "Selecione pelo menos uma opção."));
+      (schema = schema.required().min(1, "Selecione pelo menos uma opção."));
 
     return schema;
   }
