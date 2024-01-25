@@ -6,7 +6,7 @@ import { FormType } from "@/types";
 
 export function EditableHeaderForm() {
   const { screens, currentScreen } = useFormBuilder();
-  const { control } = useFormContext<FormType>();
+  const { control, register, watch } = useFormContext<FormType>();
   const { update } = useFieldArray({
     control,
     name: "screens",
@@ -29,37 +29,27 @@ export function EditableHeaderForm() {
     (e) => e.screenKey === currentScreen?.screenKey
   );
 
-  const screen = screens[currentScreenIndex];
+  const edit =
+    currentScreen?.type === "end"
+      ? "endScreen"
+      : `screens.${currentScreenIndex}`;
+
+  const title = edit + ".title";
+  const description = edit + ".description";
 
   return (
     <header className="my-8 space-y-4">
       <Textarea
+        {...register(title as any)}
+        value={watch(title as any)}
         id="myTextarea"
-        onChange={(event) => {
-          const textarea = event.target;
-          textarea.style.height = "auto";
-          textarea.style.height = `${textarea.scrollHeight}px`;
-          update(currentScreenIndex, {
-            ...screen,
-            title: event.target.value,
-          });
-        }}
-        value={screen.title}
         className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl border-none focus:border-none resize-none overflow-hidden h-auto"
       />
       <Textarea
         id="myTextarea"
+        {...register(description as any)}
+        value={watch(description as any)}
         placeholder={"Descrição é opcional!"}
-        onChange={(event) => {
-          const textarea = event.target;
-          textarea.style.height = "auto";
-          textarea.style.height = `${textarea.scrollHeight}px`;
-          update(currentScreenIndex, {
-            ...screen,
-            description: event.target.value,
-          });
-        }}
-        value={screen.description}
         className=" border-b pb-2 text-xl font-normal tracking-tight first:mt-0 border-none focus:border-none resize-none overflow-hidden h-auto"
       />
     </header>

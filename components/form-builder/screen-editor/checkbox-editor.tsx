@@ -1,6 +1,6 @@
 import { InputCheckBox } from "@/components/adaptable-input/InputCheckBox";
 import { useFormBuilder } from "../providers";
-import { useFormContext } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,7 @@ import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 
 export function CheckBoxEditor() {
+  const { control } = useForm();
   const { currentScreen, screens } = useFormBuilder();
   const { setValue } = useFormContext<FormType>();
 
@@ -31,7 +32,7 @@ export function CheckBoxEditor() {
 
   return (
     <div>
-      <InputCheckBox screen={screen!} />
+      <InputCheckBox screen={screen!} control={control} />
 
       <Drawer open={modal} onOpenChange={(o) => setModal(o)}>
         <DrawerTrigger asChild>

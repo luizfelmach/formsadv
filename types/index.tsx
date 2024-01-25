@@ -41,4 +41,5 @@ export type ScreenType = {
 
 export type FormType = {
   screens: ScreenType[];
+  endScreen: ScreenType;
 };

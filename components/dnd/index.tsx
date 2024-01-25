@@ -7,7 +7,7 @@ import {
   Droppable,
   DroppableProps,
 } from "@hello-pangea/dnd";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 interface DndRootProps extends DragDropContextProps {}
 
@@ -21,6 +21,18 @@ interface DndDroppableProps extends Omit<DroppableProps, "children"> {
 }
 
 function DndDroppable({ className, children, ...props }: DndDroppableProps) {
+  const [enabled, setEnabled] = useState(false);
+  useEffect(() => {
+    const animation = requestAnimationFrame(() => setEnabled(true));
+    return () => {
+      cancelAnimationFrame(animation);
+      setEnabled(false);
+    };
+  }, []);
+  if (!enabled) {
+    return null;
+  }
+
   return (
     <Droppable {...props}>
       {(provided) => (

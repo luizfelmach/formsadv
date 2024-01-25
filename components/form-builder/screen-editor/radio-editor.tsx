@@ -1,5 +1,5 @@
 import { useFormBuilder } from "../providers";
-import { useFormContext } from "react-hook-form";
+import { useForm, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,6 +18,7 @@ import { Plus } from "lucide-react";
 import { InputRadio } from "@/components/adaptable-input/InputRadio";
 
 export function RadioEditor() {
+  const { control } = useForm();
   const { currentScreen, screens } = useFormBuilder();
   const { setValue } = useFormContext<FormType>();
 
@@ -31,7 +32,7 @@ export function RadioEditor() {
 
   return (
     <div>
-      <InputRadio screen={screen!} />
+      <InputRadio screen={screen!} control={control} />
 
       <Drawer open={modal} onOpenChange={(o) => setModal(o)}>
         <DrawerTrigger asChild>

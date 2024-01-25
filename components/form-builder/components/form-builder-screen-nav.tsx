@@ -1,3 +1,4 @@
+"use client";
 import { ScrollArea, ScrollBar } from "../../ui/scroll-area";
 import { Button } from "../../ui/button";
 import { GripHorizontal, Plus, Trash } from "lucide-react";
@@ -19,7 +20,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { useState } from "react";
 
 export function FormBuilderScreenNav() {
-  const { screens } = useFormBuilder();
+  const { screens, endScreen, setScreen } = useFormBuilder();
 
   const { control } = useFormContext<FormType>();
   const { swap } = useFieldArray({
@@ -38,7 +39,11 @@ export function FormBuilderScreenNav() {
   }
 
   return (
-    <div className="w-full">
+    <div
+      className="w-fu
+    swap(result.destination.index, result.source.index);
+  }ll"
+    >
       <nav className="w-full h-full flex justify-center px-4 bg-accent">
         <ScrollArea className="h-full  max-w-2xl whitespace-nowrap">
           <div className="flex h-full w-full space-x-4 p-4">
@@ -54,12 +59,26 @@ export function FormBuilderScreenNav() {
                     key={screen.screenKey}
                     index={index}
                     lock="horizontal"
+                    dragArea={false}
                   >
                     <SetScreenButton key={index} screen={screen} />
                   </Dnd.Draggable>
                 ))}
               </Dnd.Droppable>
             </Dnd.Root>
+            <div className="h-24 bg-background flex justify-evenly items-center rounded-xl border hover:bg-black/0">
+              <button
+                type="button"
+                className="w-40 fled flex-col p-8"
+                onClick={(e) => {
+                  setScreen(endScreen);
+                }}
+              >
+                <section className="flex self-center justify-center h-full">
+                  <TruncatedText text={endScreen.title} />
+                </section>
+              </button>
+            </div>
             <AppendButton />
           </div>
           <ScrollBar orientation="horizontal" />
