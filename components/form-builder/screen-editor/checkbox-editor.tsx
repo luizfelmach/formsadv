@@ -15,7 +15,8 @@ import {
 } from "@/components/ui/drawer";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Plus } from "lucide-react";
+import { Plus, Trash } from "lucide-react";
+import { CheckboxItem } from "../components/checkbox-item";
 
 export function CheckBoxEditor() {
   const { control } = useForm();
@@ -31,7 +32,7 @@ export function CheckBoxEditor() {
   const [modal, setModal] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className="space-y-4">
       <InputCheckBox screen={screen!} control={control} />
 
       <Drawer open={modal} onOpenChange={(o) => setModal(o)}>
@@ -51,17 +52,33 @@ export function CheckBoxEditor() {
 
             <div className="space-y-2 p-4">
               {options.map((option, index) => (
-                <Input
-                  key={index}
-                  value={option}
-                  onChange={(e) => {
-                    setOptions((prev) => {
-                      const newState = [...prev];
-                      newState[index] = e.target.value;
-                      return newState;
-                    });
-                  }}
-                />
+                <div className="flex " key={index}>
+                  <Input
+                    key={index}
+                    value={option}
+                    onChange={(e) => {
+                      setOptions((prev) => {
+                        const newState = [...prev];
+                        newState[index] = e.target.value;
+                        return newState;
+                      });
+                    }}
+                  />
+                  <Button
+                    type="submit"
+                    variant={"ghost"}
+                    size={"icon"}
+                    onClick={() => {
+                      setOptions((prev) => {
+                        let newState = [...prev];
+                        newState.splice(index, 1);
+                        return newState;
+                      });
+                    }}
+                  >
+                    <Trash />
+                  </Button>
+                </div>
               ))}
               <Button
                 type="button"
@@ -91,6 +108,12 @@ export function CheckBoxEditor() {
           </div>
         </DrawerContent>
       </Drawer>
+
+      <CheckboxItem
+        name={`screens.${currentScreenIndex}.required`}
+        title="Campo obrigatório ?"
+        description="Selecione esse campo somente se deseja que a reposta não esteja vazia."
+      />
     </div>
   );
 }

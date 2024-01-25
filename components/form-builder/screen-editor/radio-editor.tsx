@@ -16,6 +16,7 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Plus } from "lucide-react";
 import { InputRadio } from "@/components/adaptable-input/InputRadio";
+import { CheckboxItem } from "../components/checkbox-item";
 
 export function RadioEditor() {
   const { control } = useForm();
@@ -31,7 +32,7 @@ export function RadioEditor() {
   const [modal, setModal] = useState<boolean>(false);
 
   return (
-    <div>
+    <div className="space-y-4">
       <InputRadio screen={screen!} control={control} />
 
       <Drawer open={modal} onOpenChange={(o) => setModal(o)}>
@@ -91,6 +92,12 @@ export function RadioEditor() {
           </div>
         </DrawerContent>
       </Drawer>
+
+      <CheckboxItem
+        name={`screens.${currentScreenIndex}.required`}
+        title="Campo obrigatório ?"
+        description="Selecione esse campo somente se deseja que a reposta não esteja vazia."
+      />
     </div>
   );
 }
