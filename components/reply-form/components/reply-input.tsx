@@ -3,7 +3,7 @@ import { InputDate } from "@/components/adaptable-input/InputDate";
 import { InputRadio } from "@/components/adaptable-input/InputRadio";
 import { InputText } from "@/components/adaptable-input/InputText";
 import { InputTextArea } from "@/components/adaptable-input/InputTextArea";
-import { ScreenType } from "@/components/types";
+import { ScreenType } from "@/types";
 import { useFormContext } from "react-hook-form";
 
 interface ReplyInputProps {

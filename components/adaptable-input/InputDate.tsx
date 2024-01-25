@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { ScreenType } from "../types";
+import { ScreenType } from "../../types";
 import { Input } from "../ui/input";
 
 interface GenericInputProps extends UseControllerProps {

@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { FormType, ScreenType } from "@/components/types";
+import { FormType, ScreenType } from "@/types";
 import { ScreenEntity, parserScreenEntity } from "@/entity";
 import { createSchema } from "@/validation/schema";
 import { screenVisible } from "@/validation/visible";

@@ -2,7 +2,7 @@
 
 import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
 import { Container } from "../container";
-import { FormType } from "../types";
+import { FormType } from "../../types";
 import { Button } from "../ui/button";
 import { useReplyForm } from "./hooks";
 import { ReplyFormHeader } from "./components/reply-form-header";

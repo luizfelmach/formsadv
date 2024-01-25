@@ -8,7 +8,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { ScreenType } from "../types";
+import { ScreenType } from "../../types";
 
 interface GenericInputProps extends UseControllerProps {
   screen: ScreenType;

@@ -4,7 +4,7 @@ import { GripHorizontal, Plus, Trash } from "lucide-react";
 import { DropResult } from "@hello-pangea/dnd";
 import { Dnd } from "../../dnd";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType, ScreenType } from "@/components/types";
+import { FormType, ScreenType } from "@/types";
 import { v4 as uuid } from "uuid";
 import { useFormBuilder } from "../providers";
 import {

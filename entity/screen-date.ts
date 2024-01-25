@@ -1,10 +1,6 @@
 import * as yup from "yup";
 import { ScreenEntity } from ".";
-import {
-  ScreenType,
-  ScreenTypesUnion,
-  ScreenVisibleQuery,
-} from "@/components/types";
+import { ScreenType, ScreenTypesUnion, ScreenVisibleQuery } from "@/types";
 import { QueryValidateAnd } from "@/lib/query";
 
 export class ScreenDate implements ScreenEntity {

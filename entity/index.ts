@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { ScreenType } from "@/components/types";
+import { ScreenType } from "@/types";
 
 export interface ScreenEntity extends ScreenType {
   getSchema: () => yup.AnySchema;

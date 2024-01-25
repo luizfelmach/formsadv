@@ -1,4 +1,4 @@
-import { QueryType, ScreenVisibleQuery } from "@/components/types";
+import { ScreenVisibleQuery } from "@/types";
 
 type QueryFn = (defined: any, answer: any) => boolean;
 

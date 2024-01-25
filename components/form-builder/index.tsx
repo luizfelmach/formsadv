@@ -2,7 +2,7 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { Container } from "../container";
-import { FormType } from "../types";
+import { FormType } from "../../types";
 import { FormBuilderNav } from "./components/form-builder-nav";
 import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";

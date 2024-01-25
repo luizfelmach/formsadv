@@ -1,4 +1,4 @@
-import { ScreenType } from "@/components/types";
+import { ScreenType } from "@/types";
 import {
   ScreenCheckbox,
   ScreenDate,

@@ -6,7 +6,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { ScreenType } from "../types";
+import { ScreenType } from "../../types";
 
 interface GenericInputProps extends UseControllerProps {
   screen: ScreenType;

@@ -1,4 +1,4 @@
-import { FormType, ScreenType } from "@/components/types";
+import { FormType, ScreenType } from "@/types";
 import { createContext, useContext, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 
