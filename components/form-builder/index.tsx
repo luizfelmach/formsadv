@@ -2,12 +2,13 @@
 
 import { FormProvider, useForm } from "react-hook-form";
 import { Container } from "../container";
-import { FormType } from "../../types";
+import { FormType, ScreenType } from "../../types";
 import { FormBuilderNav } from "./components/form-builder-nav";
 import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
+import { QueryBuilder } from "./components/query-builder";
 
 interface FormBuilderProps {
   form?: FormType;

@@ -11,20 +11,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { QueryBuilder } from "./query-builder";
+import { Trash } from "lucide-react";
 
 export function LogicTab() {
   const { screens, currentScreen } = useFormBuilder();
-  const { control, register, watch, setValue } = useFormContext<FormType>();
+  const { control } = useFormContext<FormType>();
 
   const currentScreenIndex = screens.findIndex(
     (e) => e.screenKey === currentScreen?.screenKey
   );
 
-  const possibleScreens = screens.filter(
+  const availableScreens = screens.filter(
     (_, index) => index < currentScreenIndex
   );
 
-  const { update, fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: `screens.${currentScreenIndex}.visible`,
   });
@@ -44,89 +46,48 @@ export function LogicTab() {
 
   return (
     <div className="mt-10 space-y-10">
+      {fields.length > 0 && (
+        <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
+          Mostrar essa página quando
+        </h3>
+      )}
       {fields.map((field, index) => (
-        <div key={index} className="space-y-4">
-          <h3 className="scroll-m-20 text-2xl font-semibold tracking-tight">
-            Mostrar essa página quando
-          </h3>
-
-          <Select
-            onValueChange={(e) => {
-              const type = possibleScreens.find((a) => a.screenKey === e)?.type;
-              setValue(
-                `screens.${currentScreenIndex}.visible.${index}.screenType`,
-                type as any
-              );
-
-              setValue(
-                `screens.${currentScreenIndex}.visible.${index}.screenKey`,
-                e
-              );
+        <div
+          key={index}
+          className="flex space-y-4 bg-accent p-4 border-4 border-dashed rounded-xl"
+        >
+          <div className="flex-1">
+            <div>
+              <span className="font-bold">Quando a pergunta: </span>
+              {screens.find((e) => e.screenKey == field.screenKey)?.title}
+            </div>
+            <div>
+              <span className="font-bold">Condição: </span>
+              {field.query}
+            </div>
+            <div>
+              <span className="font-bold">Valor: </span>
+              {field.value}
+            </div>
+          </div>
+          <Button
+            variant={"ghost"}
+            size={"icon"}
+            type="button"
+            onClick={() => {
+              remove(index);
             }}
           >
-            <SelectTrigger onChange={(e) => console.log(e)}>
-              <SelectValue placeholder="Selecione uma pergunta" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                {possibleScreens.map((screen, index) => (
-                  <SelectItem value={screen.screenKey}>
-                    {screen.title}
-                  </SelectItem>
-                ))}
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Select
-            onValueChange={(e) => {
-              setValue(
-                `screens.${currentScreenIndex}.visible.${index}.query`,
-                e as any
-              );
-            }}
-          >
-            <SelectTrigger>
-              <SelectValue placeholder="Selecione uma condição" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectGroup>
-                <SelectItem value={"equals"}>Igual a</SelectItem>
-                <SelectItem value={"notEquals"}>Diferente de</SelectItem>
-                <SelectItem value={"contains"}>Tem na resposta</SelectItem>
-                <SelectItem value={"startsWith"}>Inicia com</SelectItem>
-                <SelectItem value={"endsWith"}>Termina com</SelectItem>
-                <SelectItem value={"gt"}>Maior que</SelectItem>
-                <SelectItem value={"lt"}>Menor que</SelectItem>
-                <SelectItem value={"gte"}>Maior ou igual a</SelectItem>
-                <SelectItem value={"lte"}>Menor ou igual a</SelectItem>
-              </SelectGroup>
-            </SelectContent>
-          </Select>
-
-          <Input
-            placeholder="Valor"
-            {...register(
-              `screens.${currentScreenIndex}.visible.${index}.value`
-            )}
-          />
+            <Trash />
+          </Button>
         </div>
       ))}
-
-      <Button
-        type="button"
-        variant={"secondary"}
-        onClick={() =>
-          append({
-            query: "" as any,
-            screenKey: "" as any,
-            screenType: "" as any,
-            value: "",
-          })
-        }
-      >
-        Adicionar lógica
-      </Button>
+      <QueryBuilder
+        availableScreens={availableScreens}
+        onSave={(e) => {
+          append(e);
+        }}
+      />
     </div>
   );
 }
