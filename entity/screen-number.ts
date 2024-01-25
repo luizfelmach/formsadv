@@ -31,8 +31,11 @@ export class ScreenNumber implements ScreenEntity {
   }
 
   getSchema() {
-    let schema = yup.number();
-    this.required && (schema = schema.required());
+    let schema = yup
+      .number()
+      .transform((val, orig) => (orig == "" ? undefined : val));
+
+    this.required && (schema = schema.required("Campo obrigatório."));
 
     return schema;
   }

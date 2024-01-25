@@ -31,8 +31,10 @@ export class ScreenDate implements ScreenEntity {
   }
 
   getSchema() {
-    let schema = yup.date();
-    this.required && (schema = schema.required());
+    let schema = yup
+      .date()
+      .transform((val, orig) => (orig == "" ? undefined : val));
+    this.required && (schema = schema.required("Campo obrigatório."));
 
     return schema;
   }

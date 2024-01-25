@@ -49,6 +49,7 @@ export default function Reply() {
               title: "Sua data de nascimento",
               options: [],
               description: "Informe seu número abaixo!",
+              required: true,
               visible: [
                 {
                   screenKey: "1",
@@ -72,6 +73,7 @@ export default function Reply() {
                   value: "Luiz",
                 },
               ],
+              required: true,
             },
             {
               screenKey: "4",
@@ -119,12 +121,6 @@ export default function Reply() {
                   screenType: "radio",
                   query: "equals",
                   value: "Sim",
-                },
-                {
-                  screenKey: "4",
-                  screenType: "radio",
-                  query: "startsWith",
-                  value: "W",
                 },
               ],
               required: true,

@@ -6,6 +6,7 @@ import {
   ScreenVisibleQuery,
 } from "@/components/types";
 import { QueryValidateAnd } from "@/lib/query";
+import { cpf as cpfValidator } from "cpf-cnpj-validator";
 
 export class ScreenText implements ScreenEntity {
   type: ScreenTypesUnion;
@@ -31,7 +32,19 @@ export class ScreenText implements ScreenEntity {
   }
   getSchema() {
     let schema = yup.string();
-    this.required && (schema = schema.required());
+    this.required && (schema = schema.required("Campo obrigatório."));
+    this.email && (schema = schema.email("Informe um e-mail válido."));
+    this.cpf &&
+      (schema = schema.test(
+        "cpf-validate",
+        "Forneça um CPF válido.",
+        (value) => {
+          if (value) {
+            return cpfValidator.isValid(value);
+          }
+          return true;
+        }
+      ));
 
     return schema;
   }

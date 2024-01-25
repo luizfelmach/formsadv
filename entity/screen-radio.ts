@@ -32,7 +32,7 @@ export class ScreenRadio implements ScreenEntity {
 
   getSchema() {
     let schema = yup.string();
-    this.required && (schema = schema.required());
+    this.required && (schema = schema.required("Campo obrigatório."));
 
     return schema;
   }
