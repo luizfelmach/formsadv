@@ -23,8 +23,6 @@ export function FormBuilderProvider({
 }: {
   children?: React.ReactNode;
 }) {
-  const [screen, setScreen] = useState<ScreenType | null>(null);
-
   const { control, watch } = useFormContext<FormType>();
   const { remove } = useFieldArray({
     control,
@@ -32,6 +30,7 @@ export function FormBuilderProvider({
   });
   const screens = watch("screens") || [];
   const endScreen = watch("endScreen") || {};
+  const [screen, setScreen] = useState<ScreenType | null>(screens[0]);
 
   function handleDeleteScreen(screenKey: string) {
     const index = screens.findIndex((e) => e.screenKey === screenKey);
