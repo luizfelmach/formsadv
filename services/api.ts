@@ -1,9 +1,9 @@
-import { appConfig } from "@/config/appConfig";
+import { env } from "@/config/env";
 import { cookies } from "next/headers";
 import axios from "axios";
 
 export const api = axios.create({
-  baseURL: appConfig.apiUrl,
+  baseURL: env.API_URL,
   headers: {
     "Content-Type": "application/json",
   },
