@@ -5,6 +5,7 @@ import {
   ScreenTypesUnion,
   ScreenVisibleQuery,
 } from "@/components/types";
+import { QueryValidateAnd } from "@/lib/query";
 
 export class ScreenDate implements ScreenEntity {
   type: ScreenTypesUnion;
@@ -37,6 +38,7 @@ export class ScreenDate implements ScreenEntity {
   }
 
   isVisible(answers: Record<string, any>) {
-    return true;
+    if (!this.visible) return true;
+    return QueryValidateAnd(this.visible, answers);
   }
 }

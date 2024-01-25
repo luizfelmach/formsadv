@@ -5,6 +5,7 @@ import {
   ScreenTypesUnion,
   ScreenVisibleQuery,
 } from "@/components/types";
+import { QueryValidateAnd } from "@/lib/query";
 
 export class ScreenText implements ScreenEntity {
   type: ScreenTypesUnion;
@@ -28,7 +29,6 @@ export class ScreenText implements ScreenEntity {
     this.email = screen.email;
     this.visible = screen.visible;
   }
-
   getSchema() {
     let schema = yup.string();
     this.required && (schema = schema.required());
@@ -37,6 +37,7 @@ export class ScreenText implements ScreenEntity {
   }
 
   isVisible(answers: Record<string, any>) {
-    return true;
+    if (!this.visible) return true;
+    return QueryValidateAnd(this.visible, answers);
   }
 }

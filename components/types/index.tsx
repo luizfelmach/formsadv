@@ -17,10 +17,12 @@ export type QueryType =
   | "lt"
   | "gt"
   | "lte"
-  | "gte";
+  | "gte"
+  | "has";
 
 export type ScreenVisibleQuery = {
   screenKey: string;
+  screenType: ScreenTypesUnion;
   query: QueryType;
   value: any;
 };

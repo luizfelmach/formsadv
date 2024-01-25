@@ -23,8 +23,9 @@ export default function Reply() {
               visible: [
                 {
                   screenKey: "1",
-                  query: "equals",
-                  value: "Luiz",
+                  screenType: "text",
+                  query: "endsWith",
+                  value: "gmail.com",
                 },
               ],
             },
@@ -37,6 +38,7 @@ export default function Reply() {
               visible: [
                 {
                   screenKey: "1",
+                  screenType: "text",
                   query: "equals",
                   value: "Pedro",
                 },
@@ -51,6 +53,7 @@ export default function Reply() {
               visible: [
                 {
                   screenKey: "1",
+                  screenType: "text",
                   query: "equals",
                   value: "Luiz",
                 },
@@ -65,8 +68,27 @@ export default function Reply() {
               visible: [
                 {
                   screenKey: "1",
+                  screenType: "text",
                   query: "equals",
                   value: "Luiz",
+                },
+                {
+                  screenKey: "3",
+                  screenType: "number",
+                  query: "gte",
+                  value: 18,
+                },
+                {
+                  screenKey: "3",
+                  screenType: "number",
+                  query: "lte",
+                  value: 40,
+                },
+                {
+                  screenKey: "3",
+                  screenType: "number",
+                  query: "notEquals",
+                  value: 24,
                 },
               ],
             },
@@ -80,8 +102,15 @@ export default function Reply() {
               visible: [
                 {
                   screenKey: "4",
+                  screenType: "radio",
                   query: "equals",
                   value: "Sim",
+                },
+                {
+                  screenKey: "4",
+                  screenType: "radio",
+                  query: "startsWith",
+                  value: "W",
                 },
               ],
               required: true,
