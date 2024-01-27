@@ -7,6 +7,7 @@ import { Input } from "../ui/input";
 import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { Loader } from "lucide-react";
 
 export function Auth() {
   return (
@@ -69,8 +70,14 @@ function LoginContent() {
     },
     resolver: yupResolver(loginSchema),
   });
+  const {
+    formState: { isSubmitting },
+  } = methods;
 
-  function handleSubmit(data: loginType) {
+  async function handleSubmit(data: loginType) {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     console.log(data);
   }
 
@@ -113,8 +120,9 @@ function LoginContent() {
           />
         </div>
         <div className="space-y-4">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
             Acessar
+            {isSubmitting && <Loader className="animate-spin" />}
           </Button>
           <Button type="button" variant={"link"} className="w-full">
             Esqueci minha senha
@@ -148,7 +156,14 @@ function CreateAccountContent() {
     resolver: yupResolver(createAccountSchema),
   });
 
-  function handleSubmit(data: loginType) {
+  const {
+    formState: { isSubmitting },
+  } = methods;
+
+  async function handleSubmit(data: loginType) {
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     console.log(data);
   }
 
@@ -227,6 +242,7 @@ function CreateAccountContent() {
         <div className="space-y-4">
           <Button type="submit" className="w-full">
             Criar
+            {isSubmitting && <Loader className="animate-spin" />}
           </Button>
         </div>
       </form>
