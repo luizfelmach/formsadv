@@ -78,10 +78,23 @@ const config = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        cloud: {
+          "0%": { transform: "translateX(-5%)" },
+          "50%": { transform: "translateX(5%)" },
+          "100%": { transform: "translateX(-5%)" },
+        },
+        ballon: {
+          "0%": { transform: "translateY(-2%)" },
+          "50%": { transform: "translateY(2%)" },
+          "100%": { transform: "translateY(-2%)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        cloud1: "cloud 4s linear infinite ",
+        cloud2: "cloud 3s linear infinite ",
+        ballon: "ballon 3s linear infinite ",
       },
     },
   },
