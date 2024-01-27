@@ -11,7 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 export function Auth() {
   return (
     <div className="h-screen items-center w-screen grid md:grid-cols-2">
-      <div className="bg-primary m-4 rounded-xl overflow-hidden hidden md:block">
+      <div className="bg-primary m-8 rounded-xl overflow-hidden hidden md:block">
         <header>
           <h1 className="scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl text-primary-foreground m-16">
             Crie formulários para conhecer seu público!
