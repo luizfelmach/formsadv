@@ -39,19 +39,15 @@ export function InputRadio(props: Omit<GenericInputProps, "name">) {
                   key={index}
                   className={cn(
                     "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
-                    "bg-foreground/5 rounded-lg gap-4 pr-4",
-                    "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-12"
+                    "bg-accent text-accent-foreground rounded-lg gap-4 pr-4",
+                    ""
                   )}
                 >
                   <FormControl>
                     <RadioGroupItem value={option} />
                   </FormControl>
-                  <FormLabel className="w-full min-h-12 flex items-center px-4 cursor-pointer">
-                    <div className="space-y-3 py-2">
-                      <span className="text-sm font-medium leading-none">
-                        {option}
-                      </span>
-                    </div>
+                  <FormLabel className="w-full min-h-11 pb-2 flex items-center px-4 cursor-pointer">
+                    <p className="text-sm font-medium leading-none">{option}</p>
                   </FormLabel>
                 </FormItem>
               ))}

@@ -24,13 +24,8 @@ export function InputTextArea(props: Omit<GenericInputProps, "name">) {
         <FormItem>
           <FormControl>
             <Textarea
-              style={{
-                boxShadow: "none",
-                borderTop: "none",
-                borderLeft: "none",
-                borderRight: "none",
-              }}
-              className="w-full border-b-4 h-14 bg-accent focus:border-foreground/20 transition-colors"
+              rows={5}
+              className="w-full bg-accent border-none text-accent-foreground"
               {...field}
             />
           </FormControl>

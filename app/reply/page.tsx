@@ -15,9 +15,23 @@ export default function Reply() {
             },
             {
               screenKey: "1",
-              type: "text",
+              type: "checkbox",
               title: "Seu nome",
-              options: [],
+              options: [
+                "Pickers for date, datetime-local, month, time, week are launched in the same way. They cannot be shown here because live examples run in a cross-origin frame, and would cause a SecurityError",
+                "Não",
+              ],
+              description: "Informe seu nome completo!",
+              required: true,
+            },
+            {
+              screenKey: "sdf1",
+              type: "radio",
+              title: "Seu nome",
+              options: [
+                "Pickers for date, datetime-local, month, time, week are launched in the same way. They cannot be shown here because live examples run in a cross-origin frame, and would cause a SecurityError",
+                "Não",
+              ],
               description: "Informe seu nome completo!",
               required: true,
             },
@@ -134,6 +148,14 @@ export default function Reply() {
                 "Entraremos em contato com você em breve para esclarecer eventuais dúvidas.",
             },
           ],
+          endScreen: {
+            screenKey: "10",
+            type: "end",
+            title: "Obrigado por responder esse formulário.",
+            options: [],
+            description:
+              "Entraremos em contato com você em breve para esclarecer eventuais dúvidas.",
+          },
         }}
       />
     </div>

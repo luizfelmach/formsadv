@@ -24,49 +24,49 @@ export function InputCheckBox(props: Omit<GenericInputProps, "name">) {
       name={screenKey}
       render={() => (
         <FormItem>
-          {options.map((option) => (
-            <FormField
-              key={option}
-              control={control}
-              defaultValue={""}
-              name={screenKey}
-              render={({ field }) => {
-                return (
-                  <FormItem
-                    key={option}
-                    className={cn(
-                      "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
-                      "bg-foreground/5 rounded-lg gap-4 pr-4",
-                      "flex space-x-3 space-y-0",
-                      "data-[selected=true]:border-primary data-[selected=true]:border-2 min-h-14"
-                    )}
-                  >
-                    <FormControl>
-                      <Checkbox
-                        checked={field.value?.includes(option)}
-                        onCheckedChange={(checked) => {
-                          return checked
-                            ? field.onChange([...field.value, option])
-                            : field.onChange(
-                                field.value?.filter(
-                                  (value: any) => value !== option
-                                )
-                              );
-                        }}
-                      />
-                    </FormControl>
-                    <FormLabel className="w-full min-h-14 flex items-center px-2 cursor-pointer">
-                      <div className="space-y-3 py-2">
-                        <span className="text-sm font-medium leading-none">
+          <div className="space-y-3">
+            {options.map((option) => (
+              <FormField
+                key={option}
+                control={control}
+                defaultValue={""}
+                name={screenKey}
+                render={({ field }) => {
+                  return (
+                    <FormItem
+                      key={option}
+                      className={cn(
+                        "inline-flex items-center hover:opacity-70 active:opacity-50 justify-between flex-row-reverse tap-highlight-transparent",
+                        "bg-accent text-accent-foreground rounded-lg gap-4 pr-4",
+                        "flex space-x-3 space-y-0",
+                        "min-h-14"
+                      )}
+                    >
+                      <FormControl>
+                        <Checkbox
+                          checked={field.value?.includes(option)}
+                          onCheckedChange={(checked) => {
+                            return checked
+                              ? field.onChange([...field.value, option])
+                              : field.onChange(
+                                  field.value?.filter(
+                                    (value: any) => value !== option
+                                  )
+                                );
+                          }}
+                        />
+                      </FormControl>
+                      <FormLabel className="w-full min-h-11 flex items-center px-1 cursor-pointer ">
+                        <p className="text-sm font-medium leading-none py-2">
                           {option}
-                        </span>
-                      </div>
-                    </FormLabel>
-                  </FormItem>
-                );
-              }}
-            />
-          ))}
+                        </p>
+                      </FormLabel>
+                    </FormItem>
+                  );
+                }}
+              />
+            ))}
+          </div>
           <FormMessage />
         </FormItem>
       )}

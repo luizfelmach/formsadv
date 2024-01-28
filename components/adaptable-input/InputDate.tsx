@@ -24,13 +24,7 @@ export function InputDate(props: Omit<GenericInputProps, "name">) {
         <FormItem className="flex flex-col">
           <FormControl>
             <Input
-              style={{
-                boxShadow: "none",
-                borderTop: "none",
-                borderLeft: "none",
-                borderRight: "none",
-              }}
-              className="w-full border-b-4 h-14 bg-accent focus:border-foreground/20 transition-colors"
+              className="w-full h-11 border-none bg-accent text-accent-foreground"
               type={type}
               {...field}
             />

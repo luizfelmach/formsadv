@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronLeft, ChevronRight, Loader } from "lucide-react";
+import { ChevronLeft, ChevronRight, Loader, MoveRight } from "lucide-react";
 import { Container } from "../container";
 import { FormType } from "../../types";
 import { Button } from "../ui/button";
@@ -33,14 +33,22 @@ export function ReplyForm({ form }: ReplyFormProps) {
 
   async function handleSubmit(data: any) {
     console.log(data);
+    await new Promise((resolve) => {
+      setTimeout(resolve, 2000);
+    });
     handleComplete();
   }
 
   return (
-    <Container className="min-h-screen flex flex-col justify-center items-center w-screen">
+    <Container className="min-h-screen flex flex-col justify-center items-center">
       {canGoBack && (
         <section className="w-full flex justify-start px-4">
-          <Button variant="outline" size="icon" onClick={() => handleBack()}>
+          <Button
+            className="bg-accent text-accent-foreground hover:bg-foreground/10"
+            size="icon"
+            type="button"
+            onClick={() => handleBack()}
+          >
             <ChevronLeft />
           </Button>
         </section>
@@ -77,13 +85,13 @@ export function ReplyForm({ form }: ReplyFormProps) {
             <Container className="w-full">
               {canComplete && (
                 <Button
-                  className="w-full my-8"
+                  className="w-full h-11 font-bold"
                   type="submit"
                   variant={"default"}
                   disabled={isSubmitting}
                 >
-                  {isSubmitting && <Loader className="animate-spin" />}
                   Finalizar
+                  {isSubmitting && <Loader className="animate-spin" />}
                 </Button>
               )}
             </Container>
@@ -94,12 +102,17 @@ export function ReplyForm({ form }: ReplyFormProps) {
       {canProceed && (
         <section className="w-full flex justify-end px-4">
           <Button
-            size={"icon"}
             onClick={async () => {
               handleNext();
             }}
+            className="h-11 font-bold"
           >
-            <ChevronRight />
+            <div className="flex justify-between w-32 items-center">
+              <span>Continuar</span>
+              <span>
+                <MoveRight />
+              </span>
+            </div>
           </Button>
         </section>
       )}
