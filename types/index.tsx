@@ -40,6 +40,8 @@ export type ScreenType = {
 };
 
 export type FormType = {
+  id: string;
+  name: string;
   screens: ScreenType[];
   endScreen: ScreenType;
 };
