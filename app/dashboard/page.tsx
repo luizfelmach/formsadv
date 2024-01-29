@@ -1277,7 +1277,7 @@ const forms = [
 
 export default async function () {
   //if (!(await isAuthenticated())) {
-  //  redirect("/login");
+  //  redirect("/auth");
   //}
   return (
     <div>

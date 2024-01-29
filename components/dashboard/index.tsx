@@ -13,12 +13,13 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Eye, Loader, Pencil, Unlink2 } from "lucide-react";
 import { toast } from "sonner";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { Navbar } from "./components/navbar";
 
 interface DashboardProps {
   forms: FormType[];
 }
 
-export async function Dashboard({ forms }: DashboardProps) {
+export function Dashboard({ forms }: DashboardProps) {
   const size = forms.length;
 
   if (size === 0) {
@@ -30,51 +31,56 @@ export async function Dashboard({ forms }: DashboardProps) {
   }
 
   return (
-    <Container>
-      <div className="mt-28">
-        <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
-          Formulários
-        </h1>
-        <div className="flex justify-end mb-8">
-          <ModalCreateForm />
-        </div>
-        <div className="space-y-4">
-          {forms.map((form, index) => (
-            <div
-              key={index}
-              className="min-h-20 bg-background border border-accent rounded-xl p-4 flex justify-between items-center"
-            >
-              <section className="flex-1 flex flex-col">
-                <p className="text-foreground font-semibold">{form.name}</p>
-                <p className="text-accent-foreground mt-4 text-sm">
-                  Respostas: {10}
-                </p>
-              </section>
-              <section className="text-foreground">
-                <CopyToClipboard text="https://">
-                  <Button
-                    type="submit"
-                    variant={"ghost"}
-                    size={"icon"}
-                    onClick={() => {
-                      toast.info("Link copiado para a área de transferência.");
-                    }}
-                  >
-                    <Unlink2 />
+    <div>
+      <Navbar />
+      <Container>
+        <div className="mt-8">
+          <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
+            Formulários
+          </h1>
+          <div className="flex justify-end mb-8">
+            <ModalCreateForm />
+          </div>
+          <div className="space-y-4">
+            {forms.map((form, index) => (
+              <div
+                key={index}
+                className="min-h-20 bg-background border border-accent rounded-xl p-4 flex justify-between items-center"
+              >
+                <section className="flex-1 flex flex-col">
+                  <p className="text-foreground font-semibold">{form.name}</p>
+                  <p className="text-accent-foreground mt-4 text-sm">
+                    Respostas: {10}
+                  </p>
+                </section>
+                <section className="text-foreground">
+                  <CopyToClipboard text="https://">
+                    <Button
+                      type="submit"
+                      variant={"ghost"}
+                      size={"icon"}
+                      onClick={() => {
+                        toast.info(
+                          "Link copiado para a área de transferência."
+                        );
+                      }}
+                    >
+                      <Unlink2 />
+                    </Button>
+                  </CopyToClipboard>
+                  <Button type="submit" variant={"ghost"} size={"icon"}>
+                    <Pencil />
                   </Button>
-                </CopyToClipboard>
-                <Button type="submit" variant={"ghost"} size={"icon"}>
-                  <Pencil />
-                </Button>
-                <Button type="submit" variant={"ghost"} size={"icon"}>
-                  <Eye />
-                </Button>
-              </section>
-            </div>
-          ))}
+                  <Button type="submit" variant={"ghost"} size={"icon"}>
+                    <Eye />
+                  </Button>
+                </section>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }
 
@@ -133,7 +139,7 @@ function ModalCreateForm() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="self-end h-11 font-bold w-28 mt-8">Criar</Button>
+        <Button className="self-end font-bold w-28 mt-8">Criar</Button>
       </DialogTrigger>
       <DialogContent className="h-screen max-w-screen">
         <Container className="flex flex-col justify-center items-center">

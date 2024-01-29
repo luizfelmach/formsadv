@@ -31,8 +31,8 @@ export function Auth() {
         <div className="my-16">
           <Image
             alt="Logo Meu Form."
-            src={"logo.svg"}
-            width={250}
+            src={"logo-brand.svg"}
+            width={150}
             height={200}
           />
         </div>
