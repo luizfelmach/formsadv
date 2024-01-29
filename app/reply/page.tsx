@@ -15,23 +15,9 @@ export default function Reply() {
             },
             {
               screenKey: "1",
-              type: "checkbox",
+              type: "text",
               title: "Seu nome",
-              options: [
-                "Pickers for date, datetime-local, month, time, week are launched in the same way. They cannot be shown here because live examples run in a cross-origin frame, and would cause a SecurityError",
-                "Não",
-              ],
-              description: "Informe seu nome completo!",
-              required: true,
-            },
-            {
-              screenKey: "sdf1",
-              type: "radio",
-              title: "Seu nome",
-              options: [
-                "Pickers for date, datetime-local, month, time, week are launched in the same way. They cannot be shown here because live examples run in a cross-origin frame, and would cause a SecurityError",
-                "Não",
-              ],
+              options: [],
               description: "Informe seu nome completo!",
               required: true,
             },

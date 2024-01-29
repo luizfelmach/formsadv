@@ -24,6 +24,7 @@ export function ReplyForm({ form }: ReplyFormProps) {
     handleBack,
     handleNext,
     handleComplete,
+    completed,
     methods,
   } = useReplyForm({ form });
 
@@ -54,50 +55,65 @@ export function ReplyForm({ form }: ReplyFormProps) {
         </section>
       )}
 
-      <FormProvider {...methods}>
-        <form
-          onSubmit={methods.handleSubmit(handleSubmit)}
-          className="w-full overflow-hidden"
-        >
-          {screens.map((screen, index) => (
-            <RevealSlide
-              key={index}
-              visible={index === screenIndex}
-              direction={index > screenIndex}
-            >
-              <div className="w-full">
-                <section className="w-full">
+      {!completed && (
+        <FormProvider {...methods}>
+          <form
+            onSubmit={methods.handleSubmit(handleSubmit)}
+            className="w-full overflow-hidden"
+          >
+            {screens.map((screen, index) => (
+              <RevealSlide
+                key={index}
+                visible={index === screenIndex}
+                direction={index > screenIndex}
+              >
+                <div className="w-full">
+                  <section className="w-full">
+                    <Container className="w-full">
+                      <ReplyFormHeader
+                        title={screen.title}
+                        description={screen.description}
+                      />
+                    </Container>
+                  </section>
                   <Container className="w-full">
-                    <ReplyFormHeader
-                      title={screen.title}
-                      description={screen.description}
-                    />
+                    <ReplyInput screen={screen} handleNext={handleNext} />
                   </Container>
-                </section>
-                <Container className="w-full">
-                  <ReplyInput screen={screen} handleNext={handleNext} />
-                </Container>
-              </div>
-            </RevealSlide>
-          ))}
+                </div>
+              </RevealSlide>
+            ))}
 
+            <section className="w-full">
+              <Container className="w-full">
+                {canComplete && (
+                  <Button
+                    className="w-full h-11 font-bold"
+                    type="submit"
+                    variant={"default"}
+                    disabled={isSubmitting}
+                  >
+                    Finalizar
+                    {isSubmitting && <Loader className="animate-spin" />}
+                  </Button>
+                )}
+              </Container>
+            </section>
+          </form>
+        </FormProvider>
+      )}
+
+      <RevealSlide visible={completed} direction={true}>
+        <div className="w-full">
           <section className="w-full">
             <Container className="w-full">
-              {canComplete && (
-                <Button
-                  className="w-full h-11 font-bold"
-                  type="submit"
-                  variant={"default"}
-                  disabled={isSubmitting}
-                >
-                  Finalizar
-                  {isSubmitting && <Loader className="animate-spin" />}
-                </Button>
-              )}
+              <ReplyFormHeader
+                title={form.endScreen.title}
+                description={form.endScreen.description}
+              />
             </Container>
           </section>
-        </form>
-      </FormProvider>
+        </div>
+      </RevealSlide>
 
       {canProceed && (
         <section className="w-full flex justify-end px-4">

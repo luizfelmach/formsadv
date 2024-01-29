@@ -1,8 +1,6 @@
 import * as yup from "yup";
 import { FormType, ScreenType } from "@/types";
 import { ScreenEntity, parserScreenEntity } from "@/entity";
-import { createSchema } from "@/validation/schema";
-import { screenVisible } from "@/validation/visible";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -33,7 +31,10 @@ export function useReplyForm({ form }: UseReplyFormProps) {
   async function handleNext() {
     const isValid = await trigger(screen.screenKey);
     if (!isValid) return;
-    if (canProceed) setScreenIndex(screenIndex + 1);
+    setCanProceed((prev) => {
+      if (prev) setScreenIndex(screenIndex + 1);
+      return prev;
+    });
   }
 
   function handleBack() {
@@ -45,7 +46,6 @@ export function useReplyForm({ form }: UseReplyFormProps) {
     setCanProceed(false);
     setCanGoBack(false);
     setCanComplete(false);
-    setScreenIndex(screenIndex + 1);
   }
 
   useEffect(() => {
