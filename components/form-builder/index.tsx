@@ -14,6 +14,7 @@ import {
   NavbarScreenFormBuilderMobile,
 } from "./components/navbar-screen-form-build";
 import { ScrollArea } from "../ui/scroll-area";
+import { FormSettings, FormSettingsMobile } from "./components/form-settings";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -82,13 +83,16 @@ export function FormBuilder({ form }: FormBuilderProps) {
                   <div className="h-4 w-4 bg-primary rounded-full bg-[#64CC43]"></div>
                 </div>
                 <ScrollArea className="h-[calc(100vh_-_3rem)]">
-                  <NavbarScreenFormBuilderMobile />
+                  <div className="flex justify-between">
+                    <NavbarScreenFormBuilderMobile />
+                    <FormSettingsMobile />
+                  </div>
                   <ScreenEditor />
                 </ScrollArea>
               </div>
               <aside className="h-[calc(100vh_-_3rem)]  hidden xl:flex flex-1 w-full justify-center">
                 <div className="bg-accent rounded-md w-full justify-center">
-                  ok
+                  <FormSettings />
                 </div>
               </aside>
             </section>

@@ -8,6 +8,7 @@ interface FormBuilderContextProps {
   currentScreen: ScreenType | null;
   screens: ScreenType[];
   endScreen: ScreenType;
+  currentScreenIndex: number;
 }
 
 const FormBuilderContext = createContext<FormBuilderContextProps | null>(null);
@@ -31,6 +32,9 @@ export function FormBuilderProvider({
   const screens = watch("screens") || [];
   const endScreen = watch("endScreen") || {};
   const [screen, setScreen] = useState<ScreenType | null>(screens[0]);
+  const currentScreenIndex = screens.findIndex(
+    (e) => e.screenKey === screen?.screenKey
+  );
 
   function handleDeleteScreen(screenKey: string) {
     const index = screens.findIndex((e) => e.screenKey === screenKey);
@@ -53,6 +57,7 @@ export function FormBuilderProvider({
         setScreen: handleSetScreen,
         screens,
         endScreen,
+        currentScreenIndex,
       }}
     >
       {children}

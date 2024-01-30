@@ -28,6 +28,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { inputOptions } from "../const";
 
 export function NavbarScreenFormBuilder() {
   const { screens, endScreen, setScreen, currentScreen } = useFormBuilder();
@@ -122,24 +123,6 @@ export function NavbarScreenFormBuilder() {
   );
 }
 
-const options = [
-  { value: "text", label: "Texto", img: "/input-type/text.svg" },
-  {
-    value: "textarea",
-    label: "Bloco de texto",
-    img: "/input-type/textarea.svg",
-  },
-  { value: "number", label: "Número", img: "/input-type/number.svg" },
-  { value: "date", label: "Data", img: "/input-type/date.svg" },
-  {
-    value: "checkbox",
-    label: "Múltipla escolha",
-    img: "/input-type/checkbox.svg",
-  },
-  { value: "radio", label: "Única escolha", img: "/input-type/radio.svg" },
-  { value: "statement", label: "Separador", img: "/input-type/statement.svg" },
-] as const;
-
 function AppendOptions() {
   const { control } = useFormContext<FormType>();
   const { append } = useFieldArray({
@@ -164,7 +147,7 @@ function AppendOptions() {
         <PlusCircle />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
-        {options.map((option) => (
+        {inputOptions.map((option) => (
           <DropdownMenuItem
             key={option.value}
             onClick={() => {
@@ -235,9 +218,9 @@ function ScreenOptions({ screenKey }: { screenKey: string }) {
 
 export function NavbarScreenFormBuilderMobile() {
   return (
-    <div className="xl:hidden flex mx-4 mt-4">
+    <div className="xl:hidden">
       <Sheet>
-        <SheetTrigger asChild>
+        <SheetTrigger asChild className="mx-4 mt-4">
           <Button
             className="bg-accent text-accent-foreground hover:bg-accent/50"
             size={"icon"}
