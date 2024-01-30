@@ -240,7 +240,7 @@ function CreateAccountContent() {
           />
         </div>
         <div className="space-y-4">
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full" disabled={isSubmitting}>
             Criar
             {isSubmitting && <Loader className="animate-spin" />}
           </Button>
