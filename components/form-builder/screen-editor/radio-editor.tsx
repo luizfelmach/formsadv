@@ -34,7 +34,6 @@ export function RadioEditor() {
   return (
     <div className="space-y-4">
       <InputRadio screen={screen!} control={control} />
-
       <Drawer open={modal} onOpenChange={(o) => setModal(o)}>
         <DrawerTrigger asChild>
           <Button className="mt-6" type="button" variant="secondary">
@@ -92,12 +91,6 @@ export function RadioEditor() {
           </div>
         </DrawerContent>
       </Drawer>
-
-      <CheckboxItem
-        name={`screens.${currentScreenIndex}.required`}
-        title="Campo obrigatório ?"
-        description="Selecione esse campo somente se deseja que a reposta não esteja vazia."
-      />
     </div>
   );
 }

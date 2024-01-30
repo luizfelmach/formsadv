@@ -9,7 +9,11 @@ import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
 import { useEffect } from "react";
-import { NavbarScreenFormBuilder } from "./components/navbar-screen-form-build";
+import {
+  NavbarScreenFormBuilder,
+  NavbarScreenFormBuilderMobile,
+} from "./components/navbar-screen-form-build";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -63,19 +67,27 @@ export function FormBuilder({ form }: FormBuilderProps) {
         <FormBuilderProvider>
           <main>
             <NavbarFormBuilder />
-            <section className="xl:flex justify-center">
-              <aside className="h-screen bg-red hidden xl:flex w-72 flex-1 justify-center">
-                <div className="bg-accent h-screen rounded-md m-4 w-96 justify-center">
-                  <NavbarScreenFormBuilder />
+            <section className="xl:flex justify-center h-[calc(100vh_-_3rem)]">
+              <aside className="h-[calc(100vh_-_3rem)] hidden xl:flex w-full flex-1 justify-center ">
+                <div className="bg-accent rounded-md w-full justify-center">
+                  <ScrollArea className="h-[calc(100vh_-_3rem)]">
+                    <NavbarScreenFormBuilder />
+                  </ScrollArea>
                 </div>
               </aside>
-              <div className="h-screen xl:w-[670px]">
-                <Container>
+              <div className="h-[calc(100vh_-_3rem)] short:w-[900px] 2xl:w-[1200px]">
+                <div className="xl:flex gap-3 hidden mt-4 ml-4 absolute">
+                  <div className="h-4 w-4 bg-primary rounded-full bg-[#EB5A55]"></div>
+                  <div className="h-4 w-4 bg-primary rounded-full bg-[#F6BC3E] "></div>
+                  <div className="h-4 w-4 bg-primary rounded-full bg-[#64CC43]"></div>
+                </div>
+                <ScrollArea className="h-[calc(100vh_-_3rem)]">
+                  <NavbarScreenFormBuilderMobile />
                   <ScreenEditor />
-                </Container>
+                </ScrollArea>
               </div>
-              <aside className="h-screen hidden xl:flex w-72 flex-1 justify-center">
-                <div className="bg-accent h-screen rounded-md m-4 w-96 justify-center">
+              <aside className="h-[calc(100vh_-_3rem)]  hidden xl:flex flex-1 w-full justify-center">
+                <div className="bg-accent rounded-md w-full justify-center">
                   ok
                 </div>
               </aside>

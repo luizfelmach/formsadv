@@ -8,7 +8,7 @@ import { toast } from "sonner";
 export function NavbarFormBuilder() {
   return (
     <Navbar>
-      <Container className="flex justify-between">
+      <div className="mx-4 h-full flex justify-between">
         <NavbarLogo />
         <NavbarItem className="gap-4">
           <CopyToClipboard text="https://">
@@ -27,7 +27,7 @@ export function NavbarFormBuilder() {
             Publicar
           </Button>
         </NavbarItem>
-      </Container>
+      </div>
     </Navbar>
   );
 }

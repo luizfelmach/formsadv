@@ -1,6 +1,13 @@
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
-import { Circle, Copy, MoreVertical, PlusCircle, Trash } from "lucide-react";
+import {
+  Circle,
+  Copy,
+  Layers,
+  MoreVertical,
+  PlusCircle,
+  Trash,
+} from "lucide-react";
 import { useFormBuilder } from "../providers";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType, ScreenType } from "@/types";
@@ -13,9 +20,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Image from "next/image";
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetFooter,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 export function NavbarScreenFormBuilder() {
-  const { screens, endScreen, setScreen } = useFormBuilder();
+  const { screens, endScreen, setScreen, currentScreen } = useFormBuilder();
 
   const { control } = useFormContext<FormType>();
   const { swap, append } = useFieldArray({
@@ -34,7 +49,7 @@ export function NavbarScreenFormBuilder() {
   }
 
   return (
-    <nav>
+    <nav className="mb-8">
       <header className="flex justify-between m-4 items-center">
         <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Perguntas
@@ -56,7 +71,11 @@ export function NavbarScreenFormBuilder() {
                 index={index}
               >
                 <div
-                  className="bg-accent border border-foreground/5 rounded-sm min-h-12 p-4 flex justify-between items-center"
+                  className={`bg-accent border border-foreground/5 rounded-sm min-h-12 p-4 flex justify-between items-center transition-colors ${
+                    screen.screenKey === currentScreen?.screenKey
+                      ? " border-l-8 border-l-primary"
+                      : ""
+                  }`}
                   onClick={() => {
                     setScreen(screen);
                   }}
@@ -118,7 +137,7 @@ function AppendOptions() {
       <DropdownMenuTrigger>
         <PlusCircle />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent className="mr-4">
         {options.map((option) => (
           <DropdownMenuItem
             key={option.value}
@@ -144,10 +163,10 @@ function AppendOptions() {
 }
 
 function ScreenOptions({ screenKey }: { screenKey: string }) {
-  const { screens } = useFormBuilder();
+  const { screens, deleteScreen } = useFormBuilder();
 
   const { control } = useFormContext<FormType>();
-  const { remove, append } = useFieldArray({
+  const { append } = useFieldArray({
     control,
     name: "screens",
   });
@@ -175,9 +194,9 @@ function ScreenOptions({ screenKey }: { screenKey: string }) {
         </DropdownMenuItem>
         <DropdownMenuItem
           disabled={disabled}
-          onClick={() => {
-            const index = screens.findIndex((e) => e.screenKey === screenKey);
-            remove(index);
+          onClick={(e) => {
+            deleteScreen(screenKey);
+            e.stopPropagation();
           }}
         >
           <Trash className="mr-2 h-4 w-4 text-destructive" />
@@ -185,5 +204,34 @@ function ScreenOptions({ screenKey }: { screenKey: string }) {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+  );
+}
+
+export function NavbarScreenFormBuilderMobile() {
+  return (
+    <div className="xl:hidden flex mx-4 mt-4">
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button
+            className="bg-accent text-accent-foreground hover:bg-accent/50"
+            size={"icon"}
+          >
+            <Layers />
+          </Button>
+        </SheetTrigger>
+        <SheetContent side={"left"} className="w-full">
+          <ScrollArea className="h-5/6">
+            <div className="w-full my-16">
+              <NavbarScreenFormBuilder />
+            </div>
+          </ScrollArea>
+          <SheetFooter className="mt-8 mx-4">
+            <SheetClose asChild>
+              <Button type="submit">Concluir</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
+    </div>
   );
 }

@@ -17,42 +17,20 @@ export function ScreenEditor() {
   if (currentScreen === null) return <WithoutScreen />;
   const type = currentScreen.type;
   return (
-    <Tabs defaultValue="content">
-      <TabsList className="flex justify-center">
-        <TabsTrigger value="content">Conteúdo</TabsTrigger>
-        {currentScreen.type !== "end" && (
-          <TabsTrigger value="logic">Lógica</TabsTrigger>
-        )}
-      </TabsList>
-      <TabsContent value="content">
-        <div className="min-h-screen flex flex-col justify-center items-center">
-          {currentScreen.type !== "end" && (
-            <Button
-              className="self-end"
-              variant={"outline"}
-              onClick={() => deleteScreen(currentScreen.screenKey)}
-            >
-              <Trash />
-            </Button>
-          )}
-          <Container>
-            <EditableHeaderForm />
-            <section className="w-full">
-              {type === "statement"}
-              {type === "end"}
-              {type === "text" && <TextEditor />}
-              {type === "textarea" && <TextAreaEditor />}
-              {type === "number" && <TextEditor />}
-              {type === "date" && <DateEditor />}
-              {type === "radio" && <RadioEditor />}
-              {type === "checkbox" && <CheckBoxEditor />}
-            </section>
-          </Container>
-        </div>
-      </TabsContent>
-      <TabsContent value="logic">
-        <LogicTab />
-      </TabsContent>
-    </Tabs>
+    <div className="min-h-screen flex flex-col justify-center items-center">
+      <Container>
+        <EditableHeaderForm />
+        <section className="w-full">
+          {type === "statement"}
+          {type === "end"}
+          {type === "text" && <TextEditor />}
+          {type === "textarea" && <TextAreaEditor />}
+          {type === "number" && <TextEditor />}
+          {type === "date" && <DateEditor />}
+          {type === "radio" && <RadioEditor />}
+          {type === "checkbox" && <CheckBoxEditor />}
+        </section>
+      </Container>
+    </div>
   );
 }

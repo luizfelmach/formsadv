@@ -16,6 +16,7 @@ const config = {
       lg: "1024px",
       xl: "1280px",
       "2xl": "1536px",
+      short: { min: "1280px", max: "1600px" },
     },
     container: {
       center: true,

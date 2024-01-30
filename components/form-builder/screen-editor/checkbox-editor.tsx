@@ -108,12 +108,6 @@ export function CheckBoxEditor() {
           </div>
         </DrawerContent>
       </Drawer>
-
-      <CheckboxItem
-        name={`screens.${currentScreenIndex}.required`}
-        title="Campo obrigatório ?"
-        description="Selecione esse campo somente se deseja que a reposta não esteja vazia."
-      />
     </div>
   );
 }
