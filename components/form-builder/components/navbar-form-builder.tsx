@@ -13,7 +13,7 @@ export function NavbarFormBuilder() {
         <NavbarItem className="gap-4">
           <CopyToClipboard text="https://">
             <Button
-              type="submit"
+              type="button"
               className="h-9 bg-accent text-accent-foreground hover:bg-accent/50"
               size={"icon"}
               onClick={() => {

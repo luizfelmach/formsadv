@@ -8,6 +8,7 @@ import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
+import { useEffect } from "react";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -40,6 +41,17 @@ export function FormBuilder({ form }: FormBuilderProps) {
     values: initialForm,
   });
 
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
+
   function handleSubmit(data: FormType) {
     console.log(data);
   }
@@ -48,14 +60,25 @@ export function FormBuilder({ form }: FormBuilderProps) {
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <FormBuilderProvider>
-          <main className="h-screen w-screen">
+          <main>
             <NavbarFormBuilder />
-            <section className="min-h-screen">
-              <Container>
-                <ScreenEditor />
-              </Container>
+            <section className="xl:flex justify-center">
+              <aside className="h-screen bg-red hidden xl:flex w-72 flex-1 justify-center">
+                <div className="bg-accent h-screen rounded-md m-4 w-96 justify-center">
+                  ok
+                </div>
+              </aside>
+              <div className="h-screen xl:w-[670px]">
+                <Container>
+                  <ScreenEditor />
+                </Container>
+              </div>
+              <aside className="h-screen hidden xl:flex w-72 flex-1 justify-center">
+                <div className="bg-accent h-screen rounded-md m-4 w-96 justify-center">
+                  ok
+                </div>
+              </aside>
             </section>
-            <FormBuilderScreenNav />
           </main>
         </FormBuilderProvider>
       </form>
