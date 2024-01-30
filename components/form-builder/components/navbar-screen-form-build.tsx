@@ -92,6 +92,32 @@ export function NavbarScreenFormBuilder() {
           </Dnd.Droppable>
         </Dnd.Root>
       </section>
+
+      <header className="flex justify-between m-4 items-center mt-8">
+        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          Tela final
+        </h1>
+      </header>
+
+      <section className="flex flex-col gap-2 mx-4 mt-8">
+        <div
+          className={`cursor-pointer bg-accent border border-foreground/5 rounded-sm min-h-12 p-4 flex justify-between items-center transition-colors ${
+            endScreen.screenKey === currentScreen?.screenKey
+              ? " border-l-8 border-l-primary"
+              : ""
+          }`}
+          onClick={() => {
+            setScreen(endScreen);
+          }}
+        >
+          <p className="text-foreground font-medium text-sm line-clamp-3">
+            {endScreen.title}
+          </p>
+          <div>
+            <ScreenOptions screenKey={endScreen.screenKey} />
+          </div>
+        </div>
+      </section>
     </nav>
   );
 }
