@@ -5,7 +5,7 @@ import { GripHorizontal, Plus, Trash } from "lucide-react";
 import { DropResult } from "@hello-pangea/dnd";
 import { Dnd } from "../../dnd";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType, ScreenType } from "@/components/types";
+import { FormType, ScreenType } from "@/types";
 import { v4 as uuid } from "uuid";
 import { useFormBuilder } from "../providers";
 import {
@@ -39,11 +39,7 @@ export function FormBuilderScreenNav() {
   }
 
   return (
-    <div
-      className="w-fu
-    swap(result.destination.index, result.source.index);
-  }ll"
-    >
+    <div className="w-full">
       <nav className="w-full h-full flex justify-center px-4 bg-accent">
         <ScrollArea className="h-full  max-w-2xl whitespace-nowrap">
           <div className="flex h-full w-full space-x-4 p-4">

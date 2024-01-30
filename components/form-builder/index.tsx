@@ -9,6 +9,7 @@ import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
 import { useEffect } from "react";
+import { NavbarScreenFormBuilder } from "./components/navbar-screen-form-build";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -65,7 +66,7 @@ export function FormBuilder({ form }: FormBuilderProps) {
             <section className="xl:flex justify-center">
               <aside className="h-screen bg-red hidden xl:flex w-72 flex-1 justify-center">
                 <div className="bg-accent h-screen rounded-md m-4 w-96 justify-center">
-                  ok
+                  <NavbarScreenFormBuilder />
                 </div>
               </aside>
               <div className="h-screen xl:w-[670px]">
