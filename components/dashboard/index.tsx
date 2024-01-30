@@ -13,7 +13,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Eye, Loader, Pencil, Unlink2 } from "lucide-react";
 import { toast } from "sonner";
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { Navbar } from "./components/navbar";
+import { NavbarDashboard } from "./components/navbar";
 
 interface DashboardProps {
   forms: FormType[];
@@ -32,7 +32,7 @@ export function Dashboard({ forms }: DashboardProps) {
 
   return (
     <div>
-      <Navbar />
+      <NavbarDashboard />
       <Container>
         <div className="mt-8">
           <h1 className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl">
