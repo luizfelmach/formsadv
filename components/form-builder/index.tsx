@@ -3,7 +3,7 @@
 import { FormProvider, useForm } from "react-hook-form";
 import { Container } from "../container";
 import { FormType, ScreenType } from "../../types";
-import { FormBuilderNav } from "./components/form-builder-nav";
+import { NavbarFormBuilder } from "./components/navbar-form-builder";
 import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
@@ -14,6 +14,8 @@ interface FormBuilderProps {
 }
 
 const defaultForm: FormType = {
+  id: "123",
+  name: "lskdjf",
   screens: [
     {
       screenKey: uuid(),
@@ -47,11 +49,7 @@ export function FormBuilder({ form }: FormBuilderProps) {
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
         <FormBuilderProvider>
           <main className="h-screen w-screen">
-            <section className="h-16 bg-accent">
-              <Container>
-                <FormBuilderNav />
-              </Container>
-            </section>
+            <NavbarFormBuilder />
             <section className="min-h-screen">
               <Container>
                 <ScreenEditor />
