@@ -20,9 +20,9 @@ export function Navbar() {
         <section className="flex items-center h-full">
           <Image
             alt="MeuForm Logo"
-            width={35}
+            width={70}
             height={20}
-            src={"/logo.svg"}
+            src={"/logo-brand.svg"}
             className="cursor-pointer"
             priority
             onClick={() => {
