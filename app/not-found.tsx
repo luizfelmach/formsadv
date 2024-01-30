@@ -9,7 +9,8 @@ export default function NotFound() {
     <div className="bg-background justify-center items-center h-screen mx-8 flex flex-col-reverse lg:flex-row">
       <div>
         <h2 className="scroll-m-20 pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-          Não foi possível encontrar essa página.
+          A página que você está tentando acessar provavelmente foi alterada ou
+          removida.
         </h2>
         <Button
           type="button"
