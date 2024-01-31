@@ -44,7 +44,7 @@ export function FormSettings() {
       <TabsContent value="settings" className="m-2">
         <TabSettings />
       </TabsContent>
-      <TabsContent value="logic"></TabsContent>
+      <TabsContent value="logic" className="m-2"></TabsContent>
     </Tabs>
   );
 }
