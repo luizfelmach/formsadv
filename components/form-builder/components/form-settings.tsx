@@ -18,11 +18,17 @@ import {
 import { Settings } from "lucide-react";
 import { inputOptions } from "../const";
 import Image from "next/image";
-import { FormControl, FormField, FormItem } from "@/components/ui/form";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+} from "@/components/ui/form";
+import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { useFormBuilder } from "../providers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Switch } from "@/components/ui/switch";
 
 export function FormSettings() {
   const { currentScreen } = useFormBuilder();
@@ -44,93 +50,104 @@ export function FormSettings() {
 }
 
 function TabSettings() {
-  const { currentScreen, currentScreenIndex } = useFormBuilder();
-  const { control } = useFormContext<FormType>();
-  const { update } = useFieldArray({
-    control,
-    name: "screens",
-  });
-
+  const { currentScreen } = useFormBuilder();
+  const type = currentScreen?.type;
   return (
     <div className="flex flex-col gap-8">
       <section className="space-y-4">
         <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
           Tipo de pergunta
         </h1>
-        <Select
-          onValueChange={(e) => {
-            update(currentScreenIndex, {
-              ...currentScreen!,
-              type: e as any,
-            });
-          }}
-          defaultValue={currentScreen?.type}
-        >
-          <FormControl>
-            <SelectTrigger>
-              <SelectValue placeholder="" />
-            </SelectTrigger>
-          </FormControl>
-          <SelectContent>
-            {inputOptions.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
-                <div className="flex">
-                  <span className="mr-2">
-                    <Image
-                      src={option.img}
-                      width={25}
-                      height={10}
-                      priority
-                      alt={`Pergunto do tipo: ${option.value}`}
-                    />
-                  </span>
-                  {option.label}
-                </div>
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+        <SelectInputType />
       </section>
 
-      <section className="space-y-4">
-        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Configurações adicionais
-        </h1>
-        <FormField
-          control={control}
-          name={`screens.0.type`}
-          render={({ field }) => (
-            <FormItem>
-              <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {inputOptions.map((option) => (
-                    <SelectItem key={option.value} value={option.value}>
-                      <div className="flex">
-                        <span className="mr-2">
-                          <Image
-                            src={option.img}
-                            width={25}
-                            height={10}
-                            priority
-                            alt={`Pergunto do tipo: ${option.value}`}
-                          />
-                        </span>
-                        {option.label}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </FormItem>
+      {type !== "statement" && (
+        <section className="space-y-4">
+          <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
+            Configurações adicionais
+          </h1>
+          <SwitchSetting option="required" label="Obrigatório" />
+          {type === "text" && (
+            <>
+              <SwitchSetting option="cpf" label="CPF" />
+              <SwitchSetting option="email" label="E-mail" />
+            </>
           )}
-        />
-      </section>
+        </section>
+      )}
     </div>
+  );
+}
+
+function SelectInputType() {
+  const { currentScreenForm } = useFormBuilder();
+  const { control, watch } = useFormContext<FormType>();
+  const setting = (currentScreenForm + ".type") as any;
+  const type = watch(setting);
+
+  return (
+    <FormField
+      control={control}
+      name={setting}
+      render={({ field }) => (
+        <FormItem>
+          <Select onValueChange={field.onChange} value={type}>
+            <FormControl>
+              <SelectTrigger>
+                <SelectValue placeholder="" />
+              </SelectTrigger>
+            </FormControl>
+            <SelectContent>
+              {inputOptions.map((option) => (
+                <SelectItem key={option.value} value={option.value}>
+                  <div className="flex">
+                    <span className="mr-2">
+                      <Image
+                        src={option.img}
+                        width={25}
+                        height={10}
+                        priority
+                        alt={`Pergunto do tipo: ${option.value}`}
+                      />
+                    </span>
+                    {option.label}
+                  </div>
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </FormItem>
+      )}
+    />
+  );
+}
+
+interface SwitchSettingProps {
+  option: string;
+  label: string;
+}
+
+function SwitchSetting({ option, label }: SwitchSettingProps) {
+  const { currentScreenForm } = useFormBuilder();
+  const { control, watch } = useFormContext<FormType>();
+  const setting = (currentScreenForm + "." + option) as any;
+  const required = watch(setting);
+
+  return (
+    <FormField
+      control={control}
+      name={setting}
+      render={({ field }) => (
+        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+          <div className="space-y-0.5">
+            <FormLabel className="text-sm">{label}</FormLabel>
+          </div>
+          <FormControl>
+            <Switch checked={required} onCheckedChange={field.onChange} />
+          </FormControl>
+        </FormItem>
+      )}
+    />
   );
 }
 

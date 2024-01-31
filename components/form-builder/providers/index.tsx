@@ -1,14 +1,15 @@
 import { FormType, ScreenType } from "@/types";
 import { createContext, useContext, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
+import { WatchObserver, useFieldArray, useFormContext } from "react-hook-form";
 
 interface FormBuilderContextProps {
-  deleteScreen: (screenKey: string) => void;
-  setScreen: (screen: ScreenType) => void;
+  deleteScreen: (index: number) => void;
+  setScreen: (index: number) => void;
+  setEndScreen: () => void;
   currentScreen: ScreenType | null;
+  currentScreenForm: string;
   screens: ScreenType[];
   endScreen: ScreenType;
-  currentScreenIndex: number;
 }
 
 const FormBuilderContext = createContext<FormBuilderContextProps | null>(null);
@@ -19,45 +20,43 @@ export function useFormBuilder(): FormBuilderContextProps | never {
   return context;
 }
 
-export function FormBuilderProvider({
-  children,
-}: {
+interface FormBuilderProviderProps {
   children?: React.ReactNode;
-}) {
-  const { control, watch } = useFormContext<FormType>();
-  const { remove } = useFieldArray({
-    control,
-    name: "screens",
-  });
-  const screens = watch("screens") || [];
-  const endScreen = watch("endScreen") || {};
-  const [screen, setScreen] = useState<ScreenType | null>(screens[0]);
-  const currentScreenIndex = screens.findIndex(
-    (e) => e.screenKey === screen?.screenKey
-  );
+}
 
-  function handleDeleteScreen(screenKey: string) {
-    const index = screens.findIndex((e) => e.screenKey === screenKey);
-    if (screens.length === 1) return;
-    if (index < 0) return;
-    if (index === 0) handleSetScreen(screens[index + 1]);
-    else handleSetScreen(screens[index - 1]);
-    remove(index);
+export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
+  const { control, watch } = useFormContext<FormType>();
+  const { remove } = useFieldArray({ control, name: "screens" });
+  const screens = watch("screens");
+  const endScreen = watch("endScreen");
+  const [currentScreenForm, setCurrentScreenForm] =
+    useState<string>("screens.0");
+  const currentScreen = watch(currentScreenForm as any);
+
+  function setScreen(index: number) {
+    setCurrentScreenForm(`screens.${index}`);
   }
 
-  function handleSetScreen(screen: ScreenType) {
-    setScreen(screen || null);
+  function setEndScreen() {
+    setCurrentScreenForm(`endScreen`);
+  }
+
+  function deleteScreen(index: number) {
+    if (index === 0) setScreen(index + 1);
+    else setScreen(index - 1);
+    remove(index);
   }
 
   return (
     <FormBuilderContext.Provider
       value={{
-        currentScreen: screen,
-        deleteScreen: handleDeleteScreen,
-        setScreen: handleSetScreen,
+        currentScreen,
+        currentScreenForm,
+        deleteScreen,
+        setScreen,
+        setEndScreen,
         screens,
         endScreen,
-        currentScreenIndex,
       }}
     >
       {children}

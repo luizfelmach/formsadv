@@ -1,25 +1,20 @@
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
-import {
-  Circle,
-  Copy,
-  Layers,
-  MoreVertical,
-  PlusCircle,
-  Trash,
-} from "lucide-react";
+import { Copy, Layers, MoreVertical, PlusCircle, Trash } from "lucide-react";
 import { useFormBuilder } from "../providers";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType, ScreenType } from "@/types";
 import { DropResult } from "@hello-pangea/dnd";
 import { v4 as uuid } from "uuid";
+import Image from "next/image";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { inputOptions } from "../const";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Image from "next/image";
 import {
   Sheet,
   SheetClose,
@@ -27,14 +22,13 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { inputOptions } from "../const";
 
 export function NavbarScreenFormBuilder() {
-  const { screens, endScreen, setScreen, currentScreen } = useFormBuilder();
+  const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
+    useFormBuilder();
 
   const { control } = useFormContext<FormType>();
-  const { swap, append } = useFieldArray({
+  const { swap } = useFieldArray({
     control,
     name: "screens",
   });
@@ -46,6 +40,7 @@ export function NavbarScreenFormBuilder() {
     if (result.destination.index === result.source.index) {
       return;
     }
+    setScreen(result.destination.index);
     swap(result.destination.index, result.source.index);
   }
 
@@ -78,14 +73,14 @@ export function NavbarScreenFormBuilder() {
                       : ""
                   }`}
                   onClick={() => {
-                    setScreen(screen);
+                    setScreen(index);
                   }}
                 >
                   <p className="text-foreground font-medium text-sm line-clamp-3">
                     {screen.title}
                   </p>
                   <div>
-                    <ScreenOptions screenKey={screen.screenKey} />
+                    <ScreenOptions index={index} />
                   </div>
                 </div>
               </Dnd.Draggable>
@@ -108,15 +103,12 @@ export function NavbarScreenFormBuilder() {
               : ""
           }`}
           onClick={() => {
-            setScreen(endScreen);
+            setEndScreen();
           }}
         >
           <p className="text-foreground font-medium text-sm line-clamp-3">
             {endScreen.title}
           </p>
-          <div>
-            <ScreenOptions screenKey={endScreen.screenKey} />
-          </div>
         </div>
       </section>
     </nav>
@@ -124,11 +116,9 @@ export function NavbarScreenFormBuilder() {
 }
 
 function AppendOptions() {
+  const { setScreen, screens } = useFormBuilder();
   const { control } = useFormContext<FormType>();
-  const { append } = useFieldArray({
-    control,
-    name: "screens",
-  });
+  const { append } = useFieldArray({ control, name: "screens" });
 
   function handleClick(type: string) {
     const screen: ScreenType = {
@@ -137,8 +127,13 @@ function AppendOptions() {
       title: "Sua pergunta aqui!",
       description: "",
       options: ["Opção 1", "Opção 2", "Opção 3"],
+      required: false,
+      cpf: false,
+      email: false,
+      visible: [],
     };
     append(screen);
+    setScreen(screens.length);
   }
 
   return (
@@ -171,15 +166,10 @@ function AppendOptions() {
   );
 }
 
-function ScreenOptions({ screenKey }: { screenKey: string }) {
+function ScreenOptions({ index }: { index: number }) {
   const { screens, deleteScreen } = useFormBuilder();
-
   const { control } = useFormContext<FormType>();
-  const { append } = useFieldArray({
-    control,
-    name: "screens",
-  });
-
+  const { append } = useFieldArray({ control, name: "screens" });
   const disabled = screens.length <= 1;
 
   return (
@@ -189,13 +179,14 @@ function ScreenOptions({ screenKey }: { screenKey: string }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem
-          onClick={() => {
-            const screen = screens.find((e) => e.screenKey === screenKey);
+          onClick={(e) => {
+            const screen = screens[index];
             append({
               ...screen!,
               title: screen?.title + " (Cópia)",
               screenKey: uuid(),
             });
+            e.stopPropagation();
           }}
         >
           <Copy className="mr-2 h-4 w-4" />
@@ -204,7 +195,7 @@ function ScreenOptions({ screenKey }: { screenKey: string }) {
         <DropdownMenuItem
           disabled={disabled}
           onClick={(e) => {
-            deleteScreen(screenKey);
+            deleteScreen(index);
             e.stopPropagation();
           }}
         >
