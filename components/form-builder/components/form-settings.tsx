@@ -44,7 +44,9 @@ export function FormSettings() {
       <TabsContent value="settings" className="m-2">
         <TabSettings />
       </TabsContent>
-      <TabsContent value="logic" className="m-2"></TabsContent>
+      <TabsContent value="logic" className="m-2">
+        <TabLogic />
+      </TabsContent>
     </Tabs>
   );
 }
@@ -77,6 +79,10 @@ function TabSettings() {
       )}
     </div>
   );
+}
+
+function TabLogic() {
+  return <div>Lógica</div>;
 }
 
 function SelectInputType() {
@@ -167,7 +173,7 @@ export function FormSettingsMobile() {
             <Settings />
           </Button>
         </SheetTrigger>
-        <SheetContent side={"right"} className="w-full">
+        <SheetContent side={"right"} className="w-full p-0">
           <ScrollArea className="h-5/6">
             <div className="w-full my-16">
               <FormSettings />

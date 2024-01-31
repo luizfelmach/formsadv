@@ -219,7 +219,7 @@ export function NavbarScreenFormBuilderMobile() {
             <Layers />
           </Button>
         </SheetTrigger>
-        <SheetContent side={"left"} className="w-full">
+        <SheetContent side={"left"} className="w-full p-0">
           <ScrollArea className="h-5/6">
             <div className="w-full my-16">
               <NavbarScreenFormBuilder />
