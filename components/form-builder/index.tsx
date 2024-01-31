@@ -1,10 +1,10 @@
 "use client";
 
+import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
 import { Container } from "../container";
 import { FormType, ScreenType } from "../../types";
 import { NavbarFormBuilder } from "./components/navbar-form-builder";
-import { FormBuilderScreenNav } from "./components/form-builder-screen-nav";
 import { FormBuilderProvider } from "./providers";
 import { ScreenEditor } from "./screen-editor";
 import { v4 as uuid } from "uuid";
@@ -15,6 +15,7 @@ import {
 } from "./components/navbar-screen-form-build";
 import { ScrollArea } from "../ui/scroll-area";
 import { FormSettings, FormSettingsMobile } from "./components/form-settings";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -41,10 +42,21 @@ const defaultForm: FormType = {
   },
 } as const;
 
+const updateFormSchema = yup.object({
+  name: yup
+    .string()
+    .required("Digite um nome.")
+    .min(3, "Mínimo de 3 caracteres.")
+    .max(75, "Máximo de 75 caracteres."),
+});
+
+type UpdateFormType = yup.InferType<typeof updateFormSchema>;
+
 export function FormBuilder({ form }: FormBuilderProps) {
   const initialForm = form ?? defaultForm;
-  const methods = useForm<FormType>({
+  const methods = useForm<UpdateFormType>({
     values: initialForm,
+    resolver: yupResolver(updateFormSchema),
   });
 
   useEffect(() => {
@@ -58,7 +70,7 @@ export function FormBuilder({ form }: FormBuilderProps) {
     };
   }, []);
 
-  function handleSubmit(data: FormType) {
+  function handleSubmit(data: UpdateFormType) {
     console.log(data);
   }
 
@@ -78,9 +90,9 @@ export function FormBuilder({ form }: FormBuilderProps) {
               </aside>
               <div className="h-[calc(100vh_-_3rem)] short:w-[900px] 2xl:w-[1200px]">
                 <div className="xl:flex gap-3 hidden mt-4 ml-4 absolute">
-                  <div className="h-4 w-4 bg-primary rounded-full bg-[#EB5A55]"></div>
-                  <div className="h-4 w-4 bg-primary rounded-full bg-[#F6BC3E] "></div>
-                  <div className="h-4 w-4 bg-primary rounded-full bg-[#64CC43]"></div>
+                  <div className="h-4 w-4 rounded-full bg-[#EB5A55]"></div>
+                  <div className="h-4 w-4 rounded-full bg-[#F6BC3E] "></div>
+                  <div className="h-4 w-4 rounded-full bg-[#64CC43]"></div>
                 </div>
                 <ScrollArea className="h-[calc(100vh_-_3rem)]">
                   <div className="flex justify-between">

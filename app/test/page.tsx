@@ -8,18 +8,18 @@ export default function Page() {
     test: string;
   }>({
     defaultValues: {
-      test: "luiz",
+      test: "",
     },
   });
   return (
     <form onSubmit={handleSubmit((data) => console.log(data))}>
       <InputInline
-        className="text-over scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl "
+        className="text-over scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl"
         onInput={(e) => {
           setValue("test", e.currentTarget.innerText);
         }}
-        preventEnter
         value={getValues("test")}
+        preventEnter
       />
       <input type="text" />
       <button type="submit">Enviar</button>
