@@ -106,7 +106,7 @@ function SelectInputType() {
             <SelectContent>
               {inputOptions.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
-                  <div className="flex">
+                  <div className="flex items-center">
                     <span className="mr-2">
                       <Image
                         src={option.img}
