@@ -31,6 +31,10 @@ const defaultForm: FormType = {
       title: "Faça uma pergunta aqui.",
       description: "",
       options: [],
+      cpf: false,
+      email: false,
+      required: true,
+      visible: [],
     },
   ],
   endScreen: {

@@ -1,57 +1,39 @@
 import { Textarea } from "@/components/ui/textarea";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { useFormBuilder } from "../providers";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType } from "@/components/types";
+import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { FormType } from "@/types";
+import { InputInline } from "@/components/module/inline-input";
 
 export function EditableHeaderForm() {
-  const { screens, currentScreen } = useFormBuilder();
-  const { control, register, watch } = useFormContext<FormType>();
-  const { update } = useFieldArray({
-    control,
-    name: "screens",
-  });
+  const { currentScreenForm } = useFormBuilder();
+  const { getValues, setValue } = useFormContext<FormType>();
 
-  useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      if (event.key === "Enter") {
-        event.preventDefault();
-      }
-    };
-    const textarea = document.getElementById("myTextarea")!;
-    textarea.addEventListener("keydown", handleKeyDown);
-    return () => {
-      textarea.removeEventListener("keydown", handleKeyDown);
-    };
-  }, []);
-
-  const currentScreenIndex = screens.findIndex(
-    (e) => e.screenKey === currentScreen?.screenKey
-  );
-
-  const edit =
-    currentScreen?.type === "end"
-      ? "endScreen"
-      : `screens.${currentScreenIndex}`;
-
-  const title = edit + ".title";
-  const description = edit + ".description";
+  const titleForm = (currentScreenForm + ".title") as any;
+  const descriptionForm = (currentScreenForm + ".description") as any;
 
   return (
     <header className="my-8 space-y-4">
-      <Textarea
-        {...register(title as any)}
-        value={watch(title as any)}
-        id="myTextarea"
-        className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl border-none focus:border-none resize-none overflow-hidden h-auto"
-      />
-      <Textarea
-        id="myTextarea"
-        {...register(description as any)}
-        value={watch(description as any)}
-        placeholder={"Descrição é opcional!"}
-        className=" border-b pb-2 text-xl font-normal tracking-tight first:mt-0 border-none focus:border-none resize-none overflow-hidden h-auto"
-      />
+      <div className="">
+        <InputInline
+          preventEnter
+          value={getValues(titleForm)}
+          className="scroll-m-20 text-3xl font-extrabold tracking-tight lg:text-5xl border-none focus:border-none resize-none"
+          onBlur={(e) => {
+            setValue(titleForm, e.currentTarget.innerText);
+          }}
+        />
+      </div>
+      <div className="">
+        <InputInline
+          preventEnter
+          value={getValues(descriptionForm)}
+          className="text-xl font-normal tracking-tight first:mt-0 border-none focus:border-none resize-none overflow-hidden h-auto"
+          onBlur={(e) => {
+            setValue(descriptionForm, e.currentTarget.innerText);
+          }}
+        />
+      </div>
     </header>
   );
 }

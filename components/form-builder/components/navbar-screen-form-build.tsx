@@ -167,7 +167,7 @@ function AppendOptions() {
 }
 
 function ScreenOptions({ index }: { index: number }) {
-  const { screens, deleteScreen } = useFormBuilder();
+  const { screens, deleteScreen, setScreen } = useFormBuilder();
   const { control } = useFormContext<FormType>();
   const { append } = useFieldArray({ control, name: "screens" });
   const disabled = screens.length <= 1;
@@ -181,12 +181,14 @@ function ScreenOptions({ index }: { index: number }) {
         <DropdownMenuItem
           onClick={(e) => {
             const screen = screens[index];
-            append({
+            const newScreen = {
               ...screen!,
               title: screen?.title + " (Cópia)",
               screenKey: uuid(),
-            });
+            };
+            append(newScreen);
             e.stopPropagation();
+            setScreen(screens.length);
           }}
         >
           <Copy className="mr-2 h-4 w-4" />
