@@ -1,14 +1,11 @@
-import { Textarea } from "@/components/ui/textarea";
-import { useEffect, useRef } from "react";
 import { useFormBuilder } from "../providers";
-import { Controller, useFieldArray, useFormContext } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { InputInline } from "@/components/module/inline-input";
 
 export function EditableHeaderForm() {
   const { currentScreenForm } = useFormBuilder();
   const { getValues, setValue } = useFormContext<FormType>();
-
   const titleForm = (currentScreenForm + ".title") as any;
   const descriptionForm = (currentScreenForm + ".description") as any;
 

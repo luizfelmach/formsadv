@@ -1,5 +1,5 @@
 import { FormType, ScreenType } from "@/types";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import { WatchObserver, useFieldArray, useFormContext } from "react-hook-form";
 
 interface FormBuilderContextProps {
@@ -46,6 +46,17 @@ export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
     else setScreen(index - 1);
     remove(index);
   }
+
+  useEffect(() => {
+    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
+      event.preventDefault();
+      event.returnValue = "";
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
 
   return (
     <FormBuilderContext.Provider

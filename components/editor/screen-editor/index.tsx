@@ -1,5 +1,4 @@
 import { useFormBuilder } from "../providers";
-import { WithoutScreen } from "../components/without-screen";
 import { EditableHeaderForm } from "../components/editable-header-form";
 import { TextEditor } from "./text-editor";
 import { Container } from "@/components/container";
@@ -7,14 +6,10 @@ import { CheckBoxEditor } from "./checkbox-editor";
 import { TextAreaEditor } from "./text-area-editor";
 import { RadioEditor } from "./radio-editor";
 import { DateEditor } from "./date-editor";
-import { Button } from "@/components/ui/button";
-import { Trash } from "lucide-react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { LogicTab } from "../components/logic-tab";
 
 export function ScreenEditor() {
   const { currentScreen, deleteScreen } = useFormBuilder();
-  if (currentScreen === null) return <WithoutScreen />;
+  if (currentScreen === null) return null;
   const type = currentScreen.type;
   return (
     <div className="min-h-screen flex flex-col justify-center items-center">

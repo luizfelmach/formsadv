@@ -8,7 +8,7 @@ import { InputInline } from "@/components/module/inline-input";
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
 
-export function NavbarFormBuilder() {
+export function NavbarEditor() {
   const router = useRouter();
   const {
     getValues,
