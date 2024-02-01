@@ -15,8 +15,8 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Settings } from "lucide-react";
-import { inputOptions } from "../const";
+import { Currency, Divide, PlusCircle, Settings, Trash } from "lucide-react";
+import { inputOptions, queries } from "../const";
 import Image from "next/image";
 import {
   FormControl,
@@ -24,11 +24,12 @@ import {
   FormItem,
   FormLabel,
 } from "@/components/ui/form";
-import { useFormContext } from "react-hook-form";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { useFormBuilder } from "../providers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
+import { QueryBuilder } from "./query-builder";
 
 export function FormSettings() {
   const { currentScreen } = useFormBuilder();
@@ -82,7 +83,67 @@ function TabSettings() {
 }
 
 function TabLogic() {
-  return <div>Lógica</div>;
+  const { currentScreen, currentScreenForm, screens } = useFormBuilder();
+  const { control } = useFormContext<FormType>();
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: `${currentScreenForm}.visible` as any,
+  });
+
+  return (
+    <div>
+      <header className="flex justify-between items-center">
+        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          Lógicas
+        </h1>
+      </header>
+
+      <div className="flex flex-col gap-4 mt-4">
+        {currentScreen?.visible &&
+          currentScreen?.visible.map((q, index) => (
+            <div key={index} className="flex items-center justify-between mb-4">
+              <div>
+                <p className="font-bold">
+                  Quando:{" "}
+                  <span className="font-normal">
+                    {screens.find((e) => e.screenKey === q.screenKey)?.title}
+                  </span>
+                </p>
+                <p className="font-bold">
+                  Condição:{" "}
+                  <span className="font-normal">
+                    {
+                      queries[q.screenType].find((e) => e.value === q.query)
+                        ?.label
+                    }
+                  </span>
+                </p>
+                <p className="font-bold">
+                  Valor: <span className="font-normal">{q.value}</span>
+                </p>
+              </div>
+              <div>
+                <Button
+                  type="button"
+                  variant={"ghost"}
+                  size={"icon"}
+                  onClick={() => {
+                    remove(index);
+                  }}
+                >
+                  <Trash className="h-5 w-5 text-destructive" />
+                </Button>
+              </div>
+            </div>
+          ))}
+      </div>
+
+      <div className="">
+        <QueryBuilder availableScreens={screens} onSave={(q) => append(q)} />
+      </div>
+    </div>
+  );
 }
 
 function SelectInputType() {

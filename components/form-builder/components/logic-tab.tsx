@@ -1,16 +1,7 @@
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useFormBuilder } from "../providers";
-import { FormType } from "@/components/types";
+import { FormType } from "@/types";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { QueryBuilder } from "./query-builder";
 import { Trash } from "lucide-react";
 

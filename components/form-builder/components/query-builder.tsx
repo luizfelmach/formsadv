@@ -8,7 +8,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { ScreenType, ScreenVisibleQuery } from "@/types";
-import { Minus, Plus } from "lucide-react";
+import { Minus, Plus, Trash } from "lucide-react";
 import { useState } from "react";
 
 interface QueryBuilderProps {
@@ -154,8 +154,7 @@ export function QueryBuilder(props: QueryBuilderProps) {
   if (!modal) {
     return (
       <Button
-        className="border-4 border-dashed h-12 w-full"
-        variant={"secondary"}
+        className="w-full bg-accent border-2 text-accent-foreground hover:bg-accent/50 h-11"
         onClick={() => setModal(true)}
       >
         Adicionar lógica
@@ -168,20 +167,10 @@ export function QueryBuilder(props: QueryBuilderProps) {
   );
 
   return (
-    <div className="bg-accent border-4 border-dashed rounded-xl p-2 h-30 ">
-      <div className="flex justify-end">
-        <Button
-          type="button"
-          size={"icon"}
-          variant={"secondary"}
-          className="h-8 w-8"
-          onClick={() => setModal(false)}
-        >
-          <Minus />
-        </Button>
-      </div>
-      <section className="flex items-center justify-evenly mb-2 gap-2">
-        <div className="flex-1">
+    <div className="rounded-xl p-2 h-30 ">
+      <p>Mostrar página atual quando</p>
+      <section className="flex items-center justify-evenly mb-2 gap-2 border-2 bg-background rounded-lg">
+        <div className="w-1/3">
           <Select
             onValueChange={(screenKey) => {
               const screen = screens.find((e) => e.screenKey === screenKey);
@@ -194,8 +183,8 @@ export function QueryBuilder(props: QueryBuilderProps) {
               });
             }}
           >
-            <SelectTrigger className="h-14">
-              <SelectValue placeholder="Pergunta" />
+            <SelectTrigger className="h-9 bg-transparent border-none outline-none">
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {screens.map((screen, index) => (
@@ -206,7 +195,7 @@ export function QueryBuilder(props: QueryBuilderProps) {
             </SelectContent>
           </Select>
         </div>
-        <div className="">
+        <div className="w-1/3">
           <Select
             disabled={(result.screenType as any) === ""}
             onValueChange={(screenQuery) => {
@@ -218,8 +207,8 @@ export function QueryBuilder(props: QueryBuilderProps) {
               });
             }}
           >
-            <SelectTrigger className="h-14">
-              <SelectValue placeholder="Pergunta" />
+            <SelectTrigger className="h-9 bg-transparent border-none outline-none">
+              <SelectValue />
             </SelectTrigger>
             <SelectContent>
               {queries[result.screenType] &&
@@ -233,7 +222,7 @@ export function QueryBuilder(props: QueryBuilderProps) {
         </div>
         <div className="">
           <Input
-            className="h-14"
+            className="h-9 bg-transparent border-none outline-none"
             onChange={(e) => {
               setResult((prev) => {
                 return {
@@ -245,18 +234,24 @@ export function QueryBuilder(props: QueryBuilderProps) {
           />
         </div>
       </section>
-      <div className="flex justify-center">
+      <div className="flex justify-center w-full gap-2">
         <Button
           type="button"
-          size={"icon"}
           variant={"outline"}
-          className="h-8 w-8"
+          className="h-9 w-full"
+          onClick={() => setModal(false)}
+        >
+          Cancelar
+        </Button>
+        <Button
+          type="button"
+          className="h-9 w-full"
           onClick={() => {
             onSave(result);
             setModal(false);
           }}
         >
-          <Plus />
+          Adicionar
         </Button>
       </div>
     </div>
