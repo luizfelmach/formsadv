@@ -16,6 +16,7 @@ import {
 import { ScrollArea } from "../ui/scroll-area";
 import { FormSettings, FormSettingsMobile } from "./components/form-settings";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { toast } from "sonner";
 
 interface FormBuilderProps {
   form?: FormType;
@@ -74,8 +75,10 @@ export function FormBuilder({ form }: FormBuilderProps) {
     };
   }, []);
 
-  function handleSubmit(data: UpdateFormType) {
+  async function handleSubmit(data: UpdateFormType) {
+    await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
+    toast.success("Formulário atualizado!");
   }
 
   return (

@@ -1,7 +1,7 @@
 import { Navbar, NavbarItem, NavbarLogo } from "@/components/navbar";
 import { Button } from "../../ui/button";
 import { Container } from "@/components/container";
-import { MoveLeft, Unlink2 } from "lucide-react";
+import { Loader, MoveLeft, Unlink2 } from "lucide-react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "sonner";
 import { InputInline } from "@/components/module/inline-input";
@@ -13,7 +13,7 @@ export function NavbarFormBuilder() {
   const {
     getValues,
     setValue,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useFormContext();
   return (
     <Navbar>
@@ -57,8 +57,17 @@ export function NavbarFormBuilder() {
               <Unlink2 />
             </Button>
           </CopyToClipboard>
-          <Button type="submit" className="h-9 font-bold">
-            Publicar
+          <Button
+            type="submit"
+            className="h-9 font-bold"
+            disabled={isSubmitting}
+          >
+            Publicar{" "}
+            {isSubmitting && (
+              <span>
+                <Loader className="animate-spin" />
+              </span>
+            )}
           </Button>
         </NavbarItem>
       </div>
