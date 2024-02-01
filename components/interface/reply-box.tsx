@@ -14,7 +14,7 @@ export function ReplyBox({ children, className }: ReplyBoxProps) {
         className
       )}
     >
-      {children}
+      <div className="w-full">{children}</div>
     </Container>
   );
 }
