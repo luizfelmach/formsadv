@@ -1,4 +1,4 @@
-import { FormBuilder } from "@/components/form-builder";
+import { FormBuilder } from "@/components/editor";
 
 export default function FormBuilderPage() {
   return (
