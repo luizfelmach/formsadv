@@ -25,7 +25,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 
-export function NavbarScreenEditor() {
+export function AsideScreens() {
   const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
     useFormBuilder();
   const { control } = useFormContext<FormType>();
@@ -175,7 +175,7 @@ function ScreenOptions({ index }: { index: number }) {
   );
 }
 
-export function NavbarScreenEditorMobile() {
+export function AsideScreensMobile() {
   return (
     <div className="xl:hidden">
       <Sheet>
@@ -190,7 +190,7 @@ export function NavbarScreenEditorMobile() {
         <SheetContent side={"left"} className="w-full p-0">
           <ScrollArea className="h-5/6">
             <div className="w-full my-16">
-              <NavbarScreenEditor />
+              <AsideScreens />
             </div>
           </ScrollArea>
           <SheetFooter className="mt-8 mx-4">

@@ -2,10 +2,7 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { MacOSActions } from "./macos-actions";
 import { FormSettings, FormSettingsMobile } from "./form-settings";
 
-import {
-  NavbarScreenEditor,
-  NavbarScreenEditorMobile,
-} from "./navbar-screen-editor";
+import { AsideScreens, AsideScreensMobile } from "./aside-screens";
 import { CurrentScreen } from "./current-screen";
 
 export function EditorSection() {
@@ -23,7 +20,7 @@ function ScreensSection() {
     <aside className="h-[calc(100vh_-_3rem)] hidden xl:flex w-full flex-1 justify-center ">
       <div className="bg-accent rounded-md w-full justify-center">
         <ScrollArea className="h-[calc(100vh_-_3rem)]">
-          <NavbarScreenEditor />
+          <AsideScreens />
         </ScrollArea>
       </div>
     </aside>
@@ -38,7 +35,7 @@ function MainSection() {
       </div>
       <ScrollArea className="h-[calc(100vh_-_3rem)]">
         <div className="flex justify-between">
-          <NavbarScreenEditorMobile />
+          <AsideScreensMobile />
           <FormSettingsMobile />
         </div>
         <CurrentScreen />
