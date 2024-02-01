@@ -22,6 +22,7 @@ export function NavbarEditor() {
         <NavbarItem className="gap-4">
           <div>
             <Button
+              type="button"
               variant={"ghost"}
               size={"icon"}
               onClick={() => {
