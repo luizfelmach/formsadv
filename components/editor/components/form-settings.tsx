@@ -16,7 +16,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Currency, Divide, PlusCircle, Settings, Trash } from "lucide-react";
-import { inputOptions, queries } from "../const";
+import { inputsTypes, queries } from "../utils/config";
 import Image from "next/image";
 import {
   FormControl,
@@ -165,7 +165,7 @@ function SelectInputType() {
               </SelectTrigger>
             </FormControl>
             <SelectContent>
-              {inputOptions.map((option) => (
+              {inputsTypes.map((option) => (
                 <SelectItem key={option.value} value={option.value}>
                   <div className="flex items-center">
                     <span className="mr-2">

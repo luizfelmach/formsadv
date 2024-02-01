@@ -1,14 +1,16 @@
+import Image from "next/image";
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
 import { Copy, Layers, MoreVertical, PlusCircle, Trash } from "lucide-react";
 import { useFormBuilder } from "../providers";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType, ScreenType } from "@/types";
+import { FormType } from "@/types";
 import { DropResult } from "@hello-pangea/dnd";
-import { v4 as uuid } from "uuid";
-import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { inputOptions } from "../const";
+import { inputsTypes } from "../utils/config";
+import { AsideEditor } from "./aside-editor";
+import { ScreenCard } from "./screen-card";
+import { createScreen, duplicateScreen } from "../utils/screen";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -26,12 +28,8 @@ import {
 export function NavbarScreenEditor() {
   const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
     useFormBuilder();
-
   const { control } = useFormContext<FormType>();
-  const { swap } = useFieldArray({
-    control,
-    name: "screens",
-  });
+  const { swap } = useFieldArray({ control, name: "screens" });
 
   function handleDragEnd(result: DropResult) {
     if (!result.destination) {
@@ -45,73 +43,55 @@ export function NavbarScreenEditor() {
   }
 
   return (
-    <nav className="mb-8">
-      <header className="flex justify-between m-4 items-center">
-        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Perguntas
-        </h1>
-        <AppendOptions />
-      </header>
-
-      <section className="">
+    <AsideEditor.Root>
+      <AsideEditor.Section>
+        <AsideEditor.Header>
+          <AsideEditor.Title>Perguntas</AsideEditor.Title>
+          <AppendOptions />
+        </AsideEditor.Header>
         <Dnd.Root onDragEnd={handleDragEnd}>
-          <Dnd.Droppable
-            droppableId="pages"
-            direction="vertical"
-            className="flex flex-col gap-2 mx-4 mt-8"
-          >
-            {screens.map((screen, index) => (
-              <Dnd.Draggable
-                draggableId={screen.screenKey}
-                key={screen.screenKey}
-                index={index}
-              >
-                <div
-                  className={`bg-accent border border-foreground/5 rounded-sm min-h-12 p-4 flex justify-between items-center transition-colors ${
-                    screen.screenKey === currentScreen?.screenKey
-                      ? " border-l-8 border-l-primary"
-                      : ""
-                  }`}
-                  onClick={() => {
-                    setScreen(index);
-                  }}
+          <Dnd.Droppable droppableId="pages" direction="vertical">
+            <AsideEditor.Content>
+              {screens.map((screen, index) => (
+                <Dnd.Draggable
+                  draggableId={screen.screenKey}
+                  key={screen.screenKey}
+                  index={index}
                 >
-                  <p className="text-foreground font-medium text-sm line-clamp-3">
-                    {screen.title}
-                  </p>
-                  <div>
-                    <ScreenOptions index={index} />
-                  </div>
-                </div>
-              </Dnd.Draggable>
-            ))}
+                  <ScreenCard.Root
+                    active={screen.screenKey === currentScreen?.screenKey}
+                    onClick={() => {
+                      setScreen(index);
+                    }}
+                  >
+                    <ScreenCard.Title>{screen.title}</ScreenCard.Title>
+                    <ScreenCard.Actions>
+                      <ScreenOptions index={index} />
+                    </ScreenCard.Actions>
+                  </ScreenCard.Root>
+                </Dnd.Draggable>
+              ))}
+            </AsideEditor.Content>
           </Dnd.Droppable>
         </Dnd.Root>
-      </section>
+      </AsideEditor.Section>
 
-      <header className="flex justify-between m-4 items-center mt-8">
-        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Tela final
-        </h1>
-      </header>
-
-      <section className="flex flex-col gap-2 mx-4 mt-8">
-        <div
-          className={`cursor-pointer bg-accent border border-foreground/5 rounded-sm min-h-12 p-4 flex justify-between items-center transition-colors ${
-            endScreen.screenKey === currentScreen?.screenKey
-              ? " border-l-8 border-l-primary"
-              : ""
-          }`}
-          onClick={() => {
-            setEndScreen();
-          }}
-        >
-          <p className="text-foreground font-medium text-sm line-clamp-3">
-            {endScreen.title}
-          </p>
-        </div>
-      </section>
-    </nav>
+      <AsideEditor.Section>
+        <AsideEditor.Header>
+          <AsideEditor.Title>Tela final</AsideEditor.Title>
+        </AsideEditor.Header>
+        <AsideEditor.Content>
+          <ScreenCard.Root
+            active={endScreen.screenKey === currentScreen.screenKey}
+            onClick={() => {
+              setEndScreen();
+            }}
+          >
+            <ScreenCard.Title>{endScreen.title}</ScreenCard.Title>
+          </ScreenCard.Root>
+        </AsideEditor.Content>
+      </AsideEditor.Section>
+    </AsideEditor.Root>
   );
 }
 
@@ -121,18 +101,8 @@ function AppendOptions() {
   const { append } = useFieldArray({ control, name: "screens" });
 
   function handleClick(type: string) {
-    const screen: ScreenType = {
-      screenKey: uuid(),
-      type: type as any,
-      title: "Sua pergunta aqui!",
-      description: "",
-      options: ["Opção 1", "Opção 2", "Opção 3"],
-      required: false,
-      cpf: false,
-      email: false,
-      visible: [],
-    };
-    append(screen);
+    const newScreen = createScreen(type);
+    append(newScreen);
     setScreen(screens.length);
   }
 
@@ -142,23 +112,23 @@ function AppendOptions() {
         <PlusCircle />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mr-4">
-        {inputOptions.map((option) => (
+        {inputsTypes.map((inputType) => (
           <DropdownMenuItem
-            key={option.value}
+            key={inputType.value}
             onClick={() => {
-              handleClick(option.value);
+              handleClick(inputType.value);
             }}
           >
             <span className="mr-2">
               <Image
-                src={option.img}
+                src={inputType.img}
                 width={25}
                 height={10}
                 priority
-                alt={`Pergunto do tipo: ${option.value}`}
+                alt={`Pergunto do tipo: ${inputType.value}`}
               />
             </span>
-            {option.label}
+            {inputType.label}
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
@@ -181,14 +151,10 @@ function ScreenOptions({ index }: { index: number }) {
         <DropdownMenuItem
           onClick={(e) => {
             const screen = screens[index];
-            const newScreen = {
-              ...screen!,
-              title: screen?.title + " (Cópia)",
-              screenKey: uuid(),
-            };
+            const newScreen = duplicateScreen(screen);
             append(newScreen);
-            e.stopPropagation();
             setScreen(screens.length);
+            e.stopPropagation();
           }}
         >
           <Copy className="mr-2 h-4 w-4" />

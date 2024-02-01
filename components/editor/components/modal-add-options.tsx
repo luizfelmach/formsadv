@@ -32,15 +32,15 @@ export function ModalAddOptions() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <div className="mx-auto w-full max-w-sm">
+        <div className="mx-auto w-full max-w-xl">
           <DrawerHeader>
-            <DrawerTitle>Edite as escolhas</DrawerTitle>
+            <DrawerTitle>Edite as opções</DrawerTitle>
             <DrawerDescription>
               Coloque cada opção em uma linha.
             </DrawerDescription>
           </DrawerHeader>
 
-          <div>
+          <div className="px-4">
             <Textarea
               onChange={(e) => {
                 setOptions(e.target.value.split("\n"));
