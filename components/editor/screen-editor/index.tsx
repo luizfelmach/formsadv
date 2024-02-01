@@ -8,7 +8,7 @@ import { RadioEditor } from "./radio-editor";
 import { DateEditor } from "./date-editor";
 
 export function ScreenEditor() {
-  const { currentScreen, deleteScreen } = useFormBuilder();
+  const { currentScreen } = useFormBuilder();
   if (currentScreen === null) return null;
   const type = currentScreen.type;
   return (
