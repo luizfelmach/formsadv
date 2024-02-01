@@ -1,12 +1,12 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MacOSActions } from "./macos-actions";
 import { FormSettings, FormSettingsMobile } from "./form-settings";
-import { ScreenEditor } from "../screen-editor";
 
 import {
   NavbarScreenEditor,
   NavbarScreenEditorMobile,
 } from "./navbar-screen-editor";
+import { CurrentScreen } from "./current-screen";
 
 export function EditorSection() {
   return (
@@ -41,7 +41,7 @@ function MainSection() {
           <NavbarScreenEditorMobile />
           <FormSettingsMobile />
         </div>
-        <ScreenEditor />
+        <CurrentScreen />
       </ScrollArea>
     </div>
   );

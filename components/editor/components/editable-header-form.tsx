@@ -2,6 +2,7 @@ import { useFormBuilder } from "../providers";
 import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { InputInline } from "@/components/module/inline-input";
+import { ReplyBox } from "@/components/interface/reply-box";
 
 export function EditableHeaderForm() {
   const { currentScreenForm } = useFormBuilder();
@@ -10,8 +11,8 @@ export function EditableHeaderForm() {
   const descriptionForm = (currentScreenForm + ".description") as any;
 
   return (
-    <header className="my-8 space-y-4">
-      <div className="">
+    <>
+      <ReplyBox.Title>
         <InputInline
           preventEnter
           value={getValues(titleForm)}
@@ -20,8 +21,8 @@ export function EditableHeaderForm() {
             setValue(titleForm, e.currentTarget.innerText);
           }}
         />
-      </div>
-      <div className="">
+      </ReplyBox.Title>
+      <ReplyBox.Description>
         <InputInline
           preventEnter
           value={getValues(descriptionForm)}
@@ -30,7 +31,7 @@ export function EditableHeaderForm() {
             setValue(descriptionForm, e.currentTarget.innerText);
           }}
         />
-      </div>
-    </header>
+      </ReplyBox.Description>
+    </>
   );
 }

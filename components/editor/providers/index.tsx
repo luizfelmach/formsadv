@@ -6,7 +6,7 @@ interface FormBuilderContextProps {
   deleteScreen: (index: number) => void;
   setScreen: (index: number) => void;
   setEndScreen: () => void;
-  currentScreen: ScreenType | null;
+  currentScreen: ScreenType;
   currentScreenForm: string;
   screens: ScreenType[];
   endScreen: ScreenType;
