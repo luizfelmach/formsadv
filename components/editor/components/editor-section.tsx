@@ -1,7 +1,6 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { MacOSActions } from "./macos-actions";
-import { FormSettings, FormSettingsMobile } from "./form-settings";
-
+import { AsideSettings, AsideSettingsMobile } from "./aside-settings";
 import { AsideScreens, AsideScreensMobile } from "./aside-screens";
 import { CurrentScreen } from "./current-screen";
 
@@ -36,7 +35,7 @@ function MainSection() {
       <ScrollArea className="h-[calc(100vh_-_3rem)]">
         <div className="flex justify-between">
           <AsideScreensMobile />
-          <FormSettingsMobile />
+          <AsideSettingsMobile />
         </div>
         <CurrentScreen />
       </ScrollArea>
@@ -48,7 +47,7 @@ function SettingsSection() {
   return (
     <aside className="h-[calc(100vh_-_3rem)] hidden xl:flex flex-1 w-full justify-center">
       <div className="bg-accent rounded-md w-full justify-center">
-        <FormSettings />
+        <AsideSettings />
       </div>
     </aside>
   );

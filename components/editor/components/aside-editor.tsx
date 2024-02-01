@@ -3,7 +3,7 @@ interface AsideEditorRootProps {
 }
 
 function AsideEditorRoot({ children }: AsideEditorRootProps) {
-  return <div className="m-4 flex flex-col gap-8">{children}</div>;
+  return <div className="my-4 flex flex-col gap-8">{children}</div>;
 }
 
 interface AsideEditorSectionProps {

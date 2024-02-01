@@ -167,7 +167,7 @@ export function QueryBuilder(props: QueryBuilderProps) {
   );
 
   return (
-    <div className="rounded-xl p-2 h-30 ">
+    <div className="rounded-xl h-30 ">
       <p>Mostrar página atual quando</p>
       <section className="flex items-center justify-evenly mb-2 gap-2 border-2 bg-background rounded-lg">
         <div className="w-1/3">

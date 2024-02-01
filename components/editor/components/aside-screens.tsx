@@ -24,8 +24,26 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function AsideScreens() {
+  return (
+    <Tabs defaultValue="screens" className="mt-4 mx-4">
+      <TabsList className="grid w-full grid-cols-2">
+        <TabsTrigger value="screens">Telas</TabsTrigger>
+        <TabsTrigger value="design" disabled>
+          Design
+        </TabsTrigger>
+      </TabsList>
+      <TabsContent value="screens">
+        <TabScreens />
+      </TabsContent>
+      <TabsContent value="design">Design</TabsContent>
+    </Tabs>
+  );
+}
+
+function TabScreens() {
   const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
     useFormBuilder();
   const { control } = useFormContext<FormType>();
@@ -41,7 +59,6 @@ export function AsideScreens() {
     setScreen(result.destination.index);
     swap(result.destination.index, result.source.index);
   }
-
   return (
     <AsideEditor.Root>
       <AsideEditor.Section>

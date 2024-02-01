@@ -3,7 +3,6 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import {
   Select,
   SelectContent,
-  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -15,7 +14,7 @@ import {
   SheetFooter,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Currency, Divide, PlusCircle, Settings, Trash } from "lucide-react";
+import { Settings, Trash } from "lucide-react";
 import { inputsTypes, queries } from "../utils/config";
 import Image from "next/image";
 import {
@@ -30,19 +29,20 @@ import { useFormBuilder } from "../providers";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { QueryBuilder } from "./query-builder";
+import { AsideEditor } from "./aside-editor";
 
-export function FormSettings() {
+export function AsideSettings() {
   const { currentScreen } = useFormBuilder();
 
   if (currentScreen?.type === "end") return null;
 
   return (
-    <Tabs defaultValue="settings" className="m-4">
+    <Tabs defaultValue="settings" className="mt-4 mx-4">
       <TabsList className="grid w-full grid-cols-2">
         <TabsTrigger value="settings">Configurações</TabsTrigger>
         <TabsTrigger value="logic">Lógica</TabsTrigger>
       </TabsList>
-      <TabsContent value="settings" className="m-2">
+      <TabsContent value="settings">
         <TabSettings />
       </TabsContent>
       <TabsContent value="logic" className="m-2">
@@ -56,29 +56,33 @@ function TabSettings() {
   const { currentScreen } = useFormBuilder();
   const type = currentScreen?.type;
   return (
-    <div className="flex flex-col gap-8">
-      <section className="space-y-4">
-        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Tipo de pergunta
-        </h1>
-        <SelectInputType />
-      </section>
+    <AsideEditor.Root>
+      <AsideEditor.Section>
+        <AsideEditor.Header>
+          <AsideEditor.Title>Tipo de pergunta</AsideEditor.Title>
+        </AsideEditor.Header>
+        <AsideEditor.Content>
+          <SelectInputType />
+        </AsideEditor.Content>
+      </AsideEditor.Section>
 
       {type !== "statement" && (
-        <section className="space-y-4">
-          <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-            Configurações adicionais
-          </h1>
-          <SwitchSetting option="required" label="Obrigatório" />
-          {type === "text" && (
-            <>
-              <SwitchSetting option="cpf" label="CPF" />
-              <SwitchSetting option="email" label="E-mail" />
-            </>
-          )}
-        </section>
+        <AsideEditor.Section>
+          <AsideEditor.Header>
+            <AsideEditor.Title>Configurações adicionais</AsideEditor.Title>
+          </AsideEditor.Header>
+          <AsideEditor.Content>
+            <SwitchSetting option="required" label="Obrigatório" />
+            {type === "text" && (
+              <>
+                <SwitchSetting option="cpf" label="CPF" />
+                <SwitchSetting option="email" label="E-mail" />
+              </>
+            )}
+          </AsideEditor.Content>
+        </AsideEditor.Section>
       )}
-    </div>
+    </AsideEditor.Root>
   );
 }
 
@@ -86,63 +90,65 @@ function TabLogic() {
   const { currentScreen, currentScreenForm, screens } = useFormBuilder();
   const { control } = useFormContext<FormType>();
 
-  const { fields, append, remove } = useFieldArray({
+  const { append, remove } = useFieldArray({
     control,
     name: `${currentScreenForm}.visible` as any,
   });
 
   return (
-    <div>
-      <header className="flex justify-between items-center">
-        <h1 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Lógicas
-        </h1>
-      </header>
-
-      <div className="flex flex-col gap-4 mt-4">
-        {currentScreen?.visible &&
-          currentScreen?.visible.map((q, index) => (
-            <div key={index} className="flex items-center justify-between mb-4">
-              <div>
-                <p className="font-bold">
-                  Quando:{" "}
-                  <span className="font-normal">
-                    {screens.find((e) => e.screenKey === q.screenKey)?.title}
-                  </span>
-                </p>
-                <p className="font-bold">
-                  Condição:{" "}
-                  <span className="font-normal">
-                    {
-                      queries[q.screenType].find((e) => e.value === q.query)
-                        ?.label
-                    }
-                  </span>
-                </p>
-                <p className="font-bold">
-                  Valor: <span className="font-normal">{q.value}</span>
-                </p>
+    <AsideEditor.Root>
+      {currentScreen.visible && currentScreen.visible?.length > 0 && (
+        <AsideEditor.Section>
+          <AsideEditor.Header>
+            <AsideEditor.Title>Lógicas aplicadas</AsideEditor.Title>
+          </AsideEditor.Header>
+          <AsideEditor.Content>
+            {currentScreen.visible.map((q, index) => (
+              <div
+                key={index}
+                className="flex items-center justify-between mb-4"
+              >
+                <div>
+                  <p className="font-bold">
+                    Quando:{" "}
+                    <span className="font-normal">
+                      {screens.find((e) => e.screenKey === q.screenKey)?.title}
+                    </span>
+                  </p>
+                  <p className="font-bold">
+                    Condição:{" "}
+                    <span className="font-normal">
+                      {
+                        queries[q.screenType].find((e) => e.value === q.query)
+                          ?.label
+                      }
+                    </span>
+                  </p>
+                  <p className="font-bold">
+                    Valor: <span className="font-normal">{q.value}</span>
+                  </p>
+                </div>
+                <div>
+                  <Button
+                    type="button"
+                    variant={"ghost"}
+                    size={"icon"}
+                    onClick={() => {
+                      remove(index);
+                    }}
+                  >
+                    <Trash className="h-5 w-5 text-destructive" />
+                  </Button>
+                </div>
               </div>
-              <div>
-                <Button
-                  type="button"
-                  variant={"ghost"}
-                  size={"icon"}
-                  onClick={() => {
-                    remove(index);
-                  }}
-                >
-                  <Trash className="h-5 w-5 text-destructive" />
-                </Button>
-              </div>
-            </div>
-          ))}
-      </div>
-
-      <div className="">
+            ))}
+          </AsideEditor.Content>
+        </AsideEditor.Section>
+      )}
+      <AsideEditor.Section>
         <QueryBuilder availableScreens={screens} onSave={(q) => append(q)} />
-      </div>
-    </div>
+      </AsideEditor.Section>
+    </AsideEditor.Root>
   );
 }
 
@@ -218,7 +224,7 @@ function SwitchSetting({ option, label }: SwitchSettingProps) {
   );
 }
 
-export function FormSettingsMobile() {
+export function AsideSettingsMobile() {
   const { currentScreen } = useFormBuilder();
 
   if (currentScreen?.type === "end") return null;
@@ -237,7 +243,7 @@ export function FormSettingsMobile() {
         <SheetContent side={"right"} className="w-full p-0">
           <ScrollArea className="h-5/6">
             <div className="w-full my-16">
-              <FormSettings />
+              <AsideSettings />
             </div>
           </ScrollArea>
           <SheetFooter className="mt-8 mx-4">
