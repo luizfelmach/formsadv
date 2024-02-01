@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { InputInline } from "@/components/module/inline-input";
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
+import { formLink } from "@/lib/form";
 
 export function NavbarEditor() {
   const router = useRouter();
@@ -47,7 +48,7 @@ export function NavbarEditor() {
           </div>
         </NavbarItem>
         <NavbarItem className="gap-4">
-          <CopyToClipboard text="https://">
+          <CopyToClipboard text={formLink(getValues("id"))}>
             <Button
               type="button"
               className="h-9 bg-accent text-accent-foreground hover:bg-accent/50"
