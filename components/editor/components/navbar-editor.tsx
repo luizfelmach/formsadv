@@ -15,6 +15,7 @@ export function NavbarEditor() {
     setValue,
     formState: { errors, isSubmitting },
   } = useFormContext();
+
   return (
     <Navbar>
       <div className="mx-4 h-full flex justify-between">
