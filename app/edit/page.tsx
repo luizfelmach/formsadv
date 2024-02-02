@@ -7,7 +7,7 @@ const defaultForm: FormType = {
   name: "lskdjf",
   screens: [
     {
-      screenKey: uuid(),
+      screenKey: "uuid()",
       type: "text",
       title: "Faça uma pergunta aqui.",
       description: "",
@@ -15,7 +15,14 @@ const defaultForm: FormType = {
       cpf: false,
       email: false,
       required: true,
-      visible: [],
+      visible: [
+        {
+          query: "contains",
+          screenKey: "uuid()",
+          screenType: "text",
+          value: "Luiz Machado",
+        },
+      ],
     },
   ],
   endScreen: {
