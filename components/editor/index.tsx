@@ -9,7 +9,7 @@ import { FormBuilderProvider } from "./providers";
 import { EditorSection } from "./components/editor-section";
 import { FormType } from "../../types";
 
-interface FormBuilderProps {
+interface EditorProps {
   form: FormType;
 }
 
@@ -23,7 +23,7 @@ const updateFormSchema = yup.object({
 
 type UpdateFormType = yup.InferType<typeof updateFormSchema>;
 
-export function Editor({ form }: FormBuilderProps) {
+export function Editor({ form }: EditorProps) {
   const methods = useForm<UpdateFormType>({
     values: form,
     resolver: yupResolver(updateFormSchema),
