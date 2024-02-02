@@ -7,7 +7,7 @@ export async function SignUp(data: {
   email: string;
   password: string;
 }) {
-  await api.post("/costumer", {
+  await api.post("/auth/signup", {
     ...data,
   });
 }

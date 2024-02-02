@@ -169,10 +169,10 @@ function CreateAccountContent() {
 
   async function handleSubmit(data: createAccountType) {
     await SignUp(data)
-      .then(() => toast.success("Conta criada com sucesso."))
-      .catch((e) => toast.error(e.message))
-      .then(() => SignIn(data))
-      .then(() => toast.success("Bem-vindo ao Meu Form."))
+      .then(() => {
+        toast.success("Conta criada com sucesso.");
+        SignIn(data);
+      })
       .catch((e) => toast.error(e.message));
   }
 
