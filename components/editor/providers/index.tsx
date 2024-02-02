@@ -42,7 +42,7 @@ export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
   }
 
   function deleteScreen(index: number) {
-    if (index === 0) setScreen(index + 1);
+    if (index === 0) setScreen(0);
     else setScreen(index - 1);
     remove(index);
   }
