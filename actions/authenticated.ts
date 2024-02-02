@@ -3,10 +3,9 @@
 import { api } from "@/services/api";
 
 export async function authenticated() {
-  try {
-    await api.get("costumer");
-  } catch (err) {
-    return false;
-  }
-  return true;
+  const result = await api
+    .get("costumer")
+    .then(() => true)
+    .catch(() => false);
+  return result;
 }
