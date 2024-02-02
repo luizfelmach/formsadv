@@ -1,10 +1,12 @@
-import { ReplyForm } from "@/components/reply-form";
+import { ReplyForm } from "@/components/reply";
 
 export default function Reply() {
   return (
     <div>
       <ReplyForm
         form={{
+          id: "123",
+          name: "Demandas Previdenciárias",
           screens: [
             {
               screenKey: "1123123",
