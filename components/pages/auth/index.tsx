@@ -140,7 +140,10 @@ function LoginContent() {
 const createAccountSchema = yup.object({
   name: yup.string().required("Digite seu nome."),
   email: yup.string().email("E-mail inválido.").required("Digite seu e-mail."),
-  password: yup.string().required("Digite sua senha."),
+  password: yup
+    .string()
+    .required("Digite sua senha.")
+    .min(6, "Mínimo de 6 caracteres."),
   confirmPassword: yup
     .string()
     .required("Confirme sua senha.")
