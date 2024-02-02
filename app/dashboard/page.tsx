@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { isAuthenticated } from "@/actions";
+import { authenticated } from "@/actions/authenticated";
 import { Dashboard } from "@/components/pages/dashboard";
 import { redirect } from "next/navigation";
 
@@ -9,8 +9,8 @@ export const metadata: Metadata = {
 };
 
 export default async function DashboardRoute() {
-  //if (!(await isAuthenticated())) {
-  //  redirect("/auth");
-  //}
+  if (!(await authenticated())) {
+    redirect("/auth");
+  }
   return <Dashboard forms={[]} />;
 }

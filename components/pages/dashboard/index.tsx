@@ -30,6 +30,7 @@ export function Dashboard({ forms }: DashboardProps) {
   if (size === 0) {
     return (
       <Container>
+        <NavbarDashboard />
         <EmptyFormsDashboard />
       </Container>
     );

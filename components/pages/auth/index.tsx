@@ -8,6 +8,10 @@ import { FormProvider, useForm } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormMessage } from "../../ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Loader } from "lucide-react";
+import { SignIn } from "@/actions/singin";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
+import { SignUp } from "@/actions/signup";
 
 export function Auth() {
   return (
@@ -63,6 +67,7 @@ const loginSchema = yup.object({
 type loginType = yup.InferType<typeof loginSchema>;
 
 function LoginContent() {
+  const router = useRouter();
   const methods = useForm<loginType>({
     defaultValues: {
       email: "",
@@ -75,10 +80,9 @@ function LoginContent() {
   } = methods;
 
   async function handleSubmit(data: loginType) {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
-    console.log(data);
+    SignIn(data)
+      .then((_) => toast.success("Bem-vindo novamente."))
+      .catch((e) => toast.error(e.message));
   }
 
   return (
@@ -160,11 +164,12 @@ function CreateAccountContent() {
     formState: { isSubmitting },
   } = methods;
 
-  async function handleSubmit(data: loginType) {
-    await new Promise((resolve) => {
-      setTimeout(resolve, 2000);
-    });
-    console.log(data);
+  async function handleSubmit(data: createAccountType) {
+    SignUp(data)
+      .then(() =>
+        toast.success("Conta criada com sucesso. Acesse a plataforma.")
+      )
+      .catch((e) => toast.error(e.message));
   }
 
   return (

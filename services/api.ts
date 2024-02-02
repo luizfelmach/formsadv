@@ -16,3 +16,16 @@ api.interceptors.request.use((config) => {
   );
   return config;
 });
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.code === "ECONNREFUSED")
+      throw new Error("Nossos servidores estão fora do ar. Tente novamente.");
+
+    if (!error.response.data.message) {
+      throw new Error("Algum erro desconhecido ocorreu. Tente novamente.");
+    }
+    throw new Error(error.response.data.message);
+  }
+);

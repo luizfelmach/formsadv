@@ -1,4 +1,4 @@
-import { Logout } from "@/actions";
+import { Logout } from "@/actions/logout";
 import { CreditCard, LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
