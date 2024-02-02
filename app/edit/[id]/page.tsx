@@ -40,6 +40,11 @@ export const metadata: Metadata = {
   description: "Edite seu formulário.",
 };
 
-export default function EditorRoute() {
+interface EditorRouteProps {
+  params: { id: string };
+}
+
+export default function EditorRoute({ params }: EditorRouteProps) {
+  const { id } = params;
   return <Editor form={defaultForm} />;
 }
