@@ -67,6 +67,22 @@ function ReplyBoxFooter({ children }: ReplyBoxFooterProps) {
   return <div>{children}</div>;
 }
 
+interface ReplyBoxHandleNextProps {
+  children?: React.ReactNode;
+}
+
+function ReplyBoxHandleNext({ children }: ReplyBoxHandleNextProps) {
+  return <div>{children}</div>;
+}
+
+interface ReplyBoxHandleBackProps {
+  children?: React.ReactNode;
+}
+
+function ReplyBoxHandleBack({ children }: ReplyBoxHandleBackProps) {
+  return <div>{children}</div>;
+}
+
 export const ReplyBox = {
   Root: ReplyBoxRoot,
   Header: ReplyBoxHeader,
@@ -74,4 +90,6 @@ export const ReplyBox = {
   Description: ReplyBoxDescription,
   Input: ReplyBoxInput,
   Footer: ReplyBoxFooter,
+  HandleNext: ReplyBoxHandleNext,
+  HandleBack: ReplyBoxHandleBack,
 };
