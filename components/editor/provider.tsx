@@ -15,11 +15,10 @@ export function EditorProvider(props: EditorProviderProps) {
   const methods = useFormEditor({ form });
   const { control, watch } = methods;
   const { remove } = useFieldArray({ control, name: "screens" });
+  const [screenForm, setCurrentScreenForm] = useState<string>("screens.0");
+  const screen = watch(screenForm as any);
   const screens = watch("screens");
   const endScreen = watch("endScreen");
-  const [currentScreenForm, setCurrentScreenForm] =
-    useState<string>("screens.0");
-  const currentScreen = watch(currentScreenForm as any);
 
   function setScreen(index: number) {
     setCurrentScreenForm(`screens.${index}`);
@@ -38,8 +37,8 @@ export function EditorProvider(props: EditorProviderProps) {
   return (
     <EditorContext.Provider
       value={{
-        currentScreen,
-        currentScreenForm,
+        screen,
+        screenForm,
         deleteScreen,
         setScreen,
         setEndScreen,

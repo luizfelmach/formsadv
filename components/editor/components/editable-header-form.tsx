@@ -5,10 +5,10 @@ import { ReplyBox } from "@/components/interface/reply-box";
 import { useEditor } from "../hooks/use-editor";
 
 export function EditableHeaderForm() {
-  const { currentScreenForm } = useEditor();
+  const { screenForm } = useEditor();
   const { getValues, setValue } = useFormContext<FormType>();
-  const titleForm = (currentScreenForm + ".title") as any;
-  const descriptionForm = (currentScreenForm + ".description") as any;
+  const titleForm = (screenForm + ".title") as any;
+  const descriptionForm = (screenForm + ".description") as any;
 
   return (
     <>

@@ -5,8 +5,8 @@ interface EditorContextProps {
   deleteScreen: (index: number) => void;
   setScreen: (index: number) => void;
   setEndScreen: () => void;
-  currentScreen: ScreenType;
-  currentScreenForm: string;
+  screen: ScreenType;
+  screenForm: string;
   screens: ScreenType[];
   endScreen: ScreenType;
 }

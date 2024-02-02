@@ -16,12 +16,10 @@ import {
 import { useEditor } from "../hooks/use-editor";
 
 export function ModalAddOptions() {
-  const { currentScreen, currentScreenForm } = useEditor();
+  const { screen, screenForm } = useEditor();
   const { setValue } = useFormContext<FormType>();
 
-  const [options, setOptions] = useState<string[]>(
-    currentScreen?.options ?? []
-  );
+  const [options, setOptions] = useState<string[]>(screen?.options ?? []);
   const [modal, setModal] = useState<boolean>(false);
 
   return (
@@ -59,10 +57,7 @@ export function ModalAddOptions() {
                 let withoutDuplicated = Array.from(
                   new Set(withoutEmptyStrings)
                 );
-                setValue(
-                  `${currentScreenForm}.options` as any,
-                  withoutDuplicated
-                );
+                setValue(`${screenForm}.options` as any, withoutDuplicated);
                 setModal(false);
               }}
             >

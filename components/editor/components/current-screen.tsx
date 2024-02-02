@@ -26,30 +26,28 @@ export function CurrentScreen() {
 }
 
 function ModalOptions() {
-  const { currentScreen } = useEditor();
-  const { type } = currentScreen;
+  const { screen } = useEditor();
+  const { type } = screen;
   if (type !== "checkbox" && type !== "radio") return null;
   return <ModalAddOptions />;
 }
 
 function CurrentInput() {
-  const { currentScreen } = useEditor();
+  const { screen } = useEditor();
   const { control } = useForm();
-  const { type } = currentScreen;
+  const { type } = screen;
 
   if (type === "statement") return null;
   if (type === "end") return null;
-  if (type === "text")
-    return <InputText screen={currentScreen!} control={control} />;
+  if (type === "text") return <InputText screen={screen!} control={control} />;
   if (type === "textarea")
-    return <InputTextArea screen={currentScreen!} control={control} />;
-  if (type === "date")
-    return <InputDate screen={currentScreen!} control={control} />;
+    return <InputTextArea screen={screen!} control={control} />;
+  if (type === "date") return <InputDate screen={screen!} control={control} />;
   if (type === "number")
-    return <InputText screen={currentScreen!} control={control} />;
+    return <InputText screen={screen!} control={control} />;
   if (type === "checkbox")
-    return <InputCheckBox screen={currentScreen!} control={control} />;
+    return <InputCheckBox screen={screen!} control={control} />;
   if (type === "radio")
-    return <InputRadio screen={currentScreen!} control={control} />;
+    return <InputRadio screen={screen!} control={control} />;
   return null;
 }

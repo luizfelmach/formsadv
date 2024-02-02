@@ -32,9 +32,9 @@ import { AsideEditor } from "./aside-editor";
 import { useEditor } from "../hooks/use-editor";
 
 export function AsideSettings() {
-  const { currentScreen } = useEditor();
+  const { screen } = useEditor();
 
-  if (currentScreen?.type === "end") return null;
+  if (screen?.type === "end") return null;
 
   return (
     <Tabs defaultValue="settings" className="mt-4 mx-4">
@@ -53,8 +53,8 @@ export function AsideSettings() {
 }
 
 function TabSettings() {
-  const { currentScreen } = useEditor();
-  const type = currentScreen?.type;
+  const { screen } = useEditor();
+  const type = screen?.type;
   return (
     <AsideEditor.Root>
       <AsideEditor.Section>
@@ -87,23 +87,23 @@ function TabSettings() {
 }
 
 function TabLogic() {
-  const { currentScreen, currentScreenForm, screens } = useEditor();
+  const { screen, screenForm, screens } = useEditor();
   const { control } = useFormContext<FormType>();
 
   const { append, remove } = useFieldArray({
     control,
-    name: `${currentScreenForm}.visible` as any,
+    name: `${screenForm}.visible` as any,
   });
 
   return (
     <AsideEditor.Root>
-      {currentScreen.visible && currentScreen.visible?.length > 0 && (
+      {screen.visible && screen.visible?.length > 0 && (
         <AsideEditor.Section>
           <AsideEditor.Header>
             <AsideEditor.Title>Lógicas aplicadas</AsideEditor.Title>
           </AsideEditor.Header>
           <AsideEditor.Content>
-            {currentScreen.visible.map((q, index) => (
+            {screen.visible.map((q, index) => (
               <div
                 key={index}
                 className="flex items-center justify-between mb-4"
@@ -153,9 +153,9 @@ function TabLogic() {
 }
 
 function SelectInputType() {
-  const { currentScreenForm } = useEditor();
+  const { screenForm } = useEditor();
   const { control, watch } = useFormContext<FormType>();
-  const setting = (currentScreenForm + ".type") as any;
+  const setting = (screenForm + ".type") as any;
   const type = watch(setting);
 
   return (
@@ -201,9 +201,9 @@ interface SwitchSettingProps {
 }
 
 function SwitchSetting({ option, label }: SwitchSettingProps) {
-  const { currentScreenForm } = useEditor();
+  const { screenForm } = useEditor();
   const { control, watch } = useFormContext<FormType>();
-  const setting = (currentScreenForm + "." + option) as any;
+  const setting = (screenForm + "." + option) as any;
   const required = watch(setting);
 
   return (
@@ -225,9 +225,9 @@ function SwitchSetting({ option, label }: SwitchSettingProps) {
 }
 
 export function AsideSettingsMobile() {
-  const { currentScreen } = useEditor();
+  const { screen } = useEditor();
 
-  if (currentScreen?.type === "end") return null;
+  if (screen?.type === "end") return null;
 
   return (
     <div className="xl:hidden">

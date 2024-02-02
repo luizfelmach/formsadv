@@ -44,8 +44,7 @@ export function AsideScreens() {
 }
 
 function TabScreens() {
-  const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
-    useEditor();
+  const { screens, endScreen, setScreen, screen, setEndScreen } = useEditor();
   const { control } = useFormContext<FormType>();
   const { swap } = useFieldArray({ control, name: "screens" });
 
@@ -76,7 +75,7 @@ function TabScreens() {
                   index={index}
                 >
                   <ScreenCard.Root
-                    active={screen.screenKey === currentScreen?.screenKey}
+                    active={screen.screenKey === screen?.screenKey}
                     onClick={() => {
                       setScreen(index);
                     }}
@@ -99,7 +98,7 @@ function TabScreens() {
         </AsideEditor.Header>
         <AsideEditor.Content>
           <ScreenCard.Root
-            active={endScreen.screenKey === currentScreen.screenKey}
+            active={endScreen.screenKey === screen.screenKey}
             onClick={() => {
               setEndScreen();
             }}
