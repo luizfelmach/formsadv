@@ -20,7 +20,7 @@ export default function RootLayout({
     <html lang="pt-br" suppressHydrationWarning>
       <body className={inter.className}>
         {children}
-        <Toaster />
+        <Toaster richColors theme="light" />
       </body>
     </html>
   );
