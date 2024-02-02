@@ -47,17 +47,6 @@ export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
     remove(index);
   }
 
-  useEffect(() => {
-    const handleBeforeUnload = (event: BeforeUnloadEvent) => {
-      event.preventDefault();
-      event.returnValue = "";
-    };
-    window.addEventListener("beforeunload", handleBeforeUnload);
-    return () => {
-      window.removeEventListener("beforeunload", handleBeforeUnload);
-    };
-  }, []);
-
   return (
     <FormBuilderContext.Provider
       value={{
