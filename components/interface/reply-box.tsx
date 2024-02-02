@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { Container } from "../container";
+import { Container } from "./container";
 import { Button } from "../ui/button";
 import { ChevronLeft, Loader, MoveRight } from "lucide-react";
 import { HTMLAttributes } from "react";

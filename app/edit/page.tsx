@@ -1,4 +1,4 @@
-import { Editor } from "@/components/editor";
+import { Editor } from "@/components/pages/editor";
 import { FormType } from "@/types";
 import { Metadata } from "next";
 import { v4 as uuid } from "uuid";
@@ -40,10 +40,6 @@ export const metadata: Metadata = {
   description: "Edite seu formulário.",
 };
 
-export default function FormBuilderPage() {
-  return (
-    <main>
-      <Editor form={defaultForm} />
-    </main>
-  );
+export default function EditorRoute() {
+  return <Editor form={defaultForm} />;
 }

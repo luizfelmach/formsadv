@@ -1,6 +1,4 @@
-import { Navbar, NavbarItem, NavbarLogo } from "@/components/navbar";
 import { Logout } from "@/actions";
-import { Container } from "@/components/container";
 import { CreditCard, LogOut, User } from "lucide-react";
 import {
   DropdownMenu,
@@ -10,6 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Navbar, NavbarItem, NavbarLogo } from "@/components/interface/navbar";
+import { Container } from "@/components/interface/container";
 
 export function NavbarDashboard() {
   return (

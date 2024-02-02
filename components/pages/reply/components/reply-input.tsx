@@ -1,8 +1,8 @@
-import { InputCheckBox } from "@/components/adaptable-input/InputCheckBox";
-import { InputDate } from "@/components/adaptable-input/InputDate";
-import { InputRadio } from "@/components/adaptable-input/InputRadio";
-import { InputText } from "@/components/adaptable-input/InputText";
-import { InputTextArea } from "@/components/adaptable-input/InputTextArea";
+import { InputCheckBox } from "@/components/interface/input/InputCheckBox";
+import { InputDate } from "@/components/interface/input/InputDate";
+import { InputRadio } from "@/components/interface/input/InputRadio";
+import { InputText } from "@/components/interface/input/InputText";
+import { InputTextArea } from "@/components/interface/input/InputTextArea";
 import { ScreenType } from "@/types";
 import { useFormContext } from "react-hook-form";
 

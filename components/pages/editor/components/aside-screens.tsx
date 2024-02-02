@@ -1,5 +1,4 @@
 import Image from "next/image";
-import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
 import { Copy, Layers, MoreVertical, PlusCircle, Trash } from "lucide-react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/sheet";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useEditor } from "../hooks/use-editor";
+import { Dnd } from "@/components/interface/dnd";
 
 export function AsideScreens() {
   return (

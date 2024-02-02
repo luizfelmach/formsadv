@@ -1,11 +1,11 @@
 "use client";
 import * as yup from "yup";
 import Image from "next/image";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../ui/tabs";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
 import { FormProvider, useForm } from "react-hook-form";
-import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
+import { FormControl, FormField, FormItem, FormMessage } from "../../ui/form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Loader } from "lucide-react";
 

@@ -1,13 +1,13 @@
 import { EditableHeaderForm } from "../components/editable-header-form";
 import { ReplyBox } from "@/components/interface/reply-box";
-import { InputText } from "@/components/adaptable-input/InputText";
-import { useForm } from "react-hook-form";
-import { InputTextArea } from "@/components/adaptable-input/InputTextArea";
-import { InputCheckBox } from "@/components/adaptable-input/InputCheckBox";
-import { InputDate } from "@/components/adaptable-input/InputDate";
-import { InputRadio } from "@/components/adaptable-input/InputRadio";
 import { ModalAddOptions } from "../components/modal-add-options";
 import { useEditor } from "../hooks/use-editor";
+import { useForm } from "react-hook-form";
+import { InputText } from "@/components/interface/input/InputText";
+import { InputTextArea } from "@/components/interface/input/InputTextArea";
+import { InputDate } from "@/components/interface/input/InputDate";
+import { InputCheckBox } from "@/components/interface/input/InputCheckBox";
+import { InputRadio } from "@/components/interface/input/InputRadio";
 
 export function CurrentScreen() {
   return (

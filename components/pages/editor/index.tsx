@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import { EditorProvider } from "./provider";
 import { NavbarEditor } from "./components/navbar-editor";
 import { EditorSection } from "./components/editor-section";
-import { FormType } from "../../types";
+import { FormType } from "@/types";
 
 interface EditorProps {
   form: FormType;

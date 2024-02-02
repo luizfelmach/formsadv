@@ -1,9 +1,5 @@
-import { Auth } from "@/components/interface/auth";
+import { Auth } from "@/components/pages/auth";
 
 export default function AuthRoute() {
-  return (
-    <main>
-      <Auth />
-    </main>
-  );
+  return <Auth />;
 }

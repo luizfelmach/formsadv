@@ -1,11 +1,11 @@
 "use client";
 
-import { FormType } from "../../types";
 import { useReplyForm } from "./hooks";
 import { FormProvider } from "react-hook-form";
-import { RevealSlide } from "../reveal-slide";
 import { ReplyInput } from "./components/reply-input";
-import { ReplyBox } from "../interface/reply-box";
+import { FormType } from "@/types";
+import { ReplyBox } from "@/components/interface/reply-box";
+import { RevealSlide } from "@/components/interface/reveal-slide";
 
 interface ReplyFormProps {
   form: FormType;

@@ -1,12 +1,12 @@
-import { Navbar, NavbarItem, NavbarLogo } from "@/components/navbar";
-import { Button } from "../../ui/button";
 import { Loader, MoveLeft, Unlink2 } from "lucide-react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "sonner";
-import { InputInline } from "@/components/module/inline-input";
 import { useFormContext } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import { formLink } from "@/lib/form";
+import { Navbar, NavbarItem } from "@/components/interface/navbar";
+import { Button } from "@/components/ui/button";
+import { InputInline } from "@/components/interface/inline-input";
 
 export function NavbarEditor() {
   const router = useRouter();

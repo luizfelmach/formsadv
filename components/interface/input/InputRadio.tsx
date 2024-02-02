@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/form";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { ScreenType } from "../../types";
+import { ScreenType } from "@/types";
 
 interface GenericInputProps extends UseControllerProps {
   screen: ScreenType;

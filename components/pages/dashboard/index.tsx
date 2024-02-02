@@ -1,19 +1,24 @@
 "use client";
-import { Button } from "../ui/button";
 import { FormType } from "@/types";
-import { Container } from "../container";
 import Image from "next/image";
-import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { Input } from "../ui/input";
 import * as yup from "yup";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { FormControl, FormField, FormItem, FormMessage } from "../ui/form";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Eye, Loader, Pencil, Unlink2 } from "lucide-react";
 import { toast } from "sonner";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { NavbarDashboard } from "./components/navbar";
+import { Container } from "@/components/interface/container";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
 
 interface DashboardProps {
   forms: FormType[];
