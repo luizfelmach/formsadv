@@ -81,7 +81,7 @@ function LoginContent() {
 
   async function handleSubmit(data: loginType) {
     SignIn(data)
-      .then((_) => toast.success("Bem-vindo novamente."))
+      .then(() => toast.success("Bem-vindo novamente."))
       .catch((e) => toast.error(e.message));
   }
 
@@ -168,10 +168,11 @@ function CreateAccountContent() {
   } = methods;
 
   async function handleSubmit(data: createAccountType) {
-    SignUp(data)
-      .then(() =>
-        toast.success("Conta criada com sucesso. Acesse a plataforma.")
-      )
+    await SignUp(data)
+      .then(() => toast.success("Conta criada com sucesso."))
+      .catch((e) => toast.error(e.message))
+      .then(() => SignIn(data))
+      .then(() => toast.success("Bem-vindo ao Meu Form."))
       .catch((e) => toast.error(e.message));
   }
 
