@@ -1,4 +1,4 @@
-import { useFormBuilder } from "../provider";
+import { useEditor } from "../provider";
 import { EditableHeaderForm } from "../components/editable-header-form";
 import { ReplyBox } from "@/components/interface/reply-box";
 import { InputText } from "@/components/adaptable-input/InputText";
@@ -26,14 +26,14 @@ export function CurrentScreen() {
 }
 
 function ModalOptions() {
-  const { currentScreen } = useFormBuilder();
+  const { currentScreen } = useEditor();
   const { type } = currentScreen;
   if (type !== "checkbox" && type !== "radio") return null;
   return <ModalAddOptions />;
 }
 
 function CurrentInput() {
-  const { currentScreen } = useFormBuilder();
+  const { currentScreen } = useEditor();
   const { control } = useForm();
   const { type } = currentScreen;
 

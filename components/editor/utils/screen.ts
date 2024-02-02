@@ -1,5 +1,5 @@
-import { ScreenType } from "@/types";
 import { v4 as uuid } from "uuid";
+import { ScreenType } from "@/types";
 
 export function createScreen(type: string): ScreenType {
   return {

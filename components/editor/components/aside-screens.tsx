@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
 import { Copy, Layers, MoreVertical, PlusCircle, Trash } from "lucide-react";
-import { useFormBuilder } from "../provider";
+import { useEditor } from "../provider";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { DropResult } from "@hello-pangea/dnd";
@@ -45,7 +45,7 @@ export function AsideScreens() {
 
 function TabScreens() {
   const { screens, endScreen, setScreen, currentScreen, setEndScreen } =
-    useFormBuilder();
+    useEditor();
   const { control } = useFormContext<FormType>();
   const { swap } = useFieldArray({ control, name: "screens" });
 
@@ -113,7 +113,7 @@ function TabScreens() {
 }
 
 function AppendOptions() {
-  const { setScreen, screens } = useFormBuilder();
+  const { setScreen, screens } = useEditor();
   const { control } = useFormContext<FormType>();
   const { append } = useFieldArray({ control, name: "screens" });
 
@@ -154,7 +154,7 @@ function AppendOptions() {
 }
 
 function ScreenOptions({ index }: { index: number }) {
-  const { screens, deleteScreen, setScreen } = useFormBuilder();
+  const { screens, deleteScreen, setScreen } = useEditor();
   const { control } = useFormContext<FormType>();
   const { append } = useFieldArray({ control, name: "screens" });
   const disabled = screens.length <= 1;

@@ -3,7 +3,7 @@
 import { toast } from "sonner";
 import { FormProvider } from "react-hook-form";
 import { NavbarEditor } from "./components/navbar-editor";
-import { FormBuilderProvider } from "./provider";
+import { EditorProvider } from "./provider";
 import { EditorSection } from "./components/editor-section";
 import { FormType } from "../../types";
 import { UseFormEditor } from "./hook";
@@ -24,10 +24,10 @@ export function Editor({ form }: EditorProps) {
   return (
     <FormProvider {...methods}>
       <form onSubmit={methods.handleSubmit(handleSubmit)}>
-        <FormBuilderProvider>
+        <EditorProvider>
           <NavbarEditor />
           <EditorSection />
-        </FormBuilderProvider>
+        </EditorProvider>
       </form>
     </FormProvider>
   );

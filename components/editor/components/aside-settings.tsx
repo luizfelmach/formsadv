@@ -25,14 +25,14 @@ import {
 } from "@/components/ui/form";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
-import { useFormBuilder } from "../provider";
+import { useEditor } from "../provider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { QueryBuilder } from "./query-builder";
 import { AsideEditor } from "./aside-editor";
 
 export function AsideSettings() {
-  const { currentScreen } = useFormBuilder();
+  const { currentScreen } = useEditor();
 
   if (currentScreen?.type === "end") return null;
 
@@ -53,7 +53,7 @@ export function AsideSettings() {
 }
 
 function TabSettings() {
-  const { currentScreen } = useFormBuilder();
+  const { currentScreen } = useEditor();
   const type = currentScreen?.type;
   return (
     <AsideEditor.Root>
@@ -87,7 +87,7 @@ function TabSettings() {
 }
 
 function TabLogic() {
-  const { currentScreen, currentScreenForm, screens } = useFormBuilder();
+  const { currentScreen, currentScreenForm, screens } = useEditor();
   const { control } = useFormContext<FormType>();
 
   const { append, remove } = useFieldArray({
@@ -153,7 +153,7 @@ function TabLogic() {
 }
 
 function SelectInputType() {
-  const { currentScreenForm } = useFormBuilder();
+  const { currentScreenForm } = useEditor();
   const { control, watch } = useFormContext<FormType>();
   const setting = (currentScreenForm + ".type") as any;
   const type = watch(setting);
@@ -201,7 +201,7 @@ interface SwitchSettingProps {
 }
 
 function SwitchSetting({ option, label }: SwitchSettingProps) {
-  const { currentScreenForm } = useFormBuilder();
+  const { currentScreenForm } = useEditor();
   const { control, watch } = useFormContext<FormType>();
   const setting = (currentScreenForm + "." + option) as any;
   const required = watch(setting);
@@ -225,7 +225,7 @@ function SwitchSetting({ option, label }: SwitchSettingProps) {
 }
 
 export function AsideSettingsMobile() {
-  const { currentScreen } = useFormBuilder();
+  const { currentScreen } = useEditor();
 
   if (currentScreen?.type === "end") return null;
 

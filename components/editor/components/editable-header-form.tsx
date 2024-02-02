@@ -1,11 +1,11 @@
-import { useFormBuilder } from "../provider";
+import { useEditor } from "../provider";
 import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { InputInline } from "@/components/module/inline-input";
 import { ReplyBox } from "@/components/interface/reply-box";
 
 export function EditableHeaderForm() {
-  const { currentScreenForm } = useFormBuilder();
+  const { currentScreenForm } = useEditor();
   const { getValues, setValue } = useFormContext<FormType>();
   const titleForm = (currentScreenForm + ".title") as any;
   const descriptionForm = (currentScreenForm + ".description") as any;

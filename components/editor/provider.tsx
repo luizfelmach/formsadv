@@ -1,8 +1,8 @@
+import { createContext, useContext, useState } from "react";
+import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType, ScreenType } from "@/types";
-import { createContext, useContext, useEffect, useState } from "react";
-import { WatchObserver, useFieldArray, useFormContext } from "react-hook-form";
 
-interface FormBuilderContextProps {
+interface EditorContextProps {
   deleteScreen: (index: number) => void;
   setScreen: (index: number) => void;
   setEndScreen: () => void;
@@ -12,19 +12,19 @@ interface FormBuilderContextProps {
   endScreen: ScreenType;
 }
 
-const FormBuilderContext = createContext<FormBuilderContextProps | null>(null);
+const EditorContext = createContext<EditorContextProps | null>(null);
 
-export function useFormBuilder(): FormBuilderContextProps | never {
-  const context = useContext(FormBuilderContext);
+export function useEditor(): EditorContextProps | never {
+  const context = useContext(EditorContext);
   if (!context) throw new Error("");
   return context;
 }
 
-interface FormBuilderProviderProps {
+interface EditorProviderProps {
   children?: React.ReactNode;
 }
 
-export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
+export function EditorProvider({ children }: EditorProviderProps) {
   const { control, watch } = useFormContext<FormType>();
   const { remove } = useFieldArray({ control, name: "screens" });
   const screens = watch("screens");
@@ -48,7 +48,7 @@ export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
   }
 
   return (
-    <FormBuilderContext.Provider
+    <EditorContext.Provider
       value={{
         currentScreen,
         currentScreenForm,
@@ -60,6 +60,6 @@ export function FormBuilderProvider({ children }: FormBuilderProviderProps) {
       }}
     >
       {children}
-    </FormBuilderContext.Provider>
+    </EditorContext.Provider>
   );
 }

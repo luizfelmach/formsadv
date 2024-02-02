@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useFormBuilder } from "../provider";
+import { useEditor } from "../provider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/drawer";
 
 export function ModalAddOptions() {
-  const { currentScreen, currentScreenForm } = useFormBuilder();
+  const { currentScreen, currentScreenForm } = useEditor();
   const { setValue } = useFormContext<FormType>();
 
   const [options, setOptions] = useState<string[]>(
