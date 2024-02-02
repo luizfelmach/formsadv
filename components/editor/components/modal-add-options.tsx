@@ -1,5 +1,4 @@
 import { useFormContext } from "react-hook-form";
-import { useEditor } from "../provider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -14,6 +13,7 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
+import { useEditor } from "../hooks/use-editor";
 
 export function ModalAddOptions() {
   const { currentScreen, currentScreenForm } = useEditor();

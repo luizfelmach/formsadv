@@ -1,31 +1,19 @@
-import { createContext, useContext, useState } from "react";
-import { useFieldArray, useFormContext } from "react-hook-form";
-import { FormType, ScreenType } from "@/types";
-
-interface EditorContextProps {
-  deleteScreen: (index: number) => void;
-  setScreen: (index: number) => void;
-  setEndScreen: () => void;
-  currentScreen: ScreenType;
-  currentScreenForm: string;
-  screens: ScreenType[];
-  endScreen: ScreenType;
-}
-
-const EditorContext = createContext<EditorContextProps | null>(null);
-
-export function useEditor(): EditorContextProps | never {
-  const context = useContext(EditorContext);
-  if (!context) throw new Error("");
-  return context;
-}
+import { useState } from "react";
+import { FormProvider, useFieldArray } from "react-hook-form";
+import { FormType } from "@/types";
+import { useFormEditor } from "./hooks/use-form-editor";
+import { EditorContext } from "./hooks/use-editor";
 
 interface EditorProviderProps {
   children?: React.ReactNode;
+  form: FormType;
+  handleSubmit: (data: FormType) => void;
 }
 
-export function EditorProvider({ children }: EditorProviderProps) {
-  const { control, watch } = useFormContext<FormType>();
+export function EditorProvider(props: EditorProviderProps) {
+  const { children, form, handleSubmit } = props;
+  const methods = useFormEditor({ form });
+  const { control, watch } = methods;
   const { remove } = useFieldArray({ control, name: "screens" });
   const screens = watch("screens");
   const endScreen = watch("endScreen");
@@ -59,7 +47,9 @@ export function EditorProvider({ children }: EditorProviderProps) {
         endScreen,
       }}
     >
-      {children}
+      <FormProvider {...methods}>
+        <form onSubmit={methods.handleSubmit(handleSubmit)}>{children}</form>
+      </FormProvider>
     </EditorContext.Provider>
   );
 }

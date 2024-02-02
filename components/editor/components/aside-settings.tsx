@@ -25,11 +25,11 @@ import {
 } from "@/components/ui/form";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
-import { useEditor } from "../provider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { QueryBuilder } from "./query-builder";
 import { AsideEditor } from "./aside-editor";
+import { useEditor } from "../hooks/use-editor";
 
 export function AsideSettings() {
   const { currentScreen } = useEditor();

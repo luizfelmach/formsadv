@@ -1,5 +1,6 @@
 import { Editor } from "@/components/editor";
 import { FormType } from "@/types";
+import { Metadata } from "next";
 import { v4 as uuid } from "uuid";
 
 const defaultForm: FormType = {
@@ -33,6 +34,11 @@ const defaultForm: FormType = {
     options: [],
   },
 } as const;
+
+export const metadata: Metadata = {
+  title: "Meu Form | Editor",
+  description: "Edite seu formulário.",
+};
 
 export default function FormBuilderPage() {
   return (

@@ -1,4 +1,3 @@
-import { useEditor } from "../provider";
 import { EditableHeaderForm } from "../components/editable-header-form";
 import { ReplyBox } from "@/components/interface/reply-box";
 import { InputText } from "@/components/adaptable-input/InputText";
@@ -8,6 +7,7 @@ import { InputCheckBox } from "@/components/adaptable-input/InputCheckBox";
 import { InputDate } from "@/components/adaptable-input/InputDate";
 import { InputRadio } from "@/components/adaptable-input/InputRadio";
 import { ModalAddOptions } from "../components/modal-add-options";
+import { useEditor } from "../hooks/use-editor";
 
 export function CurrentScreen() {
   return (

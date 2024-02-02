@@ -1,8 +1,8 @@
-import { useEditor } from "../provider";
 import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { InputInline } from "@/components/module/inline-input";
 import { ReplyBox } from "@/components/interface/reply-box";
+import { useEditor } from "../hooks/use-editor";
 
 export function EditableHeaderForm() {
   const { currentScreenForm } = useEditor();
