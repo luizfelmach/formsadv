@@ -68,19 +68,19 @@ function TabScreens() {
         <Dnd.Root onDragEnd={handleDragEnd}>
           <Dnd.Droppable droppableId="pages" direction="vertical">
             <AsideEditor.Content>
-              {screens.map((screen, index) => (
+              {screens.map((s, index) => (
                 <Dnd.Draggable
-                  draggableId={screen.screenKey}
-                  key={screen.screenKey}
+                  draggableId={s.screenKey}
+                  key={s.screenKey}
                   index={index}
                 >
                   <ScreenCard.Root
-                    active={screen.screenKey === screen?.screenKey}
+                    active={s.screenKey === screen?.screenKey}
                     onClick={() => {
                       setScreen(index);
                     }}
                   >
-                    <ScreenCard.Title>{screen.title}</ScreenCard.Title>
+                    <ScreenCard.Title>{s.title}</ScreenCard.Title>
                     <ScreenCard.Actions>
                       <ScreenOptions index={index} />
                     </ScreenCard.Actions>

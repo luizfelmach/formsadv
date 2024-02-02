@@ -17,7 +17,10 @@ interface NavbarItemProps extends HTMLAttributes<HTMLDivElement> {}
 
 export function NavbarItem({ children, className, ...props }: NavbarItemProps) {
   return (
-    <section className={cn("flex items-center h-full", className)} {...props}>
+    <section
+      className={cn("flex items-center h-full mx-4", className)}
+      {...props}
+    >
       {children}
     </section>
   );
