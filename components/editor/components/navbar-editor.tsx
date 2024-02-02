@@ -1,6 +1,5 @@
 import { Navbar, NavbarItem, NavbarLogo } from "@/components/navbar";
 import { Button } from "../../ui/button";
-import { Container } from "@/components/container";
 import { Loader, MoveLeft, Unlink2 } from "lucide-react";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { toast } from "sonner";

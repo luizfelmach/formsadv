@@ -1,35 +1,21 @@
 "use client";
 
-import * as yup from "yup";
 import { toast } from "sonner";
-import { FormProvider, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
+import { FormProvider } from "react-hook-form";
 import { NavbarEditor } from "./components/navbar-editor";
-import { FormBuilderProvider } from "./providers";
+import { FormBuilderProvider } from "./provider";
 import { EditorSection } from "./components/editor-section";
 import { FormType } from "../../types";
+import { UseFormEditor } from "./hook";
 
 interface EditorProps {
   form: FormType;
 }
 
-const updateFormSchema = yup.object({
-  name: yup
-    .string()
-    .required("Digite um nome.")
-    .min(3, "Mínimo de 3 caracteres.")
-    .max(75, "Máximo de 75 caracteres."),
-});
-
-type UpdateFormType = yup.InferType<typeof updateFormSchema>;
-
 export function Editor({ form }: EditorProps) {
-  const methods = useForm<UpdateFormType>({
-    values: form,
-    resolver: yupResolver(updateFormSchema),
-  });
+  const methods = UseFormEditor({ form });
 
-  async function handleSubmit(data: UpdateFormType) {
+  async function handleSubmit(data: any) {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log(data);
     toast.success("Formulário atualizado!");

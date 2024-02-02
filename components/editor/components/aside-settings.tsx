@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/form";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
-import { useFormBuilder } from "../providers";
+import { useFormBuilder } from "../provider";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { QueryBuilder } from "./query-builder";

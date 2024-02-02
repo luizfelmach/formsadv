@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import { useFormBuilder } from "../providers";
+import { useFormBuilder } from "../provider";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";

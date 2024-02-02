@@ -2,7 +2,7 @@ import Image from "next/image";
 import { Dnd } from "@/components/dnd";
 import { Button } from "@/components/ui/button";
 import { Copy, Layers, MoreVertical, PlusCircle, Trash } from "lucide-react";
-import { useFormBuilder } from "../providers";
+import { useFormBuilder } from "../provider";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { DropResult } from "@hello-pangea/dnd";

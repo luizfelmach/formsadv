@@ -1,4 +1,4 @@
-import { useFormBuilder } from "../providers";
+import { useFormBuilder } from "../provider";
 import { useFormContext } from "react-hook-form";
 import { FormType } from "@/types";
 import { InputInline } from "@/components/module/inline-input";
