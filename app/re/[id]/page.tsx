@@ -1,6 +1,11 @@
 import { ReplyForm } from "@/components/pages/reply";
 
-export default function ReplyRoute() {
+interface ReplyRouteProps {
+  params: { id: string };
+}
+
+export default function ReplyRoute({ params }: ReplyRouteProps) {
+  const { id } = params;
   return (
     <ReplyForm
       form={{
